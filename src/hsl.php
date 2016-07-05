@@ -9,7 +9,7 @@ class hsl {
 	private $hsl;
 	protected $accuracy;
 	
-	public function __construct(array $rgb_array, int $accuracy = 2) {
+	public function __construct(array $rgb_array, int $accuracy = 3) {
 		$this->accuracy = $accuracy;
 		$this->hsl = static::rgb_to_hsl($rgb_array['r'], $rgb_array['g'], $rgb_array['b'], $this->accuracy);
 	}
