@@ -2,13 +2,12 @@ build:
   tests:
     override:
       -
-        command: phpunit --testdox --coverage-clover=coverage.clover
-        coverage:
-          file: 'coverage.clover'
-          format: 'clover'
+        command: 'phpunit --testdox'
   environment:
     php:
       version: 7.0
+tools:
+    external_code_coverage: true
 filter:
   paths: [src/*]
 checks:
