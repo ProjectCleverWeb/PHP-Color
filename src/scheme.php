@@ -3,16 +3,21 @@
 
 namespace projectcleverweb\color;
 
-
+/**
+ * Scheme Class
+ * 
+ * This class has all the predefined HSL scheme algorithms.
+ */
 class scheme {
 	
 	/**
 	 * These colors are all close to each other on a color wheel.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 analogous colors where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 analogous colors where the first offset is the original input.
 	 */
 	public static function analogous (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {
@@ -36,10 +41,11 @@ class scheme {
 	 * 2 of these colors are a different shade of the base color. The other 2 are
 	 * a weighted opposite of the base color.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 complementary colors where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 complementary colors where the first offset is the original input.
 	 */
 	public static function complementary (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {
@@ -58,10 +64,11 @@ class scheme {
 	 * These colors use mathematical offsets that usually complement each other
 	 * well, and can highlight the base color.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 compounding colors where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 compounding colors where the first offset is the original input.
 	 */
 	public static function compound (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {
@@ -84,10 +91,11 @@ class scheme {
 	/**
 	 * 5 complementary shades of one color.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 complementary shades of colors where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 complementary shades of colors where the first offset is the original input.
 	 */
 	public static function monochromatic (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {
@@ -110,10 +118,11 @@ class scheme {
 	/**
 	 * 5 different shades of one color.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 shades of a color where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 shades of a color where the first offset is the original input.
 	 */
 	public static function shades (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {
@@ -134,13 +143,63 @@ class scheme {
 	}
 	
 	/**
+	 * 3 of these colors are all equally distanced from each other on a color
+	 * wheel, plus 1 alternated shade for the base color and the 1 color that is
+	 * opposite of the base color.
+	 * 
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
+	 */
+	public static function tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+		if (is_null($is_dark)) {
+			$is_dark = static::is_dark($h, $s, $l);
+		}
+		return [
+			[$h, $s, $l],
+			[static::mod($h, 180, TRUE, 360), $s, $l],
+			[static::mod($h, 120, TRUE, 360), $s, $l],
+			[$h, $s, static::mod($l, 18, $is_dark)],
+			[static::mod($h, -120, TRUE, 360), $s, $l]
+		];
+	}
+	
+	/**
+	 * 3 of these colors are all similarly distanced from each other on a color
+	 * wheel, the base color has an alternate shade, and there is a weighted
+	 * opposite color. These colors are all slightly closer to the base color
+	 * than in a normal tetrad.
+	 * 
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
+	 */
+	public static function weighted_tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+		if (is_null($is_dark)) {
+			$is_dark = static::is_dark($h, $s, $l);
+		}
+		return [
+			[$h, $s, $l],
+			[static::mod($h, 160, TRUE, 360), $s, $l],
+			[static::mod($h, 80, TRUE, 360), $s, $l],
+			[$h, $s, static::mod($l, 18, $is_dark)],
+			[static::mod($h, -80, TRUE, 360), $s, $l]
+		];
+	}
+	
+	/**
 	 * These colors are all equally distanced from each other on a color wheel,
 	 * 2 of which have an alternate shade.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 triangular colors where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
 	public static function triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {
@@ -160,10 +219,11 @@ class scheme {
 	 * 2 of which have an alternate shade. These colors are all slightly closer to
 	 * the base color than in a normal triad.
 	 * 
-	 * @param  float|integer $h The base color hue degree (0 - 359)
-	 * @param  float|integer $s The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l The base color lighting percentage (0 - 100)
-	 * @return array            An array of 5 weighted triangular colors where the first offset is the original input.
+	 * @param  float|integer $h       The base color hue degree (0 - 359)
+	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
+	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array                  An array of 5 weighted triangular colors where the first offset is the original input.
 	 */
 	public static function weighted_triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		if (is_null($is_dark)) {

@@ -1,0 +1,61 @@
+{
+	"name": "projectcleverweb/color",
+	"description": "A PHP library for working with RGB, HSL, and Hexadecimal colors. Create schemes, modify specific color properties, export CMYK, and make color suggestions quickly and easily with this stand-alone library.",
+	"version": "0.0.0-dev",
+	"keywords": [
+		"color",
+		"hsl",
+		"cmyk",
+		"scheme",
+		"hex",
+		"hexadecimal",
+		"theme",
+		"rgb",
+		"hsb",
+		"hue",
+		"light",
+		"brightness",
+		"saturation",
+		"manipulation",
+		"red",
+		"blue",
+		"green",
+		"class",
+		"object",
+		"pantone",
+		"ral",
+		"complementary",
+		"triad",
+		"tetrad",
+		"analogous",
+		"accented",
+		"split",
+		"compound",
+		"monochromatic",
+		"shades",
+		"shade",
+		"custom",
+		"chroma"
+	],
+	"homepage": "https://github.com/ProjectCleverWeb/PHP-Color",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Nicholas Jordon",
+			"email": "projectcleverweb@gmail.com",
+			"homepage": "https://github.com/ProjectCleverWeb"
+		}
+	],
+	"require": {
+		"php": ">=7.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~5.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"projectcleverweb\\color\\": "src"
+		}
+	}
+}
