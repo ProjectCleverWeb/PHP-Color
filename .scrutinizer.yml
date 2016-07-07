@@ -99,9 +99,5 @@ checks:
         align_assignments: true
         newline_at_end_of_file: true
         more_specific_types_in_doc_comments: true
-        check_method_contracts:
-            verify_interface_like_constraints: true
-            verify_documented_constraints: true
-            verify_parent_constraints: true
         avoid_perl_style_comments: true
 
