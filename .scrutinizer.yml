@@ -4,8 +4,8 @@ build:
       -
         command: phpunit --testdox --coverage-clover=coverage.clover
         coverage:
-          file: coverage.clover
-          format: php-clover
+          file: 'coverage.clover'
+          format: 'clover'
   environment:
     php:
       version: 7.0
