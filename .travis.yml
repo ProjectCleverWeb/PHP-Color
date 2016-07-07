@@ -1,4 +1,8 @@
 language: php
-script: phpunit --coverage-clover=coverage.clover & wget https://scrutinizer-ci.com/ocular.phar & php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+before_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+script: phpunit --coverage-clover=coverage.clover
+after_script:
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
 php:
   - 7.0
