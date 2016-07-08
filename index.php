@@ -45,8 +45,8 @@ foreach ($funcs as $name => $desc) {
 	);
 	$output .= '</div>';
 }
-foreach (range(1, 20) as $i) {
-	$rgb       = generate::rand();
+foreach (range(1, 30) as $i) {
+	$rgb       = generate::rand(128, 255, 0, 50, 0, 50);
 	// $rgb       = generate::hex_to_rgb('000000');
 	$hex       = generate::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
 	$hex_text  = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']) ? 'FFFFFF' : '000000';

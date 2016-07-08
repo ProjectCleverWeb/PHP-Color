@@ -20,9 +20,7 @@ class scheme {
 	 * @return array                  An array of 5 analogous colors where the first offset is the original input.
 	 */
 	public static function analogous (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		// No inverting saturation
 		$delta = FALSE;
 		if ($s < 50) {
@@ -48,9 +46,7 @@ class scheme {
 	 * @return array                  An array of 5 complementary colors where the first offset is the original input.
 	 */
 	public static function complementary (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		return [
 			[$h, $s, $l],
 			[$h, $s, static::mod($l, 20, $is_dark)],
@@ -71,9 +67,7 @@ class scheme {
 	 * @return array                  An array of 5 compounding colors where the first offset is the original input.
 	 */
 	public static function compound (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		// No inverting saturation
 		$delta = FALSE;
 		if ($s < 50) {
@@ -98,9 +92,7 @@ class scheme {
 	 * @return array                  An array of 5 complementary shades of colors where the first offset is the original input.
 	 */
 	public static function monochromatic (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		// Avoid black & white
 		$delta = 0;
 		if ($l > 40 && $l < 60) {
@@ -125,9 +117,7 @@ class scheme {
 	 * @return array                  An array of 5 shades of a color where the first offset is the original input.
 	 */
 	public static function shades (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		// Avoid black & white
 		$delta = 0;
 		if ($l <= 10 && $l >= 90) {
@@ -154,9 +144,7 @@ class scheme {
 	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
 	public static function tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		return [
 			[$h, $s, $l],
 			[static::mod($h, 180, TRUE, 360), $s, $l],
@@ -179,9 +167,7 @@ class scheme {
 	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
 	public static function weighted_tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		return [
 			[$h, $s, $l],
 			[static::mod($h, 160, TRUE, 360), $s, $l],
@@ -202,9 +188,7 @@ class scheme {
 	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
 	public static function triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		return [
 			[$h, $s, $l],
 			[static::mod($h, 120, TRUE, 360), $s, $l],
@@ -226,9 +210,7 @@ class scheme {
 	 * @return array                  An array of 5 weighted triangular colors where the first offset is the original input.
 	 */
 	public static function weighted_triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
-		if (is_null($is_dark)) {
-			$is_dark = static::is_dark($h, $s, $l);
-		}
+		static::is_dark($is_dark, $h, $s, $l);
 		return [
 			[$h, $s, $l],
 			[static::mod($h, 80, TRUE, 360), $s, $l],
@@ -262,8 +244,10 @@ class scheme {
 	 * @param  float|integer $l The lighting percentage (0 - 100)
 	 * @return boolean          TRUE if the color is dark, FALSE otherwise.
 	 */
-	protected static function is_dark(float $h = 0, float $s = 0, float $l = 0) :bool {
-		$rgb = hsl::hsl_to_rgb($h, $s, $l);
-		return check::is_dark($rgb['r'], $rgb['g'], $rgb['b']);
+	protected static function is_dark(&$is_dark, float $h = 0, float $s = 0, float $l = 0) :bool {
+		if (is_null($is_dark)) {
+			$rgb = generate::hsl_to_rgb($h, $s, $l);
+			$is_dark = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']);
+		}
 	}
 }

@@ -5,30 +5,6 @@ namespace projectcleverweb\color;
 
 class modify {
 	
-	public static function red($data, $adjustment, $as_percentage, $set_absolute) {
-		return static::rgb_mod($data, $adjustment, $as_percentage, $set_absolute);
-	}
-	
-	public static function green($data, $adjustment, $as_percentage, $set_absolute) {
-		
-	}
-	
-	public static function blue($data, $adjustment, $as_percentage, $set_absolute) {
-		
-	}
-	
-	public static function hue($data, $adjustment, $as_percentage, $set_absolute) {
-		
-	}
-	
-	public static function saturation($data, $adjustment, $as_percentage, $set_absolute) {
-		
-	}
-	
-	public static function light($data, $adjustment, $as_percentage, $set_absolute) {
-		
-	}
-	
 	public static function rgb(data $data, string $scope, float $adjustment, bool $as_percentage, bool $set_absolute) {
 		$current         = array_combine(['red', 'green', 'blue'], $data->rgb);
 		$scope           = strtolower($scope); // [todo] Validate scope
@@ -51,19 +27,25 @@ class modify {
 		return static::regenerate_hsl($data, $current);
 	}
 	
-	private static function _convert_to_exact(float $adjustment, float $max, bool $as_percentage) {
+	protected static function _convert_to_exact(float $adjustment, float $max, bool $as_percentage) {
 		if ($as_percentage) {
 			return ($adjustment / 100) * abs($max);
 		}
 		return $adjustment;
 	}
 	
-	private static function _convert_to_abs(float $current, float $adjustment, bool $set_absolute, float $min = 0, float $max = PHP_INT_MAX) {
+	protected static function _convert_to_abs(float $current, float $adjustment, bool $set_absolute, float $min = 0, float $max = PHP_INT_MAX) {
 		if ($set_absolute) {
 			return abs($adjustment);
 		}
 		return max(min($current + $adjustment, $max), $min);
 	}
 	
-	
+	protected static function regenerate_rgb(data $data, array $update) {
+		$data->import_rgb([
+			'r' => $update['red'],
+			'g' => $update['green'],
+			'b' => $update['blue']
+		]);
+	}
 }

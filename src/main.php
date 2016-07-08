@@ -8,11 +8,15 @@ class main {
 	
 	public $data;
 	
-	public function __construct($hex) {
-		if ($hex instanceof data) {
-			$this->data = $hex;
+	public function __construct($color) {
+		$this->set($color);
+	}
+	
+	public function set($color) {
+		if ($color instanceof data) {
+			$this->data = $color;
 		} else {
-			$this->data = new data($hex);
+			$this->data = new data($color);
 		}
 	}
 	
@@ -22,28 +26,27 @@ class main {
 	}
 	
 	public function mod_r(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::red($this->data, $adjustment, $as_percentage, $set_absolute);
 		return modify::rgb($data, 'red', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function mod_g(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::green($this->data, $adjustment, $as_percentage, $set_absolute);
+		return modify::rgb($data, 'green', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function mod_b(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::blue($this->data, $adjustment, $as_percentage, $set_absolute);
+		return modify::rgb($data, 'blue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function mod_h(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::hue($this->data, $adjustment, $as_percentage, $set_absolute);
+		return modify::hsl($data, 'hue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function mod_s(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::saturation($this->data, $adjustment, $as_percentage, $set_absolute);
+		return modify::hsl($data, 'saturation', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function mod_l(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::light($this->data, $adjustment, $as_percentage, $set_absolute);
+		return modify::hsl($data, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function get_scheme(string $scheme_name = '') {
