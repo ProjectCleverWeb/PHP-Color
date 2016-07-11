@@ -11,30 +11,14 @@ class data extends \stdClass {
 	
 	public function __construct($color, string $type = '') {
 		if (!empty($type)) {
-			$type = static::_get_color_type($color);
+			$type = static::get_color_type($color);
 		}
-		
 		call_user_func([__CLASS__, 'import_'.$type], $color);
-		
-		
-		if (is_int($color)) {
-			// Convert from PHP hex integer (forcing valid color)
-			$color %= 16777216;
-			$color = base_convert(abs($color), 10, 16);
-		}
-		static::_validate_hex_str($color);
-		static::_strip_hash($color);
-		static::_expand_shorthand($color);
-		$this->hex = strtoupper($color);
-		$this->rgb = generate::hex_to_rgb($this->hex);
-		$this->hsl = new hsl($this->rgb);
 	}
 	
-	public static function _get_color_type($color) :string {
-		if (is_array($color) && empty(array_diff(['r', 'g', 'b'], array_keys($color)))) {
-			return 'rgb';
-		} elseif (is_array($color) && empty(array_diff(['h', 's', 'l'], array_keys($color)))) {
-			return 'hsl';
+	public static function get_color_type($color) :string {
+		if (is_array($color)) {
+			return static::_get_array_type($color);
 		} elseif (is_string($color) && static::_validate_hex_str($color)) {
 			return 'hex';
 		} elseif (is_int($color)) {
@@ -43,7 +27,18 @@ class data extends \stdClass {
 		return 'error';
 	}
 	
-	private static function import_error($color) {
+	protected static function _get_array_type(array $color) :string {
+		if (empty(array_diff(['r', 'g', 'b'], array_keys($color)))) {
+			return 'rgb';
+		} elseif (empty(array_diff(['h', 's', 'l'], array_keys($color)))) {
+			return 'hsl';
+		} elseif (empty(array_diff(['c', 'm', 'y', 'k'], array_keys($color)))) {
+			return 'cmyk';
+		}
+		return 'error';
+	}
+	
+	protected static function import_error($color) {
 		echo 'The value was not a color';
 		exit;
 	}
@@ -68,8 +63,11 @@ class data extends \stdClass {
 	}
 	
 	public function import_int(int $color) {
-		$color %= 16777216;
-		static::import_hex(base_convert($color, 10, 16));
+		static::import_hex(str_pad(base_convert($color % 0x1000000, 10, 16), 6, '0', STR_PAD_LEFT));
+	}
+	
+	public function import_cmyk(array $color) {
+		static::import_rgb(generate::cmyk_to_rgb($color['c'], $color['m'], $color['y'], $color['k']));
 	}
 	
 	protected static function _strip_hash(&$hex) {

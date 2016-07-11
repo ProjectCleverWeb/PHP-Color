@@ -32,7 +32,7 @@ class generate {
 		);
 	}
 	
-	public static function rgb_to_cmyk(int $r, int $g, int $b) {
+	public static function rgb_to_cmyk(float $r, float $g, float $b) :array {
 		$c  = (255 - $r) / 255 * 100;
 		$m  = (255 - $g) / 255 * 100;
 		$y  = (255 - $b) / 255 * 100;
@@ -45,6 +45,21 @@ class generate {
 			'm' => round($m),
 			'y' => round($y),
 			'k' => round($k)
+		];
+	}
+	
+	public static function cmyk_to_rgb(float $c, float $m, float $y, float $k) :array {
+		$c /= 100;
+		$m /= 100;
+		$y /= 100;
+		$k /= 100;
+		$r = 1 - min(1, $c * (1 - $k) + $k);
+		$g = 1 - min(1, $m * (1 - $k) + $k);
+		$b = 1 - min(1, $y * (1 - $k) + $k);
+		return [
+			'r' => round($r * 255),
+			'g' => round($g * 255),
+			'b' => round($b * 255)
 		];
 	}
 	
