@@ -13,10 +13,10 @@ class main {
 	}
 	
 	public function set($color) {
-		if ($color instanceof data) {
+		if ($color instanceof color) {
 			$this->data = $color;
 		} else {
-			$this->data = new data($color);
+			$this->data = new color($color);
 		}
 	}
 	
