@@ -29,7 +29,7 @@ class color implements \Serializable {
 	public static function get_color_type($color) :string {
 		if (is_array($color)) {
 			return static::_get_array_type($color);
-		} elseif (is_string($color) && static::_validate_hex_str($color)) {
+		} elseif (is_string($color) && regulate::_validate_hex_str($color)) {
 			return 'hex';
 		} elseif (is_int($color)) {
 			return 'int';
