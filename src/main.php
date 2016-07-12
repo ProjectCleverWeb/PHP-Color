@@ -25,27 +25,27 @@ class main {
 		return check::is_dark($rgb['r'], $rgb['g'], $rgb['b'], $check_score);
 	}
 	
-	public function mod_r(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+	public function red(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
 		return modify::rgb($this->color, 'red', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_g(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+	public function green(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
 		return modify::rgb($this->color, 'green', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_b(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+	public function blue(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
 		return modify::rgb($this->color, 'blue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_h(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+	public function hue(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
 		return modify::hsl($this->color, 'hue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_s(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+	public function saturation(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
 		return modify::hsl($this->color, 'saturation', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_l(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+	public function light(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
 		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
