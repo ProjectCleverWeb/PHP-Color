@@ -56,7 +56,7 @@ class color implements \Serializable {
 	public function import_rgb(array $color) {
 		regulate::rgb_array($color);
 		$this->rgb = $color;
-		$this->hex = generate::rgb_to_hex($this->rgb);
+		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->hsl = new hsl($this->rgb);
 	}
 	
