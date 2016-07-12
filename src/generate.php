@@ -6,16 +6,12 @@ namespace projectcleverweb\color;
 
 class generate {
 	
-	public static function expand_shorthand(string $hex) :string {
-		if (strlen($hex) === 3) {
-			$r = $hex[0];
-			$g = $hex[1];
-			$b = $hex[2];
-			return $r.$r.$g.$g.$b.$b;
-		}
-		return $hex;
-	}
-	
+	/**
+	 * Convert a hex string (no #) to a RGB array
+	 * 
+	 * @param  string $hex The hex string to convert (no #)
+	 * @return array       The RGB array
+	 */
 	public static function hex_to_rgb(string $hex) :array {
 		return [
 			'r' => hexdec(substr($hex, 0, 2)),
@@ -157,9 +153,9 @@ class generate {
 		}
 		
 		return [
-			'r' => round(($r + $m) * 255),
-			'g' => round(($g + $m) * 255),
-			'b' => round(($b + $m) * 255)
+			'r' => (int) round(($r + $m) * 255),
+			'g' => (int) round(($g + $m) * 255),
+			'b' => (int) round(($b + $m) * 255)
 		];
 	}
 	
