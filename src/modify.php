@@ -48,4 +48,12 @@ class modify {
 			'b' => $update['blue']
 		]);
 	}
+	
+	protected static function regenerate_hsl(color $color, array $update) {
+		$color->import_rgb([
+			'h' => $update['hue'],
+			's' => $update['saturation'],
+			'l' => $update['light']
+		]);
+	}
 }
