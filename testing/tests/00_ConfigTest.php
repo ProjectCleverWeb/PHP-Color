@@ -6,7 +6,7 @@ namespace projectcleverweb\color;
  * @requires PHP 7.0
  * @requires PHPUnit 5
  */
-class ConfigTest extends \PHPUnit_Framework_TestCase {
+class ConfigTest extends unit_test {
 	
 	/**
 	 * @test

@@ -4,6 +4,7 @@
  */
 
 namespace projectcleverweb\color;
+use PHPUnit\Framework\TestCase;
 
 // Call the autoload script
 require_once realpath(__DIR__.'/../autoload.php');
@@ -13,7 +14,7 @@ require_once realpath(__DIR__.'/../autoload.php');
  * this class in each of the testing classes. (just make sure this class
  * always extends the PHPUnit TestCase class AND is abstract)
  */
-abstract class testing extends \PHPUnit_Framework_TestCase {
+abstract class unit_test extends TestCase {
 	
 	public $vars;
 	
@@ -22,21 +23,21 @@ abstract class testing extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp() {
 		$this->vars = [
-			'base_colors' => [
-				[0, 0, 0],
-				[255, 255, 255],
-				[255, 255, 0],
-				[255, 0, 255],
-				[255, 0, 0],
-				[0, 255, 255],
-				[0, 255, 0],
-				[0, 0, 255]
+			'hex_rgb' => [
+				'000000' => ['r' => 0, 'g' => 0, 'b' => 0],
+				'FFFFFF' => ['r' => 255, 'g' => 255, 'b' => 255],
+				'FFFF00' => ['r' => 255, 'g' => 255, 'b' => 0],
+				'FF00FF' => ['r' => 255, 'g' => 0, 'b' => 255],
+				'FF0000' => ['r' => 255, 'g' => 0, 'b' => 0],
+				'00FFFF' => ['r' => 0, 'g' => 255, 'b' => 255],
+				'00FF00' => ['r' => 0, 'g' => 255, 'b' => 0],
+				'0000FF' => ['r' => 0, 'g' => 0, 'b' => 255]
 			]
 		];
 	}
 	
 	/**
-	 * Reset all the instances
+	 * 
 	 */
 	public function tearDown() {
 		
