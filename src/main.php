@@ -51,7 +51,7 @@ class main {
 	
 	public function get_scheme(string $scheme_name = '') {
 		if (is_callable(array(__NAMESPACE__.'\\scheme', $scheme_name))) {
-			$hsl = $this->hsl->hsl;
+			$hsl = $this->color->hsl;
 			$scheme = call_user_func_array(array(__NAMESPACE__.'\\scheme', $scheme_name), $hsl['h'], $hsl['s'], $hsl['l']);
 			foreach ($scheme as &$val) {
 				$val = generate::hsl_to_rgb($val['h'], $val['s'], $val['l']);
