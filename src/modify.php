@@ -6,7 +6,7 @@ namespace projectcleverweb\color;
 class modify {
 	
 	public static function rgb(color $color, string $scope, float $adjustment, bool $as_percentage, bool $set_absolute) {
-		$current         = array_combine(['red', 'green', 'blue'], $data->rgb);
+		$current         = array_combine(['red', 'green', 'blue'], $color->rgb);
 		$scope           = strtolower($scope); // [todo] Validate scope
 		$adjustment      = max(min($adjustment, 255), 0 - 255); // Force valid range
 		$adjustment      = static::_convert_to_exact($adjustment, 255, $as_percentage);
@@ -15,7 +15,7 @@ class modify {
 	}
 	
 	public static function hsl(color $color, string $scope, float $adjustment, bool $as_percentage, bool $set_absolute) {
-		$current = array_combine(['hue', 'saturation', 'light'], $data->hsl->hsl);
+		$current = array_combine(['hue', 'saturation', 'light'], $color->hsl);
 		$scope   = strtolower($scope); // [todo] Validate scope
 		$max     = 100;
 		if ($scope == 'hue') {
@@ -42,7 +42,7 @@ class modify {
 	}
 	
 	protected static function regenerate_rgb(color $color, array $update) {
-		$data->import_rgb([
+		$color->import_rgb([
 			'r' => $update['red'],
 			'g' => $update['green'],
 			'b' => $update['blue']
