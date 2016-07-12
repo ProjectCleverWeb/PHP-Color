@@ -43,7 +43,7 @@ class regulate {
 		static::cmyk($cmyk_array['k']);
 	}
 	
-	public static function hex(string &$str) {
+	public static function hex(string &$color) {
 		static::_validate_hex_str($color);
 		static::_strip_hash($color);
 		static::_expand_shorthand($color);
@@ -61,10 +61,10 @@ class regulate {
 	}
 	
 	protected static function _expand_shorthand(string &$hex_str) {
-		if (strlen($hex) === 3) {
-			$r = $hex[0];
-			$g = $hex[1];
-			$b = $hex[2];
+		if (strlen($hex_str) === 3) {
+			$r = $hex_str[0];
+			$g = $hex_str[1];
+			$b = $hex_str[2];
 			$hex_str = $r.$r.$g.$g.$b.$b;
 		}
 	}
