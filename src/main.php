@@ -6,7 +6,7 @@ namespace projectcleverweb\color;
 
 class main {
 	
-	public $data;
+	public $color;
 	
 	public function __construct($color) {
 		$this->set($color);
@@ -14,39 +14,39 @@ class main {
 	
 	public function set($color) {
 		if ($color instanceof color) {
-			$this->data = $color;
+			$this->color = $color;
 		} else {
-			$this->data = new color($color);
+			$this->color = new color($color);
 		}
 	}
 	
 	public function is_dark(int $check_score = 128) :bool {
-		$rgb = $this->data->rgb;
+		$rgb = $this->color->rgb;
 		return check::is_dark($rgb['r'], $rgb['g'], $rgb['b'], $check_score);
 	}
 	
-	public function mod_r(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::rgb($data, 'red', $adjustment, $as_percentage, $set_absolute);
+	public function mod_r(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+		return modify::rgb($this->color, 'red', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_g(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::rgb($data, 'green', $adjustment, $as_percentage, $set_absolute);
+	public function mod_g(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+		return modify::rgb($this->color, 'green', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_b(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::rgb($data, 'blue', $adjustment, $as_percentage, $set_absolute);
+	public function mod_b(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+		return modify::rgb($this->color, 'blue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_h(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::hsl($data, 'hue', $adjustment, $as_percentage, $set_absolute);
+	public function mod_h(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+		return modify::hsl($this->color, 'hue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_s(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::hsl($data, 'saturation', $adjustment, $as_percentage, $set_absolute);
+	public function mod_s(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+		return modify::hsl($this->color, 'saturation', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function mod_l(float $adjustment, bool $as_percentage = FALSE,  bool $set_absolute = FALSE) {
-		return modify::hsl($data, 'light', $adjustment, $as_percentage, $set_absolute);
+	public function mod_l(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
+		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
 	public function get_scheme(string $scheme_name = '') {
