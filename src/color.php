@@ -10,7 +10,7 @@ class color implements \Serializable {
 	public $hsl;
 	
 	public function __construct($color, string $type = '') {
-		if (!empty($type)) {
+		if (!empty($type) || !in_array($type, ['rgb', 'hsl', 'hex', 'int', 'cmyk'])) {
 			$type = static::get_color_type($color);
 		}
 		call_user_func([__CLASS__, 'import_'.$type], $color);
