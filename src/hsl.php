@@ -34,7 +34,7 @@ class hsl implements \ArrayAccess {
 	
 	public function offsetUnset($offset) {
 		if ($this->offsetExists($offset)) {
-			return $this->hsl[$offset] = $value;
+			return $this->hsl[$offset] = 0.0;
 		}
 	}
 }
