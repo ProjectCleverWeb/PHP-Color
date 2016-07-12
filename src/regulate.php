@@ -54,13 +54,13 @@ class regulate {
 	}
 	
 	
-	protected static function _strip_hash(&$hex) {
+	public static function _strip_hash(&$hex) {
 		if (is_string($hex) && substr($hex, 0 ,1) == '#') {
 			$hex = substr($hex, 1);
 		}
 	}
 	
-	protected static function _expand_shorthand(string &$hex_str) {
+	public static function _expand_shorthand(string &$hex_str) {
 		if (strlen($hex_str) === 3) {
 			$r = $hex_str[0];
 			$g = $hex_str[1];
@@ -69,7 +69,7 @@ class regulate {
 		}
 	}
 	
-	protected static function _validate_hex_str(&$hex_str) {
+	public static function _validate_hex_str(&$hex_str) {
 		if (is_string($hex_str) && preg_match('/\A#?(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})\Z/i', $hex_str)) {
 			return;
 		}
