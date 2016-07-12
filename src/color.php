@@ -5,9 +5,9 @@ namespace projectcleverweb\color;
 
 class color implements \Serializable {
 	
-	private $hex;
-	private $rgb;
-	private $hsl;
+	public $hex;
+	public $rgb;
+	public $hsl;
 	
 	public function __construct($color, string $type = '') {
 		if (!empty($type)) {
