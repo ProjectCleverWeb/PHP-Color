@@ -89,22 +89,22 @@ class generate {
 	
 	
 	public static function rgb_to_hsl(int $r = 0, int $g = 0, int $b = 0, $accuracy = 2) :array {
-		$r        /= 255;
-		$g        /= 255;
-		$b        /= 255;
-		$min       = min($r, $g, $b);
-		$max       = max($r, $g, $b);
-		$delta_max = $max - $min;
-		$h         = 0;
-		$s         = 0;
-		$l         = ($max + $min) / 2;
+		$r    /= 255;
+		$g    /= 255;
+		$b    /= 255;
+		$min   = min($r, $g, $b);
+		$max   = max($r, $g, $b);
+		$delta = $max - $min;
+		$h     = 0;
+		$s     = 0;
+		$l     = ($max + $min) / 2;
 		
-		if ($delta_max != 0) {
-			$s = $delta_max / ($max + $min);
+		if ($delta != 0) {
+			$s = $delta / ($max + $min);
 			if ($l >= 0.5) {
-				$s = $delta_max / (2 - $max - $min);
+				$s = $delta / (2 - $max - $min);
 			}
-			static::_rgbhsl_hue($h, $r, $g, $b, $max, $delta_max);
+			static::_rgbhsl_hue($h, $r, $g, $b, $max, $delta);
 		}
 		
 		return [
@@ -114,14 +114,14 @@ class generate {
 		];
 	}
 	
-	protected static function _rgbhsl_delta_rgb(float $rgb, float $max, float $delta_max) {
-		return ((($max - $rgb) / 6) + ($delta_max / 2)) / $delta_max;
+	protected static function _rgbhsl_delta_rgb(float $rgb, float $max, float $delta) {
+		return ((($max - $rgb) / 6) + ($delta / 2)) / $delta;
 	}
 	
-	protected static function _rgbhsl_hue(float &$h, float $r, float $g, float $b, float $max, float $delta_max) {
-		$delta_r = static::_rgbhsl_delta_rgb($r, $max, $delta_max);
-		$delta_g = static::_rgbhsl_delta_rgb($g, $max, $delta_max);
-		$delta_b = static::_rgbhsl_delta_rgb($b, $max, $delta_max);
+	protected static function _rgbhsl_hue(float &$h, float $r, float $g, float $b, float $max, float $delta) {
+		$delta_r = static::_rgbhsl_delta_rgb($r, $max, $delta);
+		$delta_g = static::_rgbhsl_delta_rgb($g, $max, $delta);
+		$delta_b = static::_rgbhsl_delta_rgb($b, $max, $delta);
 		
 		$h = (2 / 3) + $delta_g - $delta_r;
 		if ($r == $max) {

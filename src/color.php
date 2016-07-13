@@ -9,12 +9,19 @@ class color implements \Serializable {
 	public $rgb;
 	public $hsl;
 	
+	/**
+	 * Takes an input color and imports it as its respective type.
+	 * 
+	 * @param mixed  $color An RGB (array), HSL (array), Hex (string), Integer, or CMYK (array) representation of a color.
+	 * @param string $type  (optional) The type to try to import it as
+	 */
 	public function __construct($color, string $type = '') {
 		if (empty($type) || !is_callable([__CLASS__, 'import_'.$type])) {
 			$type = static::get_color_type($color);
 		}
 		call_user_func([__CLASS__, 'import_'.$type], $color);
 	}
+	
 	
 	public function serialize() :string {
 		return json_encode($this->rgb);

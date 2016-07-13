@@ -6,14 +6,16 @@ namespace projectcleverweb\color;
 class regulate {
 	
 	public static function percent(float &$value) {
-		$value = abs($value) % 101;
+		$value = static::max(abs($value), 100);
 	}
 	
 	public static function rgb(int &$value) {
-		$value = abs($value) % 256;
+		$value = static::max(abs($value), 256);
 	}
 	
 	public static function rgb_array(array &$rgb_array) {
+		static::standardize_array($rgb_array);
+		$rgb_array += ['r' => 0, 'g' => 0, 'b' => 0];
 		static::rgb($rgb_array['r']);
 		static::rgb($rgb_array['g']);
 		static::rgb($rgb_array['b']);
@@ -21,12 +23,14 @@ class regulate {
 	
 	public static function hsl(float &$value, string $offset) {
 		if (strtolower($offset) == 'h') {
-			$value = abs($value) % 360;
+			$value = static::max(abs($value), 359);
 		}
 		static::percent($value);
 	}
 	
 	public static function hsl_array(array &$hsl_array) {
+		static::standardize_array($hsl_array);
+		$hsl_array += ['h' => 0, 's' => 0, 'l' => 0];
 		static::hsl($hsl_array['h'], 'h');
 		static::hsl($hsl_array['s'], 's');
 		static::hsl($hsl_array['l'], 'l');
@@ -37,6 +41,8 @@ class regulate {
 	}
 	
 	public static function cmyk_array(array &$cmyk_array) {
+		static::standardize_array($cmyk_array);
+		$hsl_array += ['c' => 0, 'm' => 0, 'y' => 0, 'k' => 0];
 		static::cmyk($cmyk_array['c']);
 		static::cmyk($cmyk_array['m']);
 		static::cmyk($cmyk_array['y']);
@@ -50,9 +56,8 @@ class regulate {
 	}
 	
 	public static function hex_int(int &$value) {
-		$value = abs($value) % 0x1FFFFFF;
+		$value = static::max(abs($value), 0x1FFFFFF);
 	}
-	
 	
 	public static function _strip_hash(&$hex) {
 		if (is_string($hex) && substr($hex, 0 ,1) == '#') {
@@ -76,6 +81,17 @@ class regulate {
 		// Error - Force color and trigger notice
 		$hex_str = '000000';
 		// [todo] Trigger Error
+	}
+	
+	protected static function standardize_array(array &$array) {
+		$array = array_change_key_case($array);
+	}
+	
+	protected static function max(float $number, float $max) :float {
+		if ($number > $max) {
+			$number -= floor($number / $max) * $max;
+		}
+		return $number;
 	}
 	
 }
