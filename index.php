@@ -22,7 +22,8 @@ $funcs = [
 	'weighted_triad'  => 'These colors are all similarly distanced from each other on a color wheel, 2 of which have an alternate shade. These colors are all slightly closer to the base color than in a normal triad.',
 	'tetrad'          => '3 of these colors are all equally distanced from each other on a color wheel, plus 1 alternated shade for the base color and the 1 color that is opposite of the base color.',
 	'weighted_tetrad' => '3 of these colors are all similarly distanced from each other on a color wheel, the base color has an alternate shade, and there is a weighted opposite color. These colors are all slightly closer to the base color than in a normal tetrad.',
-	'compound'        => 'These colors use mathematical offsets that usually complement each other well, and can highlight the base color.'
+	'compound'        => 'These colors use mathematical offsets that usually complement each other well, and can highlight the base color.',
+	'rectangular'     => 'TEST'
 ];
 $fmt =
 '<div class="eight wide column">
@@ -46,11 +47,11 @@ foreach ($funcs as $name => $desc) {
 	$output .= '</div>';
 }
 foreach (range(1, 30) as $i) {
-	$rgb       = generate::rand(128, 255, 0, 50, 0, 50);
+	$rgb       = generate::rand();
 	// $rgb       = generate::hex_to_rgb('000000');
 	$hex       = generate::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
 	$hex_text  = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']) ? 'FFFFFF' : '000000';
-	$hsl       = array_map('round', hsl::rgb_to_hsl($rgb['r'], $rgb['g'], $rgb['b']));
+	$hsl       = array_map('round', generate::rgb_to_hsl($rgb['r'], $rgb['g'], $rgb['b']));
 	$cmyk      = generate::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']);
 	$output   .= sprintf(
 		'<div class="sixteen wide column"><h2 class="ui black inverted block header" style="background: #%1$s; color: #%2$s;">Color: #%1$s &mdash; rgb(%3$s) &mdash; hsl(%4$s) &mdash; cmyk(%5$s)</h2></div>',
@@ -65,19 +66,19 @@ foreach (range(1, 30) as $i) {
 		
 		// $scheme     = scheme::weighted_triad($hsl['h'], $hsl['s'], $hsl['l']);
 		$scheme     = call_user_func_array(['projectcleverweb\\color\\scheme', $func], [$hsl['h'], $hsl['s'], $hsl['l']]);
-		$rgb0       = hsl::hsl_to_rgb($scheme[0][0], $scheme[0][1], $scheme[0][2]);
+		$rgb0       = generate::hsl_to_rgb($scheme[0][0], $scheme[0][1], $scheme[0][2]);
 		$hex0_text  = check::is_dark($rgb0['r'], $rgb0['g'], $rgb0['b']) ? 'FFFFFF' : '000000';
 		$hex0       = generate::rgb_to_hex($rgb0['r'], $rgb0['g'], $rgb0['b']);
-		$rgb1       = hsl::hsl_to_rgb($scheme[1][0], $scheme[1][1], $scheme[1][2]);
+		$rgb1       = generate::hsl_to_rgb($scheme[1][0], $scheme[1][1], $scheme[1][2]);
 		$hex1_text  = check::is_dark($rgb1['r'], $rgb1['g'], $rgb1['b']) ? 'FFFFFF' : '000000';
 		$hex1       = generate::rgb_to_hex($rgb1['r'], $rgb1['g'], $rgb1['b']);
-		$rgb2       = hsl::hsl_to_rgb($scheme[2][0], $scheme[2][1], $scheme[2][2]);
+		$rgb2       = generate::hsl_to_rgb($scheme[2][0], $scheme[2][1], $scheme[2][2]);
 		$hex2_text  = check::is_dark($rgb2['r'], $rgb2['g'], $rgb2['b']) ? 'FFFFFF' : '000000';
 		$hex2       = generate::rgb_to_hex($rgb2['r'], $rgb2['g'], $rgb2['b']);
-		$rgb3       = hsl::hsl_to_rgb($scheme[3][0], $scheme[3][1], $scheme[3][2]);
+		$rgb3       = generate::hsl_to_rgb($scheme[3][0], $scheme[3][1], $scheme[3][2]);
 		$hex3_text  = check::is_dark($rgb3['r'], $rgb3['g'], $rgb3['b']) ? 'FFFFFF' : '000000';
 		$hex3       = generate::rgb_to_hex($rgb3['r'], $rgb3['g'], $rgb3['b']);
-		$rgb4       = hsl::hsl_to_rgb($scheme[4][0], $scheme[4][1], $scheme[4][2]);
+		$rgb4       = generate::hsl_to_rgb($scheme[4][0], $scheme[4][1], $scheme[4][2]);
 		$hex4_text  = check::is_dark($rgb4['r'], $rgb4['g'], $rgb4['b']) ? 'FFFFFF' : '000000';
 		$hex4       = generate::rgb_to_hex($rgb4['r'], $rgb4['g'], $rgb4['b']);
 		$check      = array_unique([$hex0, $hex1, $hex2, $hex3, $hex4]);

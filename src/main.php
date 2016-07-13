@@ -4,7 +4,7 @@
 namespace projectcleverweb\color;
 
 
-class main {
+class main implements \Serializable {
 	
 	public $color;
 	
@@ -12,12 +12,30 @@ class main {
 		$this->set($color);
 	}
 	
-	public function set($color) {
+	public function serialize() :string {
+		return $this->color->serialize();
+	}
+	
+	public function unserialize($serialized) {
+		$unserialized = (array) json_decode((string) $serialized);
+		regulate::rgb_array($unserialized);
+		$this->set($unserialized, 'rgb');
+	}
+	
+	public function set($color, string $type = '') {
 		if ($color instanceof color) {
 			$this->color = $color;
 		} else {
-			$this->color = new color($color);
+			$this->color = new color($color, $type);
 		}
+	}
+	
+	public function rgb() {
+		return (array) $this->color->rgb;
+	}
+	
+	public function hsl() {
+		return (array) $this->color->hsl;
 	}
 	
 	public function is_dark(int $check_score = 128) :bool {
