@@ -221,24 +221,23 @@ class scheme {
 	}
 	
 	/**
-	 * 3 of these colors are all equally distanced from each other on a color
-	 * wheel, plus 1 alternated shade for the base color and the 1 color that is
-	 * opposite of the base color.
+	 * 4 of these colors for a rectangle on a color wheel, and 1 color is an
+	 * alternate shade for the base color.
 	 * 
 	 * @param  float|integer $h       The base color hue degree (0 - 359)
 	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
 	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
+	 * @return array                  An array of 5 rectangular colors where the first offset is the original input.
 	 */
 	public static function rectangular (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 270, TRUE, 360), $s, $l],
+			[static::mod($h, 216, TRUE, 360), $s, $l],
 			[static::mod($h, 180, TRUE, 360), $s, $l],
 			[$h, $s, static::mod($l, 18, $is_dark)],
-			[static::mod($h, 90, TRUE, 360), $s, $l]
+			[static::mod($h, 36, TRUE, 360), $s, $l]
 		];
 	}
 	
