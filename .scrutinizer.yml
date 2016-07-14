@@ -5,7 +5,7 @@ build:
         command: 'phpunit --testdox'
   environment:
     php:
-      version: 7.0
+      version: 7.0.8
 tools:
     external_code_coverage:
         timeout: 600
