@@ -67,7 +67,7 @@ class main implements \Serializable {
 		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function get_scheme(string $scheme_name = '') {
+	public function get_scheme(string $scheme_name = '') :array {
 		if (is_callable(array(__NAMESPACE__.'\\scheme', $scheme_name))) {
 			$hsl = $this->color->hsl;
 			$scheme = call_user_func_array(array(__NAMESPACE__.'\\scheme', $scheme_name), $hsl['h'], $hsl['s'], $hsl['l']);
@@ -85,7 +85,11 @@ class main implements \Serializable {
 		return [];
 	}
 	
-	public function get_hex_scheme(string $scheme_name = '') {
-		
+	public function get_hex_scheme(string $scheme_name = '') :array {
+		$schemes = [];
+		foreach ($this->get_scheme() as $rgb) {
+			$schemes[] = generate::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
+		}
+		return $schemes;
 	}
 }
