@@ -37,7 +37,7 @@ class error {
 	 * @return void
 	 */
 	public static function call(string $message) {
-		if (static::$use_exeptions && static::$active) {
+		if (static::$use_exceptions && static::$active) {
 			static::exception($message);
 		} elseif(static::$active) {
 			static::trigger($message);
@@ -51,7 +51,7 @@ class error {
 	 * @return void
 	 */
 	protected static function exception(string $message) {
-		throw new Exception($message);
+		throw new \Exception($message);
 	}
 	
 	/**
