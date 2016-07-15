@@ -67,17 +67,20 @@ class main implements \Serializable {
 		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function get_scheme(string $scheme_name = '') :array {
-		if (is_callable(array(__NAMESPACE__.'\\scheme', $scheme_name))) {
+	public function rgb_scheme(string $scheme_name = '') :array {
+		return static::_convert_scheme(
+			static::hsl_scheme($scheme_name),
+			[new generate, 'hsl_to_rgb']
+		);
+	}
+	
+	public function hsl_scheme(string $scheme_name = '') :array {
+		if (is_callable([new scheme, $scheme_name])) {
 			$hsl = $this->color->hsl;
-			$scheme = call_user_func_array(array(__NAMESPACE__.'\\scheme', $scheme_name), $hsl['h'], $hsl['s'], $hsl['l']);
-			foreach ($scheme as &$val) {
-				$val = generate::hsl_to_rgb($val['h'], $val['s'], $val['l']);
-			}
-			return $scheme;
+			return call_user_func([new scheme, $scheme_name], $hsl['h'], $hsl['s'], $hsl['l']);
 		}
 		error::call(sprintf(
-			'The $scheme_name "%s" passed to %s::%s() is not a valid scheme name',
+			'The $scheme_name "%s" is not a valid scheme name',
 			$scheme_name,
 			__CLASS__,
 			__FUNCTION__
@@ -85,11 +88,25 @@ class main implements \Serializable {
 		return [];
 	}
 	
-	public function get_hex_scheme(string $scheme_name = '') :array {
-		$schemes = [];
-		foreach ($this->get_scheme() as $rgb) {
-			$schemes[] = generate::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
+	public function hex_scheme(string $scheme_name = '') :array {
+		return static::_convert_scheme(
+			static::rgb_scheme($scheme_name),
+			[new generate, 'rgb_to_hex']
+		);
+	}
+	
+	public function cmyk_scheme(string $scheme_name = '') :array {
+		return static::_convert_scheme(
+			static::rgb_scheme($scheme_name),
+			[new generate, 'rgb_to_cmyk']
+		);
+	}
+	
+	protected static function _convert_scheme(array $scheme, callable $callback) {
+		$scheme = array_values($scheme);
+		foreach ($scheme as &$color) {
+			$color = call_user_func_array($callback, $color);
 		}
-		return $schemes;
+		return $scheme;
 	}
 }
