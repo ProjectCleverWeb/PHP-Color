@@ -151,9 +151,12 @@ class regulate {
 		if (is_string($hex_str) && preg_match('/\A#?(?:[0-9a-f]{3}|[0-9a-f]{6})\Z/i', $hex_str)) {
 			return;
 		}
-		// Error - Force color and trigger notice
+		error::call(sprintf(
+			'The input of %s::%s() was not a valid hex string, forcing value to 000000',
+			__CLASS__,
+			__FUNCTION__
+		));
 		$hex_str = '000000';
-		// [todo] Trigger Error
 	}
 	
 	/**

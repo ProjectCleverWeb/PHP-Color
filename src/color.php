@@ -55,9 +55,12 @@ class color implements \Serializable {
 		return 'error';
 	}
 	
-	protected static function import_error($color) {
-		echo 'The value was not a color';
-		exit;
+	protected static function import_error() {
+		error::call(sprintf(
+			'The color supplied to %s\'s constructor was not valid',
+			__CLASS__
+		));
+		$this->import_rgb([0, 0, 0]);
 	}
 	
 	public function import_rgb(array $color) {

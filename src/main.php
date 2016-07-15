@@ -76,6 +76,13 @@ class main implements \Serializable {
 			}
 			return $scheme;
 		}
+		error::call(sprintf(
+			'The $scheme_name "%s" passed to %s::%s() is not a valid scheme name',
+			$scheme_name,
+			__CLASS__,
+			__FUNCTION__
+		));
+		return [];
 	}
 	
 	public function get_hex_scheme(string $scheme_name = '') {

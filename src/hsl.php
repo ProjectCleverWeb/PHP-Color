@@ -22,14 +22,22 @@ class hsl implements \ArrayAccess {
 		if ($this->offsetExists($offset)) {
 			return $this->hsl[$offset];
 		}
-		trigger_error(sprintf('Offset "%s" does not exist', $offset));
+		error::call(sprintf(
+			'The offset "%s" does not exist in %s',
+			(string) $offset,
+			__CLASS__
+		));
 	}
 	
 	public function offsetSet($offset, $value) {
 		if ($this->offsetExists($offset)) {
 			return $this->hsl[$offset] = (float) $value;
 		}
-		trigger_error(sprintf('Offset "%s" cannot be set', $offset));
+		error::call(sprintf(
+			'The offset "%s" cannot be set in %s',
+			(string) $offset,
+			__CLASS__
+		));
 	}
 	
 	public function offsetUnset($offset) {
