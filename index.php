@@ -23,7 +23,7 @@ $funcs = [
 	'tetrad'          => '3 of these colors are all equally distanced from each other on a color wheel, plus 1 alternated shade for the base color and the 1 color that is opposite of the base color.',
 	'weighted_tetrad' => '3 of these colors are all similarly distanced from each other on a color wheel, the base color has an alternate shade, and there is a weighted opposite color. These colors are all slightly closer to the base color than in a normal tetrad.',
 	'compound'        => 'These colors use mathematical offsets that usually complement each other well, and can highlight the base color.',
-	'rectangular'     => 'TEST'
+	'rectangular'     => '4 of these colors form a rectangle on a color wheel, and 1 color is an alternate shade for the base color.'
 ];
 $fmt =
 '<div class="eight wide column">

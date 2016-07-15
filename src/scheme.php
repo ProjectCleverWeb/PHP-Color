@@ -221,7 +221,7 @@ class scheme {
 	}
 	
 	/**
-	 * 4 of these colors for a rectangle on a color wheel, and 1 color is an
+	 * 4 of these colors form a rectangle on a color wheel, and 1 color is an
 	 * alternate shade for the base color.
 	 * 
 	 * @param  float|integer $h       The base color hue degree (0 - 359)
