@@ -5,7 +5,16 @@ namespace projectcleverweb\color;
 
 class check {
 	
-	
+	/**
+	 * Checks if a RGB color appears as a darker or lighter color using YIQ
+	 * color weights
+	 * 
+	 * @param  int $r           The red value
+	 * @param  int $g           The green value
+	 * @param  int $b           The blue value
+	 * @param  int $check_score The minimum score to check, a number in the range of 0 - 255
+	 * @return boolean          If the YIQ score is >= $check_score returns FALSE, otherwise TRUE
+	 */
 	public static function is_dark(int $r = 0, int $g = 0, int $b = 0, int $check_score = 128) :bool {
 		if (generate::yiq_score($r, $g, $b) >= $check_score) {
 			return FALSE;
