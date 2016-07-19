@@ -12,6 +12,12 @@ class main implements \Serializable {
 		$this->set($color);
 	}
 	
+	public function __clone() {
+		$rgb = $this->color->rgb;
+		unset($this->color);
+		$this->set($rgb, 'rgb');
+	}
+	
 	public function serialize() :string {
 		return $this->color->serialize();
 	}

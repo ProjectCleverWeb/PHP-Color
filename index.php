@@ -4,10 +4,11 @@ namespace projectcleverweb\color;
 
 require_once __DIR__.'/autoload.php';
 
-$c = new main('FF0000');
-print_r($a = serialize($c));
-print_r(unserialize($a));
-
+$a = new main('FF0000');
+$c = clone $a;
+$c->red(128);
+print_r($a);
+print_r($c);
 exit;
 
 // $fmt = '<div style="background: #%1$s; color: #%3$s;">%1$s / <span style="color: #%2$s;">%2$s</span> / %3$s</div>';
