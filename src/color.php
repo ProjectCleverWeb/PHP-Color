@@ -130,8 +130,8 @@ class color implements \Serializable {
 	 */
 	public function import_hsl(array $color) {
 		regulate::hsl_array($color);
-		$this->hsl = new hsl($color);
 		$this->rgb = generate::hsl_to_rgb($color['h'], $color['s'], $color['l']);
+		$this->hsl = new hsl($this->rgb);
 		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 	}
 	
