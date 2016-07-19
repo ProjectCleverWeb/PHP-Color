@@ -49,9 +49,9 @@ class generate {
 		$m /= 100;
 		$y /= 100;
 		$k /= 100;
-		$r = 1 - min(1, $c * (1 - $k) + $k);
-		$g = 1 - min(1, $m * (1 - $k) + $k);
-		$b = 1 - min(1, $y * (1 - $k) + $k);
+		$r  = 1 - min(1, $c * (1 - $k) + $k);
+		$g  = 1 - min(1, $m * (1 - $k) + $k);
+		$b  = 1 - min(1, $y * (1 - $k) + $k);
 		return [
 			'r' => round($r * 255),
 			'g' => round($g * 255),
@@ -131,8 +131,6 @@ class generate {
 		}
 		if ($h < 0) {
 			$h++;
-		} elseif ($h > 1) {
-			$h--;
 		}
 	}
 	
