@@ -85,9 +85,9 @@ class main implements \Serializable {
 	}
 	
 	public function hsl_scheme(string $scheme_name = '') :array {
-		if (is_callable([new scheme, $scheme_name])) {
+		if (is_callable($callable = [new scheme, $scheme_name])) {
 			$hsl = $this->color->hsl;
-			return call_user_func([new scheme, $scheme_name], $hsl['h'], $hsl['s'], $hsl['l']);
+			return call_user_func($callable, $hsl['h'], $hsl['s'], $hsl['l']);
 		}
 		error::call(sprintf(
 			'The $scheme_name "%s" is not a valid scheme name',
