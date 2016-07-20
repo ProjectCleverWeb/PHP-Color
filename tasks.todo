@@ -1,0 +1,26 @@
+General:
+	☐	Implement alpha channel support
+	☐	Implement exporting as CSS values
+	☐	Add meta folder for generating samples
+Class Specific:
+	☐	Validate scope in modify::rgb() and modify::hsl
+Bugs:
+	☐	scheme::is_dark() should force $is_dark to be boolean
+Minor:
+	☐	Fix color::_get_array_type() docs ($color should be type array)
+	☐	Fix scheme::is_dark() docs (return is void)
+Documentation:
+	☐	Create README file
+	☐	Add code docs to class 'generate'
+	☐	Add code docs to class 'hsl'
+	☐	Add code docs to class 'main'
+	☐	Add code docs to class 'modify'
+Testing:
+	☐	Add test for class 'check'
+	☐	Add test for class 'color'
+	☐	Add test for class 'error'
+	☐	Add test for class 'hsl'
+	☐	Add test for class 'main'
+	☐	Add test for class 'regulate'
+	☐	Add test for class 'scheme'
+	☐	Add randomized testing for scheme generation
