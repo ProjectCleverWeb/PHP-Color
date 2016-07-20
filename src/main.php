@@ -36,12 +36,16 @@ class main implements \Serializable {
 		}
 	}
 	
-	public function rgb() {
+	public function rgb() :array {
 		return (array) $this->color->rgb;
 	}
 	
-	public function hsl() {
+	public function hsl() :array {
 		return (array) $this->color->hsl;
+	}
+	
+	public function css() :string {
+		return css::best($this->color);
 	}
 	
 	public function is_dark(int $check_score = 128) :bool {
