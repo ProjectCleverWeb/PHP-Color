@@ -35,7 +35,7 @@ class color implements \Serializable {
 	 * @param string $type  (optional) The type to try to import it as
 	 */
 	public function __construct($color, string $type = '') {
-		if (is_object($color) && is_a($color, __CLASS__)) {
+		if (is_a($color, __CLASS__)) {
 			$type = 'color';
 		} elseif (empty($type) || !is_callable([__CLASS__, 'import_'.$type])) {
 			$type = static::get_color_type($color);

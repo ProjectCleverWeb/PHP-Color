@@ -14,17 +14,27 @@ class css {
 	 * Choose the best way to represent the color as a CSS value. Will use either
 	 * a hex or rgba value depending on the alpha value.
 	 * 
-	 * @param  color|array $color The color 
-	 * @return string             The CSS value
+	 * @param  mixed $color The color 
+	 * @return string       The CSS value
 	 */
 	public static function best($color) {
-		if (!(is_object($color) && is_a($color, __CLASS__))) {
-			$color = new color($color);
-		}
+		static::_color_instance($color);
 		if ($color->alpha == 1.0 && !static::$force_alpha) {
 			return static::hex($color->rgb['r'], $color->rgb['g'], $color->rgb['b']);
 		}
-		return static::rgb($color->rgb['r'], $color->rgb['g'], $color->rgb['b'], $c->alpha);
+		return static::rgb($color->rgb['r'], $color->rgb['g'], $color->rgb['b'], $color->alpha);
+	}
+	
+	/**
+	 * Force $color to be an instance of color
+	 * 
+	 * @param  mixed &$color The color
+	 * @return void
+	 */
+	protected static function _color_instance(&$color) {
+		if (!is_a($color, __CLASS__)) {
+			$color = new color($color);
+		}
 	}
 	
 	/**
