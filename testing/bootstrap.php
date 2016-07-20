@@ -63,7 +63,7 @@ abstract class unit_test extends \PHPUnit_Framework_TestCase {
 					'rgb'  => ['r' => 0, 'g' => 0, 'b' => 255],
 					'hsl'  => ['h' => 240, 's' => 100, 'l' => 50],
 					'cmyk' => ['c' => 100, 'm' => 100, 'y' => 0, 'k' => 0]
-				],
+				]
 			]
 		];
 	}

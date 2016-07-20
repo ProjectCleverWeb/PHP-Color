@@ -2,23 +2,52 @@
 
 namespace projectcleverweb\color;
 
-require_once __DIR__.'/autoload.php';
+require_once __DIR__.'/../autoload.php';
 
-$a = new main('FF0000');
-$c = clone $a;
-$c->red(128);
-print_r($a);
-print_r($c);
-exit;
 
-// $fmt = '<div style="background: #%1$s; color: #%3$s;">%1$s / <span style="color: #%2$s;">%2$s</span> / %3$s</div>';
-// foreach (range(1,50) as $i) {
-// 	$c1 = hexrgb_rand();
-// 	$c2 = hexrgb_invert($c1);
-// 	$c3 = hexrgb_is_dark($c1) ? 'ffffff' : '000000';
-// 	printf($fmt, $c1, $c2, $c3);
-// }
 
+$colors = [
+	// Base Colors
+	'000000',
+	'FFFFFF',
+	'FFFF00',
+	'FF00FF',
+	'FF0000',
+	'00FFFF',
+	'00FF00',
+	'0000FF',
+	// Low Contrast
+	'7F7F7F',
+	'808080',
+	// HSL at 10% increments
+	generate::hsl_to_rgb(36, 10, 10),
+	generate::hsl_to_rgb(72, 20, 20),
+	generate::hsl_to_rgb(108, 30, 30),
+	generate::hsl_to_rgb(144, 40, 40),
+	generate::hsl_to_rgb(180, 50, 50),
+	generate::hsl_to_rgb(216, 60, 60),
+	generate::hsl_to_rgb(252, 70, 70),
+	generate::hsl_to_rgb(288, 80, 80),
+	generate::hsl_to_rgb(324, 90, 90)
+];
+
+foreach ($colors as &$color) {
+	if (is_array($color)) {
+		$color = generate::rgb_to_hex($color['r'], $color['g'], $color['b']);
+	}
+}
+
+$steps  = 20;
+$colors = [];
+foreach (range(1, $steps) as $step) {
+	$h = 360 / $steps * $step;
+	$s = 100 / $steps * $step;
+	$l = 100 / $steps * $step;
+	$colors[$step] = generate::hsl_to_rgb($h, $s, $l);
+}
+$colors = array_reverse($colors);
+
+// Scheme functions and their definitions
 $funcs = [
 	'shades'          => '5 different shades of one color.',
 	'monochromatic'   => '5 complementary shades of one color.',
@@ -52,9 +81,7 @@ foreach ($funcs as $name => $desc) {
 	);
 	$output .= '</div>';
 }
-foreach (range(1, 30) as $i) {
-	$rgb       = generate::rand();
-	// $rgb       = generate::hex_to_rgb('000000');
+foreach ($colors as $i => $rgb) {
 	$hex       = generate::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
 	$hex_text  = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']) ? 'FFFFFF' : '000000';
 	$hsl       = array_map('round', generate::rgb_to_hsl($rgb['r'], $rgb['g'], $rgb['b']));
@@ -112,9 +139,6 @@ foreach (range(1, 30) as $i) {
 			ucwords(str_replace('_', ' ', $func)),
 			$adobe
 		);
-		if (count($check) != 5) {
-			$output .= '<div class="ui red fluid button">Duplicate Colors</div>';
-		}
 		$output .= sprintf(
 			$fmt,
 			$i,         // %1$s
@@ -134,29 +158,4 @@ foreach (range(1, 30) as $i) {
 }
 $output .= '</div>';
 
-file_put_contents('./sample.html', $output);
-
-// $test_a = ['r' => 128, 'g' => 128, 'b' => 128];
-// $test_a = generate::hex_to_rgb('8be674');
-// $best = [
-// 	'color' => ['r' => 128, 'g' => 128, 'b' => 128],
-// 	'diff'  => 0.0
-// ];
-// foreach (range(0, 255) as $r) {
-// 	foreach (range(0, 255) as $g) {
-// 		foreach (range(0, 255) as $b) {
-// 			$test_b = ['r' => $r, 'g' => $g, 'b' => $b];
-// 			// YQI sensitive contrast check
-// 			$diff = check::rgb_contrast($test_a, $test_b);
-// 			if ($diff > $best['diff']) {
-// 				$best = [
-// 					'color' => $test_b,
-// 					'diff'  => $diff
-// 				];
-// 			}
-// 		}
-// 	}
-// }
-// var_dump($best);
-
-
+file_put_contents(__DIR__.'/sample.html', $output);

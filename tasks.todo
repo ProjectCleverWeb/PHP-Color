@@ -2,6 +2,7 @@ General:
 	☐	Implement alpha channel support
 	☐	Implement exporting as CSS values
 	☐	Add meta folder for generating samples
+	☐	Add git flow
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
 Bugs:
