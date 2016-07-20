@@ -1,0 +1,71 @@
+<?php
+
+namespace projectcleverweb\color;
+
+class css {
+	
+	/**
+	 * Force alpha value to be present where possible.
+	 * @var boolean
+	 */
+	public static $force_alpha = FALSE;
+	
+	/**
+	 * Choose the best way to represent the color as a CSS value. Will use either
+	 * a hex or rgba value depending on the alpha value.
+	 * 
+	 * @param  color|array $color The color 
+	 * @return string             The CSS value
+	 */
+	public static function best($color) {
+		if (!(is_object($color) && is_a($color, __CLASS__))) {
+			$color = new color($color);
+		}
+		if ($color->alpha == 1.0 && !static::$force_alpha) {
+			return static::hex($color->rgb['r'], $color->rgb['g'], $color->rgb['b']);
+		}
+		return static::rgb($color->rgb['r'], $color->rgb['g'], $color->rgb['b'], $c->alpha);
+	}
+	
+	/**
+	 * Convert and RGB value to a CSS hex string
+	 * 
+	 * @param  float  $r The red value
+	 * @param  float  $g The green value
+	 * @param  float  $b The blue value
+	 * @return string    The CSS string
+	 */
+	public static function hex(float $r, float $g, float $b) {
+		return '#'.generate::rgb_to_hex($r, $g, $b);
+	}
+	
+	/**
+	 * Convert and RGB value to a CSS rgb or rgba string
+	 * 
+	 * @param  float  $r The red value
+	 * @param  float  $g The green value
+	 * @param  float  $b The blue value
+	 * @return string    The CSS string
+	 */
+	public static function rgb(float $r, float $g, float $b, float $a = 1.0) {
+		if ($a == 1.0 && !static::$force_alpha) {
+			return sprintf('rgb(%s,%s,%s)', $r, $g, $b);
+		}
+		return sprintf('rgba(%s,%s,%s,%s)', $r, $g, $b, $a);
+	}
+	
+	/**
+	 * Convert and HSL value to a CSS hsl or hsla string
+	 * 
+	 * @param  float  $h The hue value
+	 * @param  float  $s The saturation value
+	 * @param  float  $l The light value
+	 * @return string    The CSS string
+	 */
+	public static function hsl(float $h, float $s, float $l, float $a = 1.0) {
+		if ($a == 1.0 && !static::$force_alpha) {
+			return sprintf('hsl(%s,%s,%s)', $h, $s, $l);
+		}
+		return sprintf('hsla(%s,%s,%s,%s)', $h, $s, $l, $a);
+	}
+}

@@ -35,7 +35,9 @@ class color implements \Serializable {
 	 * @param string $type  (optional) The type to try to import it as
 	 */
 	public function __construct($color, string $type = '') {
-		if (empty($type) || !is_callable([__CLASS__, 'import_'.$type])) {
+		if (is_object($color) && is_a($color, __CLASS__)) {
+			$type = 'color';
+		} elseif (empty($type) || !is_callable([__CLASS__, 'import_'.$type])) {
 			$type = static::get_color_type($color);
 		}
 		call_user_func([__CLASS__, 'import_'.$type], $color);
@@ -107,6 +109,17 @@ class color implements \Serializable {
 			__CLASS__
 		));
 		$this->import_rgb([0, 0, 0]);
+	}
+	
+	/**
+	 * Handles importing of another instance of color
+	 * 
+	 * @return void
+	 */
+	protected function import_color(color $color) {
+		$this->rgb = $color->rgb;
+		$this->hex = $color->hex;
+		$this->hsl = clone $color->hsl;
 	}
 	
 	/**
