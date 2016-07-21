@@ -49,6 +49,15 @@ class main implements \Serializable {
 		return $color;
 	}
 	
+	public function cmyk() :array {
+		$rgb = $this->color->rgb;
+		return generate::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']);
+	}
+	
+	public function hex() :string {
+		return $this->color->hex;
+	}
+	
 	public function css() :string {
 		return css::best($this->color);
 	}
