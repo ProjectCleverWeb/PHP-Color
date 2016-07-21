@@ -43,7 +43,7 @@ class main implements \Serializable {
 	
 	public function hsl() :array {
 		$color = [];
-		foreach((array) $this->color->hsl as $key => $value) {
+		foreach($this->color->hsl() as $key => $value) {
 			$color[$key] = round($value, abs($this->hsl_result_accuracy));
 		}
 		return $color + ['a' => $this->color->alpha()];
@@ -101,20 +101,29 @@ class main implements \Serializable {
 		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
-	public function rgb_scheme(string $scheme_name = '') :array {
-		return static::_convert_scheme(
-			static::hsl_scheme($scheme_name),
-			[new generate, 'hsl_to_rgb']
-		);
+	public function rgb_scheme(string $scheme_name) :array {
+		return static::_scheme($scheme_name, 'rgb', $this->hsl());
 	}
 	
-	public function hsl_scheme(string $scheme_name = '') :array {
-		if (is_callable($callable = [new scheme, $scheme_name])) {
-			$hsl = $this->color->hsl;
-			return call_user_func($callable, $hsl['h'], $hsl['s'], $hsl['l']);
+	public function hsl_scheme(string $scheme_name) :array {
+		return static::_scheme($scheme_name, 'hsl', $this->hsl());
+	}
+	
+	public function hex_scheme(string $scheme_name) :array {
+		return static::_scheme($scheme_name, 'hex', $this->hsl());
+	}
+	
+	public function cmyk_scheme(string $scheme_name) :array {
+		return static::_scheme($scheme_name, 'cmyk', $this->hsl());
+	}
+	
+	protected static function _scheme(string $scheme_name, string $callback, array $hsl) {
+		print_r($hsl);
+		if (is_callable($callable = [new scheme, $callback])) {
+			return call_user_func($callable, $hsl['h'], $hsl['s'], $hsl['l'], $scheme_name);
 		}
 		error::call(sprintf(
-			'The $scheme_name "%s" is not a valid scheme name',
+			'The $callback "%s" is not a valid callback',
 			$scheme_name,
 			__CLASS__,
 			__FUNCTION__
@@ -122,25 +131,5 @@ class main implements \Serializable {
 		return [];
 	}
 	
-	public function hex_scheme(string $scheme_name = '') :array {
-		return static::_convert_scheme(
-			static::rgb_scheme($scheme_name),
-			[new generate, 'rgb_to_hex']
-		);
-	}
 	
-	public function cmyk_scheme(string $scheme_name = '') :array {
-		return static::_convert_scheme(
-			static::rgb_scheme($scheme_name),
-			[new generate, 'rgb_to_cmyk']
-		);
-	}
-	
-	protected static function _convert_scheme(array $scheme, callable $callback) {
-		$scheme = array_values($scheme);
-		foreach ($scheme as &$color) {
-			$color = call_user_func_array($callback, $color);
-		}
-		return $scheme;
-	}
 }

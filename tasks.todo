@@ -2,7 +2,6 @@ General:
 	☐	Add git flow
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
-	☐	Alias main::*_scheme() to 'scheme' class
 Bugs:
 	☐	scheme::is_dark() should force $is_dark to be boolean
 Minor:
@@ -29,6 +28,7 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Alias main::*_scheme() to 'scheme' class @done (16-07-21 18:18) @project(Class Specific)
 	✔	Implement alpha channel support @done (16-07-21 16:14) @project(General)
 	✔	Implement exporting as CSS values @done (16-07-20 18:03) @project(General)
 	✔	Add meta folder for generating samples @done (16-07-20 16:17) @project(General)

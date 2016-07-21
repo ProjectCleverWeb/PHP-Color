@@ -19,7 +19,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 analogous colors where the first offset is the original input.
 	 */
-	public static function analogous (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function analogous_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -47,7 +47,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 complementary colors where the first offset is the original input.
 	 */
-	public static function complementary (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function complementary_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -70,7 +70,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 compounding colors where the first offset is the original input.
 	 */
-	public static function compound (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function compound_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -97,7 +97,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 complementary shades of colors where the first offset is the original input.
 	 */
-	public static function monochromatic (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function monochromatic_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		// Avoid black & white
@@ -123,7 +123,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 shades of a color where the first offset is the original input.
 	 */
-	public static function shades (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function shades_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		// Avoid black & white
@@ -151,7 +151,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
-	public static function tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function tetrad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -176,7 +176,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
-	public static function weighted_tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function weighted_tetrad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -199,7 +199,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
 	 */
-	public static function triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function triad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -223,7 +223,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 weighted triangular colors where the first offset is the original input.
 	 */
-	public static function weighted_triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function weighted_triad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -246,7 +246,7 @@ class scheme {
 	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
 	 * @return array                  An array of 5 rectangular colors where the first offset is the original input.
 	 */
-	public static function rectangular (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function rectangular_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -314,5 +314,90 @@ class scheme {
 			$rgb = generate::hsl_to_rgb($h, $s, $l);
 			$is_dark = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']);
 		}
+	}
+	
+	/**
+	 * Generate a array of 5 rgb colors using the $scheme algorithm
+	 * 
+	 * @param  float  $h      The hue value
+	 * @param  float  $s      The saturation value
+	 * @param  float  $l      The light value
+	 * @param  string $scheme The scheme algorithm to use
+	 * @return array          Array of RGB colors
+	 */
+	public static function rgb(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
+		return static::_convert(
+			static::hsl($h, $s, $l, $scheme),
+			[new generate, 'hsl_to_rgb']
+		);
+	}
+	
+	/**
+	 * Generate a array of 5 hsl colors using the $scheme algorithm
+	 * 
+	 * @param  float  $h      The hue value
+	 * @param  float  $s      The saturation value
+	 * @param  float  $l      The light value
+	 * @param  string $scheme The scheme algorithm to use
+	 * @return array          Array of HSL colors
+	 */
+	public static function hsl(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
+		if (is_callable($callable = [new scheme, $scheme.'_set'])) {
+			return call_user_func($callable, $h, $s, $l);
+		}
+		error::call(sprintf(
+			'The $scheme "%s" is not a valid scheme name',
+			$scheme,
+			__CLASS__,
+			__FUNCTION__
+		));
+		return [];
+	}
+	
+	/**
+	 * Generate a array of 5 hex colors using the $scheme algorithm
+	 * 
+	 * @param  float  $h      The hue value
+	 * @param  float  $s      The saturation value
+	 * @param  float  $l      The light value
+	 * @param  string $scheme The scheme algorithm to use
+	 * @return array          Array of hex colors
+	 */
+	public static function hex(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
+		return static::_convert(
+			static::rgb($h, $s, $l, $scheme),
+			[new generate, 'rgb_to_hex']
+		);
+	}
+	
+	/**
+	 * Generate a array of 5 cmyk colors using the $scheme algorithm
+	 * 
+	 * @param  float  $h      The hue value
+	 * @param  float  $s      The saturation value
+	 * @param  float  $l      The light value
+	 * @param  string $scheme The scheme algorithm to use
+	 * @return array          Array of CMYK colors
+	 */
+	public static function cmyk(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
+		return static::_convert(
+			static::rgb($h, $s, $l, $scheme),
+			[new generate, 'rgb_to_cmyk']
+		);
+	}
+	
+	/**
+	 * Convert a color scheme to another color space
+	 * 
+	 * @param  array    $scheme   The current color scheme
+	 * @param  callable $callback The conversion callback to use
+	 * @return array              The converted color scheme
+	 */
+	protected static function _convert(array $scheme, callable $callback) {
+		$scheme = array_values($scheme);
+		foreach ($scheme as &$color) {
+			$color = call_user_func_array($callback, $color);
+		}
+		return $scheme;
 	}
 }

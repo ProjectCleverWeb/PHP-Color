@@ -88,7 +88,7 @@ foreach ($colors as $i => $rgb) {
 		$output .= '<div class="eight wide column">';
 		
 		// $scheme     = scheme::weighted_triad($hsl['h'], $hsl['s'], $hsl['l']);
-		$scheme     = call_user_func_array(['projectcleverweb\\color\\scheme', $func], [$hsl['h'], $hsl['s'], $hsl['l']]);
+		$scheme     = call_user_func_array(['projectcleverweb\\color\\scheme', $func.'_set'], [$hsl['h'], $hsl['s'], $hsl['l']]);
 		$rgb0       = generate::hsl_to_rgb($scheme[0][0], $scheme[0][1], $scheme[0][2]);
 		$hex0_text  = check::is_dark($rgb0['r'], $rgb0['g'], $rgb0['b']) ? 'FFFFFF' : '000000';
 		$hex0       = generate::rgb_to_hex($rgb0['r'], $rgb0['g'], $rgb0['b']);
