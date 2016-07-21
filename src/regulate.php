@@ -76,6 +76,17 @@ class regulate {
 		static::percent($value);
 	}
 	
+	
+	/**
+	 * Forces a float to be within the range of 0 and 100.
+	 * 
+	 * @param  float &$value The value to modify
+	 * @return void
+	 */
+	public static function alpha(float &$value) {
+		static::percent($value);
+	}
+	
 	/**
 	 * Forces and CMYK array to have specific offsets, and max values.
 	 * 

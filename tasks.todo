@@ -1,5 +1,4 @@
 General:
-	☐	Implement alpha channel support
 	☐	Add git flow
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
@@ -30,5 +29,6 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Implement alpha channel support @done (16-07-21 16:14) @project(General)
 	✔	Implement exporting as CSS values @done (16-07-20 18:03) @project(General)
 	✔	Add meta folder for generating samples @done (16-07-20 16:17) @project(General)

@@ -14,7 +14,7 @@ class main implements \Serializable {
 	}
 	
 	public function __clone() {
-		$rgb = $this->color->rgb;
+		$rgb = $this->color->rgb + ['a' => $this->color->alpha()];
 		unset($this->color);
 		$this->set($rgb, 'rgb');
 	}
@@ -38,7 +38,7 @@ class main implements \Serializable {
 	}
 	
 	public function rgb() :array {
-		return (array) $this->color->rgb;
+		return (array) $this->color->rgb + ['a' => $this->color->alpha()];
 	}
 	
 	public function hsl() :array {
@@ -46,12 +46,12 @@ class main implements \Serializable {
 		foreach((array) $this->color->hsl as $key => $value) {
 			$color[$key] = round($value, abs($this->hsl_result_accuracy));
 		}
-		return $color;
+		return $color + ['a' => $this->color->alpha()];
 	}
 	
 	public function cmyk() :array {
 		$rgb = $this->color->rgb;
-		return generate::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']);
+		return generate::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
 	}
 	
 	public function hex() :string {
@@ -60,6 +60,16 @@ class main implements \Serializable {
 	
 	public function css() :string {
 		return css::best($this->color);
+	}
+	
+	/**
+	 * Get (and set) the alpha channel
+	 * 
+	 * @param  mixed $new_alpha If numeric, the alpha channel is set to this value
+	 * @return float            The current alpha value
+	 */
+	public function alpha($new_alpha) {
+		return $this->color->alpha($new_alpha);
 	}
 	
 	public function is_dark(int $check_score = 128) :bool {

@@ -5,6 +5,9 @@ namespace projectcleverweb\color;
 require_once __DIR__.'/../autoload.php';
 
 
+$c = new main(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 50]);
+print_r($c->css());
+exit;
 
 $colors = [
 	// Base Colors

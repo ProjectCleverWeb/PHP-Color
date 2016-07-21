@@ -19,10 +19,10 @@ class css {
 	 */
 	public static function best($color) {
 		static::_color_instance($color);
-		if ($color->alpha == 1.0 && !static::$force_alpha) {
+		if ($color->alpha() == 1.0 && !static::$force_alpha) {
 			return static::hex($color->rgb['r'], $color->rgb['g'], $color->rgb['b']);
 		}
-		return static::rgb($color->rgb['r'], $color->rgb['g'], $color->rgb['b'], $color->alpha);
+		return static::rgb($color->rgb['r'], $color->rgb['g'], $color->rgb['b'], $color->alpha());
 	}
 	
 	/**
@@ -61,7 +61,7 @@ class css {
 		if ($a == 1.0 && !static::$force_alpha) {
 			return sprintf('rgb(%s,%s,%s)', $r, $g, $b);
 		}
-		return sprintf('rgba(%s,%s,%s,%s)', $r, $g, $b, $a);
+		return sprintf('rgba(%s,%s,%s,%s)', $r, $g, $b, $a / 100);
 	}
 	
 	/**
@@ -74,8 +74,8 @@ class css {
 	 */
 	public static function hsl(float $h, float $s, float $l, float $a = 1.0) {
 		if ($a == 1.0 && !static::$force_alpha) {
-			return sprintf('hsl(%s,%s,%s)', $h, $s, $l);
+			return sprintf('hsl(%s,%s%%,%s%%)', $h, $s, $l);
 		}
-		return sprintf('hsla(%s,%s,%s,%s)', $h, $s, $l, $a);
+		return sprintf('hsla(%s,%s%%,%s%%,%s)', $h, $s, $l, $a / 100);
 	}
 }

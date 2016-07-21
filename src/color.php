@@ -29,6 +29,12 @@ class color implements \Serializable {
 	public $hsl;
 	
 	/**
+	 * $the current colors alpha channel (Opacity)
+	 * @var float
+	 */
+	protected $alpha = 100.0;
+	
+	/**
 	 * Takes an input color and imports it as its respective type.
 	 * 
 	 * @param mixed  $color An RGB (array), HSL (array), Hex (string), Integer (hex), or CMYK (array) representation of a color.
@@ -49,7 +55,7 @@ class color implements \Serializable {
 	 * @return string The serialized object
 	 */
 	public function serialize() :string {
-		return json_encode($this->rgb);
+		return json_encode($this->rgb + ['a' => $this->alpha]);
 	}
 	
 	/**
@@ -99,6 +105,19 @@ class color implements \Serializable {
 	}
 	
 	/**
+	 * Get (and set) the alpha channel
+	 * 
+	 * @param  mixed $new_alpha If numeric, the alpha channel is set to this value
+	 * @return float            The current alpha value
+	 */
+	public function alpha($new_alpha = NULL) :float {
+		if (is_numeric($new_alpha)) {
+			$this->alpha = (float) $new_alpha;
+		}
+		return $this->alpha;
+	}
+	
+	/**
 	 * Handles general errors when importing, and forces the input to be valid.
 	 * 
 	 * @return void
@@ -112,14 +131,29 @@ class color implements \Serializable {
 	}
 	
 	/**
+	 * Import the alpha channel from a color array, or create one if it doesn't exist
+	 * 
+	 * @param  array $color The color array to check
+	 * @return void
+	 */
+	protected function import_alpha(array $color) {
+		if (isset($color['a'])) {
+			$this->alpha = (float) $color['a'];
+		} else {
+			$this->alpha = 100.0;
+		}
+	}
+	
+	/**
 	 * Handles importing of another instance of color
 	 * 
 	 * @return void
 	 */
 	protected function import_color(color $color) {
-		$this->rgb = $color->rgb;
-		$this->hex = $color->hex;
-		$this->hsl = clone $color->hsl;
+		$this->rgb   = $color->rgb;
+		$this->hex   = $color->hex;
+		$this->hsl   = clone $color->hsl;
+		$this->alpha = $color->alpha;
 	}
 	
 	/**
@@ -130,9 +164,10 @@ class color implements \Serializable {
 	 */
 	public function import_rgb(array $color) {
 		regulate::rgb_array($color);
-		$this->rgb = $color;
+		$this->rgb = array_intersect_key($color, array_flip(['r', 'g', 'b']));
 		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->hsl = new hsl($this->rgb);
+		$this->import_alpha($color);
 	}
 	
 	/**
@@ -146,6 +181,7 @@ class color implements \Serializable {
 		$this->rgb = generate::hsl_to_rgb($color['h'], $color['s'], $color['l']);
 		$this->hsl = new hsl($this->rgb);
 		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
+		$this->import_alpha($color);
 	}
 	
 	/**
@@ -179,6 +215,7 @@ class color implements \Serializable {
 	public function import_cmyk(array $color) {
 		regulate::cmyk_array($color);
 		$this->import_rgb(generate::cmyk_to_rgb($color['c'], $color['m'], $color['y'], $color['k']));
+		$this->import_alpha($color);
 	}
 }
 
