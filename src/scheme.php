@@ -21,6 +21,8 @@ class scheme {
 	 */
 	public static function analogous (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		// No inverting saturation
 		$delta = FALSE;
 		if ($s < 50) {
@@ -28,10 +30,10 @@ class scheme {
 		}
 		return [
 			[$h, $s, $l],
-			[static::mod($h, -36, TRUE, 360), $s, $l],
-			[static::mod($h, -18, TRUE, 360), static::mod($s, 6, $delta), static::mod($l, 6, $is_dark)],
-			[static::mod($h, 18, TRUE, 360), static::mod($s, 6, $delta), static::mod($l, 6, $is_dark)],
-			[static::mod($h, 36, TRUE, 360), $s, $l]
+			[static::mod($h, -36, TRUE, 360), $as, $al],
+			[static::mod($h, -18, TRUE, 360), static::mod($as, 6, $delta), static::mod($al, 6, $is_dark)],
+			[static::mod($h, 18, TRUE, 360), static::mod($as, 6, $delta), static::mod($al, 6, $is_dark)],
+			[static::mod($h, 36, TRUE, 360), $as, $al]
 		];
 	}
 	
@@ -47,12 +49,14 @@ class scheme {
 	 */
 	public static function complementary (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		return [
 			[$h, $s, $l],
-			[$h, $s, static::mod($l, 20, $is_dark)],
-			[$h, $s, static::mod($l, 10, $is_dark)],
-			[static::mod($h, 185, TRUE, 360), $s, $l],
-			[static::mod($h, 185, TRUE, 360), $s, static::mod($l, 10, $is_dark)]
+			[$h, $as, static::mod($al, 20, $is_dark)],
+			[$h, $as, static::mod($al, 10, $is_dark)],
+			[static::mod($h, 185, TRUE, 360), $as, $al],
+			[static::mod($h, 185, TRUE, 360), $as, static::mod($al, 10, $is_dark)]
 		];
 	}
 	
@@ -68,6 +72,8 @@ class scheme {
 	 */
 	public static function compound (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		// No inverting saturation
 		$delta = FALSE;
 		if ($s < 50) {
@@ -75,10 +81,10 @@ class scheme {
 		}
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 40, TRUE, 360), static::mod($s, 12, $delta), static::mod($l, 24, $is_dark)],
-			[static::mod($h, 40, TRUE, 360), static::mod($s, 12, $delta), static::mod($l, 16, $is_dark)],
-			[static::mod($h, 135, TRUE, 360), static::mod($s, 12, $delta), static::mod($l, 16, $is_dark)],
-			[static::mod($h, 160, TRUE, 360), static::mod($s, 12, $delta), static::mod($l, 24, $is_dark)]
+			[static::mod($h, 40, TRUE, 360), static::mod($as, 12, $delta), static::mod($al, 24, $is_dark)],
+			[static::mod($h, 40, TRUE, 360), static::mod($as, 12, $delta), static::mod($al, 16, $is_dark)],
+			[static::mod($h, 135, TRUE, 360), static::mod($as, 12, $delta), static::mod($al, 16, $is_dark)],
+			[static::mod($h, 160, TRUE, 360), static::mod($as, 12, $delta), static::mod($al, 24, $is_dark)]
 		];
 	}
 	
@@ -93,6 +99,7 @@ class scheme {
 	 */
 	public static function monochromatic (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
 		// Avoid black & white
 		$delta = 0;
 		if ($l > 40 && $l < 60) {
@@ -100,10 +107,10 @@ class scheme {
 		}
 		return [
 			[$h, $s, $l],
-			[$h, $s, static::mod($l, -8, $is_dark)],
-			[$h, $s, static::mod($l, 8, $is_dark)],
-			[$h, $s, static::mod($l, 55 + $delta, $is_dark)],
-			[$h, $s, static::mod($l, 45 + $delta, $is_dark)]
+			[$h, $s, static::mod($al, -8, $is_dark)],
+			[$h, $s, static::mod($al, 8, $is_dark)],
+			[$h, $s, static::mod($al, 55 + $delta, $is_dark)],
+			[$h, $s, static::mod($al, 45 + $delta, $is_dark)]
 		];
 	}
 	
@@ -118,6 +125,7 @@ class scheme {
 	 */
 	public static function shades (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
 		// Avoid black & white
 		$delta = 0;
 		if ($l <= 10 && $l >= 90) {
@@ -125,10 +133,10 @@ class scheme {
 		}
 		return [
 			[$h, $s, $l],
-			[$h, $s, max(min(static::mod($l, -20 - $delta, $is_dark), 97), 5)],
-			[$h, $s, max(min(static::mod($l, -10 - $delta, $is_dark), 97), 5)],
-			[$h, $s, max(min(static::mod($l, 8 + $delta, $is_dark), 97), 5)],
-			[$h, $s, max(min(static::mod($l, 16 + $delta, $is_dark), 97), 5)]
+			[$h, $s, max(min(static::mod($al, -20 - $delta, $is_dark), 97), 5)],
+			[$h, $s, max(min(static::mod($al, -10 - $delta, $is_dark), 97), 5)],
+			[$h, $s, max(min(static::mod($al, 8 + $delta, $is_dark), 97), 5)],
+			[$h, $s, max(min(static::mod($al, 16 + $delta, $is_dark), 97), 5)]
 		];
 	}
 	
@@ -145,12 +153,14 @@ class scheme {
 	 */
 	public static function tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 180, TRUE, 360), $s, $l],
-			[static::mod($h, 120, TRUE, 360), $s, $l],
-			[$h, $s, static::mod($l, 18, $is_dark)],
-			[static::mod($h, -120, TRUE, 360), $s, $l]
+			[static::mod($h, 180, TRUE, 360), $as, $al],
+			[static::mod($h, 120, TRUE, 360), $as, $al],
+			[$h, $as, static::mod($al, 18, $is_dark)],
+			[static::mod($h, -120, TRUE, 360), $as, $al]
 		];
 	}
 	
@@ -168,12 +178,14 @@ class scheme {
 	 */
 	public static function weighted_tetrad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 160, TRUE, 360), $s, $l],
-			[static::mod($h, 80, TRUE, 360), $s, $l],
-			[$h, $s, static::mod($l, 18, $is_dark)],
-			[static::mod($h, -80, TRUE, 360), $s, $l]
+			[static::mod($h, 160, TRUE, 360), $as, $al],
+			[static::mod($h, 80, TRUE, 360), $as, $al],
+			[$h, $as, static::mod($al, 18, $is_dark)],
+			[static::mod($h, -80, TRUE, 360), $as, $al]
 		];
 	}
 	
@@ -189,12 +201,14 @@ class scheme {
 	 */
 	public static function triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 120, TRUE, 360), $s, $l],
-			[$h, $s, static::mod($l, 18, $is_dark)],
-			[static::mod($h, -120, TRUE, 360), $s, $l],
-			[static::mod($h, -120, TRUE, 360), $s, static::mod($l, 18, $is_dark)]
+			[static::mod($h, 120, TRUE, 360), $as, $al],
+			[$h, $as, static::mod($al, 18, $is_dark)],
+			[static::mod($h, -120, TRUE, 360), $as, $al],
+			[static::mod($h, -120, TRUE, 360), $as, static::mod($al, 18, $is_dark)]
 		];
 	}
 	
@@ -211,12 +225,14 @@ class scheme {
 	 */
 	public static function weighted_triad (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 80, TRUE, 360), $s, $l],
-			[$h, $s, static::mod($l, 18, $is_dark)],
-			[static::mod($h, -80, TRUE, 360), $s, $l],
-			[static::mod($h, -80, TRUE, 360), $s, static::mod($l, 18, $is_dark)]
+			[static::mod($h, 80, TRUE, 360), $as, $al],
+			[$h, $as, static::mod($al, 18, $is_dark)],
+			[static::mod($h, -80, TRUE, 360), $as, $al],
+			[static::mod($h, -80, TRUE, 360), $as, static::mod($al, 18, $is_dark)]
 		];
 	}
 	
@@ -232,13 +248,41 @@ class scheme {
 	 */
 	public static function rectangular (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
+		$al = static::alt_light($l);
+		$as = static::alt_saturation($s);
 		return [
 			[$h, $s, $l],
-			[static::mod($h, 216, TRUE, 360), $s, $l],
-			[static::mod($h, 180, TRUE, 360), $s, $l],
-			[$h, $s, static::mod($l, 18, $is_dark)],
-			[static::mod($h, 36, TRUE, 360), $s, $l]
+			[static::mod($h, 216, TRUE, 360), $as, $al],
+			[static::mod($h, 180, TRUE, 360), $as, $al],
+			[$h, $as, static::mod($al, 18, $is_dark)],
+			[static::mod($h, 36, TRUE, 360), $as, $al]
 		];
+	}
+	
+	/**
+	 * This prevents non-base colors from having either a too high or too low
+	 * light value. If a value is too high or low, the resulting color sets will
+	 * have many duplicate colors. This method doesn't prevent that, but it will
+	 * reduce how often duplicate colors appear.
+	 * 
+	 * @param  float  $light The light value to check
+	 * @return float         The alternate light value to use
+	 */
+	protected static function alt_light(float $light = 0.0) {
+		return (float) max(min($light, 93), 7);
+	}
+	
+	/**
+	 * This prevents non-base colors from having either a too low saturation value.
+	 * If a value is too low, the resulting color sets will have many duplicate
+	 * colors. This method doesn't prevent that, but it will reduce how often
+	 * duplicate colors appear.
+	 * 
+	 * @param  float  $light The light value to check
+	 * @return float         The alternate light value to use
+	 */
+	protected static function alt_saturation(float $saturation = 0.0) {
+		return (float) max($saturation, 7);
 	}
 	
 	/**
