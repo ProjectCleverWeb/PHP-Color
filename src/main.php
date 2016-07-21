@@ -7,6 +7,7 @@ namespace projectcleverweb\color;
 class main implements \Serializable {
 	
 	public $color;
+	public $hsl_result_accuracy = 0;
 	
 	public function __construct($color) {
 		$this->set($color);
@@ -41,7 +42,11 @@ class main implements \Serializable {
 	}
 	
 	public function hsl() :array {
-		return (array) $this->color->hsl;
+		$color = [];
+		foreach((array) $this->color->hsl as $key => $value) {
+			$color[$key] = round($value, abs($this->hsl_result_accuracy));
+		}
+		return $color;
 	}
 	
 	public function css() :string {

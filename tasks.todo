@@ -25,6 +25,7 @@ Testing:
 	☐	Add test for class 'scheme'
 	☐	Add randomized testing for scheme generation
 	☐	Test against float vs int function arguments
+	☐	Test for cloning issues
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
