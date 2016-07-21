@@ -14,6 +14,10 @@ class hsl implements \ArrayAccess {
 		$this->hsl      = generate::rgb_to_hsl($rgb_array['r'], $rgb_array['g'], $rgb_array['b'], $this->accuracy);
 	}
 	
+	public function __invoke() {
+		return array_combine(['h', 's', 'l'], $this->hsl);
+	}
+	
 	public function offsetExists($offset) :bool {
 		return isset($this->hsl[$offset]);
 	}
@@ -46,5 +50,3 @@ class hsl implements \ArrayAccess {
 		}
 	}
 }
-
-

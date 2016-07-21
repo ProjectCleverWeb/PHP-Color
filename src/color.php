@@ -50,6 +50,15 @@ class color implements \Serializable {
 	}
 	
 	/**
+	 * Shortcut for invoking into an HSL array
+	 * 
+	 * @return array The HSL array
+	 */
+	public function hsl() {
+		return ($this->hsl)();
+	}
+	
+	/**
 	 * Serializes this object into JSON.
 	 * 
 	 * @return string The serialized object
@@ -164,7 +173,7 @@ class color implements \Serializable {
 	 */
 	public function import_rgb(array $color) {
 		regulate::rgb_array($color);
-		$this->rgb = array_intersect_key($color, array_flip(['r', 'g', 'b']));
+		$this->rgb = array_intersect_key($color, ['r' => 0, 'g' => 0, 'b' => 0]);
 		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->hsl = new hsl($this->rgb);
 		$this->import_alpha($color);
