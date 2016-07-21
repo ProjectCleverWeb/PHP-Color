@@ -35,15 +35,7 @@ foreach ($colors as &$color) {
 	if (is_array($color)) {
 		$color = generate::rgb_to_hex($color['r'], $color['g'], $color['b']);
 	}
-}
-
-$steps  = 20;
-$colors = [];
-foreach (range(1, $steps) as $step) {
-	$h = 360 / $steps * $step;
-	$s = 100 / $steps * $step;
-	$l = 100 / $steps * $step;
-	$colors[$step] = generate::hsl_to_rgb($h, $s, $l);
+	$color = generate::hex_to_rgb($color);
 }
 $colors = array_reverse($colors);
 
