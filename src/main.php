@@ -29,7 +29,7 @@ class main implements \Serializable {
 		$this->set($unserialized, 'rgb');
 	}
 	
-	public function set($color, string $type = '') {
+	protected function set($color, string $type = '') {
 		if ($color instanceof color) {
 			$this->color = $color;
 		} else {

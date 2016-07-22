@@ -22,7 +22,7 @@ class regulate {
 	 * @return void
 	 */
 	public static function rgb(int &$value) {
-		$value = static::max(abs($value), 256);
+		$value = static::max(abs($value), 255);
 	}
 	
 	/**
@@ -188,14 +188,14 @@ class regulate {
 	/**
 	 * Absolute and divide any number so it fits between 0 and $max
 	 * 
-	 * @param  float  $number The orginal number
+	 * @param  float  $number The original number
 	 * @param  float  $max    The maximum value $number should be
-	 * @return float          The rsulting number as a float
+	 * @return float          The resulting number as a float
 	 */
 	protected static function max(float $number, float $max) :float {
 		$max = abs($max);
 		if ($number > $max) {
-			$number -= floor($number / $max) * $max;
+			$number -= floor($number / ($max + 1)) * ($max + 1);
 		}
 		return $number;
 	}
