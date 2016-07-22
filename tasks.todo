@@ -2,6 +2,7 @@ General:
 	☐	Add git flow
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
+	☐	Abstract main class serialize methods
 Bugs:
 	☐	scheme::is_dark() should force $is_dark to be boolean
 Minor:

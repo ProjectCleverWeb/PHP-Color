@@ -124,7 +124,7 @@ class GeneratorTest extends unit_test {
 							$rgb2['g'],
 							$rgb2['b']
 						));
-						$this->assertEmpty(array_diff_assoc($rgb1, $rgb2), sprintf(
+						$this->assertEmpty(array_diff_assoc($hsl1, $hsl2), sprintf(
 							'HSL color drift detected: hsl1(%s, %s, %s) != hsl2(%s, %s, %s)',
 							$hsl1['r'],
 							$hsl1['g'],
@@ -133,6 +133,9 @@ class GeneratorTest extends unit_test {
 							$hsl2['g'],
 							$hsl2['b']
 						));
+					} else {
+						$this->assertEmpty(array_diff_assoc($rgb1, $rgb2));
+						$this->assertEmpty(array_diff_assoc($hsl1, $hsl2));
 					}
 				}
 			}
