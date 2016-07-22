@@ -15,7 +15,6 @@ Documentation:
 	☐	Add code docs to class 'main'
 	☐	Add code docs to class 'modify'
 Testing:
-	☐	Add test for class 'check'
 	☐	Add test for class 'color'
 	☐	Add test for class 'error'
 	☐	Add test for class 'hsl'
@@ -29,6 +28,7 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Add test for class 'check' @done (16-07-22 14:29) @project(Testing)
 	✔	Alias main::*_scheme() to 'scheme' class @done (16-07-21 18:18) @project(Class Specific)
 	✔	Implement alpha channel support @done (16-07-21 16:14) @project(General)
 	✔	Implement exporting as CSS values @done (16-07-20 18:03) @project(General)
