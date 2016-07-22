@@ -1,6 +1,5 @@
 <?php
 
-
 namespace projectcleverweb\color;
 
 /**
@@ -13,13 +12,13 @@ class scheme {
 	/**
 	 * These colors are all close to each other on a color wheel.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 analogous colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 analogous colors where the first offset is the original input.
 	 */
-	public static function analogous_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function analogous_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -41,13 +40,13 @@ class scheme {
 	 * 2 of these colors are a different shade of the base color. The other 2 are
 	 * a weighted opposite of the base color.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 complementary colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 complementary colors where the first offset is the original input.
 	 */
-	public static function complementary_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function complementary_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -64,13 +63,13 @@ class scheme {
 	 * These colors use mathematical offsets that usually complement each other
 	 * well, and can highlight the base color.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 compounding colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 compounding colors where the first offset is the original input.
 	 */
-	public static function compound_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function compound_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -91,13 +90,13 @@ class scheme {
 	/**
 	 * 5 complementary shades of one color.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 complementary shades of colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 complementary shades of colors where the first offset is the original input.
 	 */
-	public static function monochromatic_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function monochromatic_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		// Avoid black & white
@@ -117,13 +116,13 @@ class scheme {
 	/**
 	 * 5 different shades of one color.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 shades of a color where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 shades of a color where the first offset is the original input.
 	 */
-	public static function shades_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function shades_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		// Avoid black & white
@@ -145,13 +144,13 @@ class scheme {
 	 * wheel, plus 1 alternated shade for the base color and the 1 color that is
 	 * opposite of the base color.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 triangular colors where the first offset is the original input.
 	 */
-	public static function tetrad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function tetrad_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -170,13 +169,13 @@ class scheme {
 	 * opposite color. These colors are all slightly closer to the base color
 	 * than in a normal tetrad.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 triangular colors where the first offset is the original input.
 	 */
-	public static function weighted_tetrad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function weighted_tetrad_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -193,13 +192,13 @@ class scheme {
 	 * These colors are all equally distanced from each other on a color wheel,
 	 * 2 of which have an alternate shade.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 triangular colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 triangular colors where the first offset is the original input.
 	 */
-	public static function triad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function triad_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -217,13 +216,13 @@ class scheme {
 	 * 2 of which have an alternate shade. These colors are all slightly closer to
 	 * the base color than in a normal triad.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 weighted triangular colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 weighted triangular colors where the first offset is the original input.
 	 */
-	public static function weighted_triad_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function weighted_triad_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -240,13 +239,13 @@ class scheme {
 	 * 4 of these colors form a rectangle on a color wheel, and 1 color is an
 	 * alternate shade for the base color.
 	 * 
-	 * @param  float|integer $h       The base color hue degree (0 - 359)
-	 * @param  float|integer $s       The base color saturation percentage (0 - 100)
-	 * @param  float|integer $l       The base color lighting percentage (0 - 100)
-	 * @param  bool|null     $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
-	 * @return array                  An array of 5 rectangular colors where the first offset is the original input.
+	 * @param  float     $h       The base color hue degree (0 - 359)
+	 * @param  float     $s       The base color saturation percentage (0 - 100)
+	 * @param  float     $l       The base color lighting percentage (0 - 100)
+	 * @param  bool|null $is_dark Whether or not to treat the base color as a dark color. Leave as null to dynamically generate this.
+	 * @return array              An array of 5 rectangular colors where the first offset is the original input.
 	 */
-	public static function rectangular_set (float $h = 0, float $s = 0, float $l = 0, $is_dark = NULL) :array {
+	public static function rectangular_set (float $h = 0.0, float $s = 0.0, float $l = 0.0, $is_dark = NULL) :array {
 		static::is_dark($is_dark, $h, $s, $l);
 		$al = static::alt_light($l);
 		$as = static::alt_saturation($s);
@@ -265,8 +264,8 @@ class scheme {
 	 * have many duplicate colors. This method doesn't prevent that, but it will
 	 * reduce how often duplicate colors appear.
 	 * 
-	 * @param  float  $light The light value to check
-	 * @return float         The alternate light value to use
+	 * @param  float $light The light value to check
+	 * @return float        The alternate light value to use
 	 */
 	protected static function alt_light(float $light = 0.0) {
 		return (float) max(min($light, 93), 7);
@@ -278,8 +277,8 @@ class scheme {
 	 * colors. This method doesn't prevent that, but it will reduce how often
 	 * duplicate colors appear.
 	 * 
-	 * @param  float  $light The light value to check
-	 * @return float         The alternate light value to use
+	 * @param  float $saturation The saturation value to check
+	 * @return float             The alternate saturation value to use
 	 */
 	protected static function alt_saturation(float $saturation = 0.0) {
 		return (float) max($saturation, 7);
@@ -304,14 +303,14 @@ class scheme {
 	/**
 	 * Check if an HSL color is dark (YIQ)
 	 * 
-	 * @param  float|integer $h The hue degree (0 - 359)
-	 * @param  float|integer $s The saturation percentage (0 - 100)
-	 * @param  float|integer $l The lighting percentage (0 - 100)
-	 * @return boolean          TRUE if the color is dark, FALSE otherwise.
+	 * @param  float $h The hue degree (0 - 359)
+	 * @param  float $s The saturation percentage (0 - 100)
+	 * @param  float $l The lighting percentage (0 - 100)
+	 * @return void
 	 */
-	protected static function is_dark(&$is_dark, float $h = 0, float $s = 0, float $l = 0) {
+	protected static function is_dark(&$is_dark, float $h = 0.0, float $s = 0.0, float $l = 0.0) {
 		if (is_null($is_dark)) {
-			$rgb = generate::hsl_to_rgb($h, $s, $l);
+			$rgb     = generate::hsl_to_rgb($h, $s, $l);
 			$is_dark = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']);
 		}
 	}
