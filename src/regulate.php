@@ -49,8 +49,9 @@ class regulate {
 	public static function hsl(float &$value, string $offset) {
 		if (strtolower($offset) == 'h') {
 			$value = static::max(abs($value), 359);
+		} else {
+			static::percent($value);
 		}
-		static::percent($value);
 	}
 	
 	/**
