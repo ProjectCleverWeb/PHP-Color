@@ -313,6 +313,7 @@ class scheme {
 			$rgb     = generate::hsl_to_rgb($h, $s, $l);
 			$is_dark = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']);
 		}
+		settype($is_dark, 'bool');
 	}
 	
 	/**

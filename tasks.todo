@@ -4,10 +4,7 @@ Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
 	☐	Abstract main class serialize methods
 Bugs:
-	☐	scheme::is_dark() should force $is_dark to be boolean
 Minor:
-	☐	Fix color::_get_array_type() docs ($color should be type array)
-	☐	Fix scheme::is_dark() docs (return is void)
 Documentation:
 	☐	Create README file
 	☐	Add code docs to class 'generate'
@@ -28,6 +25,9 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Fix scheme::is_dark() docs (return is void) @done (16-07-22 15:45) @project(Minor)
+	✔	Fix color::_get_array_type() docs ($color should be type array) @done (16-07-22 15:44) @project(Minor)
+	✔	scheme::is_dark() should force $is_dark to be boolean @done (16-07-22 15:43) @project(Bugs)
 	✔	Add test for class 'check' @done (16-07-22 14:29) @project(Testing)
 	✔	Alias main::*_scheme() to 'scheme' class @done (16-07-21 18:18) @project(Class Specific)
 	✔	Implement alpha channel support @done (16-07-21 16:14) @project(General)

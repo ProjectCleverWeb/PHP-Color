@@ -99,7 +99,7 @@ class color implements \Serializable {
 	/**
 	 * Determine the type of color being used if it is an array.
 	 * 
-	 * @param  mized  $color The color in question
+	 * @param  array  $color The color in question
 	 * @return string        The color type as a string, returns 'error' if $color is invalid
 	 */
 	protected static function _get_array_type(array $color) :string {
