@@ -7,7 +7,6 @@ namespace projectcleverweb\color;
 class main implements \Serializable {
 	
 	public $color;
-	public $hsl_result_accuracy = 0;
 	
 	public function __construct($color) {
 		$this->set($color);
@@ -41,10 +40,10 @@ class main implements \Serializable {
 		return (array) $this->color->rgb + ['a' => $this->color->alpha()];
 	}
 	
-	public function hsl() :array {
+	public function hsl(int $accuracy = 0) :array {
 		$color = [];
 		foreach($this->color->hsl() as $key => $value) {
-			$color[$key] = round($value, abs($this->hsl_result_accuracy));
+			$color[$key] = round($value, abs($accuracy));
 		}
 		return $color + ['a' => $this->color->alpha()];
 	}
@@ -102,19 +101,19 @@ class main implements \Serializable {
 	}
 	
 	public function rgb_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'rgb', $this->hsl());
+		return static::_scheme($scheme_name, 'rgb', $this->hsl(3));
 	}
 	
 	public function hsl_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'hsl', $this->hsl());
+		return static::_scheme($scheme_name, 'hsl', $this->hsl(3));
 	}
 	
 	public function hex_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'hex', $this->hsl());
+		return static::_scheme($scheme_name, 'hex', $this->hsl(3));
 	}
 	
 	public function cmyk_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'cmyk', $this->hsl());
+		return static::_scheme($scheme_name, 'cmyk', $this->hsl(3));
 	}
 	
 	protected static function _scheme(string $scheme_name, string $callback, array $hsl) {
