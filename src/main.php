@@ -118,7 +118,6 @@ class main implements \Serializable {
 	}
 	
 	protected static function _scheme(string $scheme_name, string $callback, array $hsl) {
-		print_r($hsl);
 		if (is_callable($callable = [new scheme, $callback])) {
 			return call_user_func($callable, $hsl['h'], $hsl['s'], $hsl['l'], $scheme_name);
 		}
