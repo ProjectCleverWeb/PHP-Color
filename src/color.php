@@ -84,7 +84,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * 
 	 * @return string The serialized object
 	 */
-	public function jsonSerialize() :string {
+	public function jsonSerialize() :array {
 		return $this->rgb + ['a' => $this->alpha];
 	}
 	
