@@ -1,8 +1,13 @@
 General:
 	☐	Add git flow
+	☐	Fix serialization to return array not string
+	☐	Add JSON serialization support
+	☐	Add ability to generate all colors within the selected color range, with steps settable
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
 	☐	Abstract main class serialize methods
+	☐	Add main::difference() for comparing 2 different colors
+	☐	add main::rgb_rand() and main::hsl_rand()
 Bugs:
 Minor:
 Documentation:
