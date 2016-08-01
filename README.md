@@ -35,7 +35,7 @@ use projectcleverweb\color\main as color;
 Colors can be imported several ways. The below all create the exact same object:
 
 ```php
-// Import as a hexadecimal string
+// Import as a hexadecimal string (the '#' is optional)
 $c = new color('#FF0000');
 
 // Import as a RGB array
@@ -50,7 +50,7 @@ $c = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);
 // Import as a hex integer
 $c = new color(0xff0000);
 
-// Import as a RGB array with Alpha channel
+// Import as a RGB array with Alpha channel (Alpha is only support with array inputs and must use the 'a' offset)
 $c = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 0]);
 ```
 

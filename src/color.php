@@ -8,7 +8,7 @@ namespace projectcleverweb\color;
  * ================
  * Stores data about a particular color in multiple formats.
  */
-class color implements \Serializable {
+class color implements \Serializable, \JsonSerializable {
 	
 	/**
 	 * The current color as a hexadecimal string
@@ -59,7 +59,7 @@ class color implements \Serializable {
 	}
 	
 	/**
-	 * Serializes this object into JSON.
+	 * Serializes this object.
 	 * 
 	 * @return string The serialized object
 	 */
@@ -68,7 +68,7 @@ class color implements \Serializable {
 	}
 	
 	/**
-	 * Unserializes this object from JSON.
+	 * Unserializes this object.
 	 * 
 	 * @param  string $serialized The object as a serialized string
 	 * @return void
@@ -77,6 +77,15 @@ class color implements \Serializable {
 		$unserialized = (array) json_decode((string) $serialized);
 		regulate::rgb_array($unserialized);
 		$this->import_rgb($unserialized);
+	}
+	
+	/**
+	 * Serializes this object into JSON.
+	 * 
+	 * @return string The serialized object
+	 */
+	public function jsonSerialize() :string {
+		return $this->rgb + ['a' => $this->alpha];
 	}
 	
 	/**

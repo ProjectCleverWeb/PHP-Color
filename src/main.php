@@ -4,7 +4,7 @@
 namespace projectcleverweb\color;
 
 
-class main implements \Serializable {
+class main implements \Serializable, \JsonSerializable {
 	
 	public $color;
 	
@@ -27,6 +27,11 @@ class main implements \Serializable {
 		regulate::rgb_array($unserialized);
 		$this->set($unserialized, 'rgb');
 	}
+	
+	public function jsonSerialize() :array {
+		return $this->color->jsonSerialize();
+	}
+	
 	
 	protected function set($color, string $type = '') {
 		if ($color instanceof color) {
