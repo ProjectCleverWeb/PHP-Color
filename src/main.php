@@ -134,5 +134,12 @@ class main implements \Serializable, \JsonSerializable {
 		return [];
 	}
 	
+	public function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :color {
+		return new color(generate::rgb_rand($min_r, $max_r, $min_g, $max_g, $min_b, $max_b));
+	}
+	
+	public function hsl_rand(int $min_h = 0, int $max_h = 255, int $min_s = 0, int $max_s = 255, int $min_l = 0, int $max_l = 255) :color {
+		return new color(generate::hsl_rand($min_h, $max_h, $min_s, $max_s, $min_l, $max_l));
+	}
 	
 }
