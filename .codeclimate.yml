@@ -21,6 +21,7 @@ engines:
 ratings:
   paths:
   - "**.php"
+  - "**.md"
 exclude_paths:
   - "meta/"
   - "testing/"
