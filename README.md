@@ -4,7 +4,7 @@ This is a PHP 7 library for working with RGB, HSL, and Hexadecimal colors. Creat
 
 Demo: [jsfiddle.net/t3LL4q14](http://jsfiddle.net/t3LL4q14/embedded/result/)
 
-#### Download:
+### Download:
 
 [![GitHub release](https://img.shields.io/github/release/ProjectCleverWeb/PHP-Color.svg?maxAge=2592000&style=flat-square)](https://github.com/ProjectCleverWeb/PHP-Color/releases)
 
@@ -31,30 +31,86 @@ require_once __DIR__.'/projectcleverweb/php-color/autoload.php';
 use projectcleverweb\color\main as color;
 ```
 
-#### Import your color
+### Import your color
 Colors can be imported several ways. The below all create the exact same object:
 
 ```php
 // Import as a hexadecimal string (the '#' is optional)
-$c = new color('#FF0000');
+$color = new color('#FF0000');
 
 // Import as a RGB array
-$c = new color(['r' => 255, 'g' => 0, 'b' => 0]);
+$color = new color(['r' => 255, 'g' => 0, 'b' => 0]);
 
 // Import as a HSL array
-$c = new color(['h' => 0, 's' => 100, 'l' => 50]);
+$color = new color(['h' => 0, 's' => 100, 'l' => 50]);
 
 // Import as a CMYK array
-$c = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);
+$color = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);
 
 // Import as a hex integer
-$c = new color(0xff0000);
+$color = new color(0xff0000);
 
 // Import as a RGB array with Alpha channel (Alpha is only support with array inputs and must use the 'a' offset)
-$c = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 0]);
+$color = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 0]);
 ```
 
-#### Simple Conversions
+### Conversions
+
+```php
+$color = new color('#FF0000');
+
+// ['r' => 255, 'g' => 0, 'b' => 0]
+$rgb  = $color->rgb();
+
+// ['h' => 0, 's' => 100, 'l' => 50]
+$hsl  = $color->hsl();
+
+// ['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]
+$cmyk = $color->cmyk();
+
+// FF0000
+$hex  = $color->hex();
+
+// #FF000
+$css  = $color->css();
+```
+
+### Modify A Color
+
+```php
+$color = new color('#FF0000');
+
+// Modification methods have 3 arguments used to control how the modification
+// is applied.
+// 
+// method_name(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE)
+
+// Set hue to 120 degrees (green)
+$color->hue(120);
+echo $color->hex().PHP_EOL; // 00FF00
+
+// Make 20.5% less saturated
+$color->saturation(-20.5, TRUE, FALSE);
+echo $color->hex().PHP_EOL; // 1AE51A
+
+// Make 20% lighter
+$color->light(20, TRUE, FALSE);
+echo $color->hex().PHP_EOL; // 76EF76
+
+// Add 25% more red
+$color->red(25, TRUE, FALSE);
+echo $color->hex().PHP_EOL; // B5EF76
+
+// Make 30% less green
+$color->green(-30, TRUE, FALSE);
+echo $color->hex().PHP_EOL; // B5A276
+
+// Set blue to 65%
+$color->blue(65, TRUE);
+echo $color->hex().PHP_EOL; // B5A2A5
+```
+
+### Blend 2 Colors
 
 **More Coming Soon&hellip;**
 
@@ -62,11 +118,11 @@ $c = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 0]);
 
 **Coming Soon&hellip;**
 
-#### Requirements
+### Requirements
 
 * PHP **7.0** or **HHVM**
 
-#### Install Guide
+### Install Guide
 
 **Coming Soon&hellip;**
 
