@@ -51,7 +51,7 @@ $color = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);
 $color = new color(0xff0000);
 
 // Import as a RGB array with Alpha channel (Alpha is only support with array inputs and must use the 'a' offset)
-$color = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 0]);
+$color = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 50]);
 ```
 
 ### Conversions
@@ -76,14 +76,16 @@ $css  = $color->css();
 ```
 
 ### Modify A Color
+Modification methods have 3 arguments used to control how the modification is applied. Like So:
+
+`method_name(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE)`
+
+* `$adjustment` is a integer/float that dictates the amount of change.
+* `$as_percentage` is a boolean value that dictates whether or not to treat `adjustment` as a percentage.
+* `$set_absolute` is a boolean value that dictates whether set `$adjustment` as the actual value or to treat it as a relative value.
 
 ```php
 $color = new color('#FF0000');
-
-// Modification methods have 3 arguments used to control how the modification
-// is applied.
-// 
-// method_name(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE)
 
 // Set hue to 120 degrees (green)
 $color->hue(120);
