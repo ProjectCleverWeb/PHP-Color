@@ -15,7 +15,7 @@ class modify {
 	}
 	
 	public static function hsl(color $color, string $scope, float $adjustment, bool $as_percentage, bool $set_absolute) {
-		$current = array_combine(['hue', 'saturation', 'light'], $color->hsl);
+		$current = array_combine(['hue', 'saturation', 'light'], $color->hsl());
 		$scope   = strtolower($scope);
 		$max     = 100;
 		if ($scope == 'hue') {
@@ -50,7 +50,7 @@ class modify {
 	}
 	
 	protected static function regenerate_hsl(color $color, array $update) {
-		$color->import_rgb([
+		$color->import_hsl([
 			'h' => $update['hue'],
 			's' => $update['saturation'],
 			'l' => $update['light']

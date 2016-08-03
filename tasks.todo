@@ -2,6 +2,8 @@ General:
 	☐	Add git flow
 	☐	Add ability to generate all colors within the selected color range, with steps settable
 	☐	Add hsb support
+	☐	Add contact form
+	☐	Add mixing function
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
 	☐	Abstract main class serialize methods
