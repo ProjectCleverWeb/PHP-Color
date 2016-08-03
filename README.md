@@ -56,6 +56,8 @@ $color = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 50]);
 
 ### Conversions
 
+You can convert any input color between Hexadecimal, RGB, HSL, CMYK, or CSS value.
+
 ```php
 $color = new color('#FF0000');
 
@@ -71,7 +73,7 @@ $cmyk = $color->cmyk();
 // FF0000
 $hex  = $color->hex();
 
-// #FF000
+// #FF0000
 $css  = $color->css();
 ```
 
