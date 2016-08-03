@@ -6,8 +6,6 @@ engines:
       - php
   fixme:
     enabled: true
-  phpcodesniffer:
-    enabled: true
   phan:
     enabled: true
     config:
