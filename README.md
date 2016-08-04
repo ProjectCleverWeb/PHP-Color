@@ -23,7 +23,7 @@ Copyright &copy; 2016 Nicholas Jordon &mdash; All Rights Reserved
 
 ## Usage
 
-First pull in the autoloader and the color class. (It is recommend that you take advantage of PHP's `use &hellip; as` syntax)
+First pull in the autoloader and the color class. (It is recommend that you take advantage of PHP's <code>use &hellip; as</code> syntax)
 
 ```php
 require_once __DIR__.'/projectcleverweb/php-color/autoload.php';
@@ -56,7 +56,7 @@ $color = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 50]);
 
 ### Conversions
 
-You can convert any input color between Hexadecimal, RGB, HSL, CMYK, or CSS value.
+You can convert any input color between the Hexadecimal, RGB, HSL, CMYK, and CSS values.
 
 ```php
 $color = new color('#FF0000');
@@ -73,18 +73,20 @@ $cmyk = $color->cmyk();
 // FF0000
 $hex  = $color->hex();
 
-// #FF0000
+// #FF0000 or rgb(255,255,255,1)
 $css  = $color->css();
 ```
 
 ### Modify A Color
-Modification methods have 3 arguments used to control how the modification is applied. Like So:
+Modification methods have 3 arguments used to control how the modification is applied. Like so:
 
-`method_name(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE)`
+```php
+method_name(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE)
+`
 
 * `$adjustment` is a integer/float that dictates the amount of change.
-* `$as_percentage` is a boolean value that dictates whether or not to treat `adjustment` as a percentage.
-* `$set_absolute` is a boolean value that dictates whether set `$adjustment` as the actual value or to treat it as a relative value.
+* `$as_percentage` is a boolean value that dictates whether or not to treat `$adjustment` as a percentage.
+* `$set_absolute` is a boolean value that dictates whether to set `$adjustment` as the actual value or to treat it as a relative value.
 
 ```php
 $color = new color('#FF0000');
@@ -115,8 +117,76 @@ echo $color->hex().PHP_EOL; // B5A2A5
 ```
 
 ### Blend 2 Colors
+You can also blend 2 colors using the `blend()` method.
 
-**More Coming Soon&hellip;**
+```php
+// Blending 2 colors evenly
+$color1 = new color('ff0000');
+$color2 = new color('00ff00');
+$color3 = $color1->blend($color2);
+echo $color3->hex(); // 7F7F00
+
+// Blending 2 colors where you want 75% of color 1 and 25% of color 2
+$color1 = new color('ffffff');
+$color2 = new color('000000');
+$color3 = $color1->blend($color2, 25);
+echo $color3->hex(); // C0C0C0
+```
+
+### Creating Color Schemes
+You create 10 different color schemes for every single color. That gives you up to 167,772,160 possible color schemes!
+
+Although the below only shows you how to use `hex_scheme()`, you can also use `rgb_scheme()`, `hsl_scheme()`, and `cmyk_scheme()`
+
+```php
+$color = new color('ff0000');
+
+// $scheme = ['FF0000', '990000', 'CC0000', 'FF2929', 'FF5252']
+$scheme = $color->hex_scheme('shades');
+
+// $scheme = ['FF0000', 'D60000', 'FF2929', 'B30000', '800000']
+$scheme = $color->hex_scheme('monochromatic');
+
+// $scheme = ['FF0000', 'FF0099', 'F82565', 'F86525', 'FF9900']
+$scheme = $color->hex_scheme('analogous');
+
+// $scheme = ['FF0000', 'FF6666', 'FF3333', '00EAFF', '33EEFF']
+$scheme = $color->hex_scheme('complementary');
+
+// $scheme = ['FF0000', '00FF00', 'FF5C5C', '0000FF', '5C5CFF']
+$scheme = $color->hex_scheme('triad');
+
+// $scheme = ['FF0000', 'AAFF00', 'FF5C5C', 'AA00FF', 'C95CFF']
+$scheme = $color->hex_scheme('weighted_triad');
+
+// $scheme = ['FF0000', '00FFFF', '00FF00', 'FF5C5C', '0000FF']
+$scheme = $color->hex_scheme('tetrad');
+
+// $scheme = ['FF0000', '00FFAA', 'AAFF00', 'FF5C5C', 'AA00FF']
+$scheme = $color->hex_scheme('weighted_tetrad');
+
+// $scheme = ['FF0000', 'F7D082', 'F5C25C', '5CF582', '82F7D0']
+$scheme = $color->hex_scheme('compound');
+
+// $scheme = ['FF0000', '0066FF', '00FFFF', 'FF5C5C', 'FF9900']
+$scheme = $color->hex_scheme('rectangular');
+```
+
+### Generate Random Colors
+You can also
+
+```php
+use projectcleverweb\color\generate as color_gen;
+
+$color1 = new color('000000');
+$color2 = $color1->rgb_rand(); // Generate any random color
+echo $color2->hex(); // Example: 05FBA2
+
+// OR
+
+$color = new color(color_gen::rgb_rand(128, 255, 0, 0, 0, 0)); // Generate a random bright red
+echo $color->hex(); // Example: AB0000
+```
 
 ## Installation
 
