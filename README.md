@@ -136,7 +136,7 @@ echo $color3->hex(); // C0C0C0
 ### Creating Color Schemes
 You create 10 different color schemes for every single color. That gives you up to 167,772,160 possible color schemes!
 
-Although the below only shows you how to use `hex_scheme()`, you can also use `rgb_scheme()`, `hsl_scheme()`, and `cmyk_scheme()`
+Although the below only shows you how to use `hex_scheme()`, you can also use `rgb_scheme()`, `hsl_scheme()`, and `cmyk_scheme()`.
 
 ```php
 $color = new color('ff0000');
@@ -173,7 +173,7 @@ $scheme = $color->hex_scheme('rectangular');
 ```
 
 ### Generate Random Colors
-You can also
+You can also generate random colors using the `rgb_rand()` and `hsl_rand()` methods **OR** using the `generate` class.
 
 ```php
 use projectcleverweb\color\generate as color_gen;
