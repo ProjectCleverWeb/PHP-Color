@@ -221,7 +221,7 @@ All problems must be reported via Github's
 
 The PHP-Color documentation by Nicholas Jordon is licensed
 under the Creative Commons Attribution-ShareAlike 4.0 International License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/
+To view a copy of this license, visit [creativecommons.org/licenses/by-sa/4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
 The PHP-Color source code by Nicholas Jordon is licensed under
-the MIT License. To view a copy of this license, visit http://opensource.org/licenses/MIT
+the MIT License. To view a copy of this license, visit [njordon.mit-license.org](https://njordon.mit-license.org/@2016)
