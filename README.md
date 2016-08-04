@@ -47,7 +47,7 @@ $color = new color(['h' => 0, 's' => 100, 'l' => 50]);
 // Import as a CMYK array
 $color = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);
 
-// Import as a hex integer
+// Import as a hexadecimal integer
 $color = new color(0xff0000);
 
 // Import as a RGB array with Alpha channel (Alpha is only support with array inputs and must use the 'a' offset)
@@ -62,19 +62,19 @@ You can convert any input color between the Hexadecimal, RGB, HSL, CMYK, and CSS
 $color = new color('#FF0000');
 
 // ['r' => 255, 'g' => 0, 'b' => 0]
-$rgb  = $color->rgb();
+$rgb = $color->rgb();
 
 // ['h' => 0, 's' => 100, 'l' => 50]
-$hsl  = $color->hsl();
+$hsl = $color->hsl();
 
 // ['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]
 $cmyk = $color->cmyk();
 
 // FF0000
-$hex  = $color->hex();
+$hex = $color->hex();
 
 // #FF0000 or rgb(255,255,255,1)
-$css  = $color->css();
+$css = $color->css();
 ```
 
 ### Modify A Color
@@ -82,7 +82,7 @@ Modification methods have 3 arguments used to control how the modification is ap
 
 ```php
 method_name(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE)
-`
+```
 
 * `$adjustment` is a integer/float that dictates the amount of change.
 * `$as_percentage` is a boolean value that dictates whether or not to treat `$adjustment` as a percentage.
