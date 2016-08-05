@@ -99,7 +99,7 @@ class generate {
 		$s     = 0;
 		$l     = ($max + $min) / 2;
 		
-		if ($delta != 0) {
+		if ($max != $min) {
 			$s = $delta / ($max + $min);
 			if ($l >= 0.5) {
 				$s = $delta / (2 - $max - $min);
@@ -192,20 +192,14 @@ class generate {
 		
 		$max = max($r, $g, $b);
 		$min = min($r, $g, $b);
-		$v = $max;
-		
-		$d = $max - $min;
-		$s = $max == 0 ? 0 : $d / $max;
-		
-		$h = 0; // achromatic
-		if ($max !== $min) {
-			$calc = [
-				$b => ($r - $g) / $d + 4,
-				$g => ($b - $r) / $d + 2,
-				$r => ($g - $b) / $d + ($g < $b ? 6 : 0)
-			];
-			$h = $calc[$max] / 6;
+		$v   = $max;
+		$d   = $max - $min;
+		$s   = static::_div($d, $max);
+		$h   = 0; // achromatic
+		if ($max != $min) {
+			static::_rgbhsl_hue($h, $r, $g, $b, $max, $d);
 		}
+		
 		$h = round($h * 360, $accuracy);
 		$s = round($s * 100, $accuracy);
 		$v = round($v * 100, $accuracy);
@@ -217,16 +211,15 @@ class generate {
 		if ($v == 0) {
 			return ['r' => 0, 'g' => 0, 'b' => 0];
 		}
-
-		$s = $s / 100;
-		$v = $v / 100;
-		$h = $h / 60;
-
-		$i = floor($h);
-		$f = $h - $i;
-		$p = $v * (1 - $s);
-		$q = $v * (1 - ($s * $f));
-		$t = $v * (1 - ($s * (1 - $f)));
+		
+		$s   /= 100;
+		$v   /= 100;
+		$h   /= 60;
+		$i    = floor($h);
+		$f    = $h - $i;
+		$p    = $v * (1 - $s);
+		$q    = $v * (1 - ($s * $f));
+		$t    = $v * (1 - ($s * (1 - $f)));
 		$calc = [
 			[$v, $t, $p],
 			[$q, $v, $p],
@@ -235,7 +228,7 @@ class generate {
 			[$t, $p, $v],
 			[$v, $p, $q]
 		];
-
+		
 		$r = round($calc[$i][0] * 255, $accuracy);
 		$g = round($calc[$i][1] * 255, $accuracy);
 		$b = round($calc[$i][2] * 255, $accuracy);
@@ -243,8 +236,10 @@ class generate {
 		return ['r' => $r, 'g' => $g, 'b' => $b];
 	}
 	
-	
-	
-	
-	
+	public static function _div(float $number, float $divisor) {
+		if ($divisor == 0) {
+			return 0;
+		}
+		return $number / $divisor;
+	}
 }
