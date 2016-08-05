@@ -4,6 +4,8 @@ General:
 	☐	Add hsb support
 	☐	Add contact form
 	☐	Add mixing function
+	☐	Make main::alpha() a modification method
+	☐	Add PHP 5 support
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
 	☐	Abstract main class serialize methods

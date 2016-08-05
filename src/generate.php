@@ -185,4 +185,73 @@ class generate {
 		}
 	}
 	
+	public static function rgb_to_hsb(float $r, float $g, float $b, int $accuracy = 3) {
+		$r /= 255;
+		$g /= 255;
+		$b /= 255;
+		
+		$max = max($r, $g, $b);
+		$min = min($r, $g, $b);
+		$v = $max;
+		
+		$d = $max - $min;
+		$s = $max == 0 ? 0 : $d / $max;
+		
+		$h = 0; // achromatic
+		if ($max !== $min) {
+			switch ($max) {
+			case $r: $h = ($g - $b) / $d + ($g < $b ? 6 : 0); break;
+			case $g: $h = ($b - $r) / $d + 2; break;
+			case $b: $h = ($r - $g) / $d + 4; break;
+			}
+			$h /= 6;
+		}
+		// map top 360,100,100
+		$h = round($h * 360, $accuracy);
+		$s = round($s * 100, $accuracy);
+		$v = round($v * 100, $accuracy);
+		
+		return ['h' => $h, 's' => $s, 'b' => $v];
+	}
+	
+	public static function hsb_to_rgb(float $h, float $s, float $v, int $accuracy = 3) {
+		// $h = $h / 360;
+		if ($v == 0) {
+			return ['r' => 0, 'g' => 0, 'b' => 0];
+		}
+
+		$s = $s / 100;
+		$v = $v / 100;
+		$h = $h / 60;
+
+		$i = floor($h);
+		$f = $h - $i;
+		$p = $v * (1 - $s);
+		$q = $v * (1 - ($s * $f));
+		$t = $v * (1 - ($s * (1 - $f)));
+		if ($i == 0) {
+			$r = $v; $g = $t; $b = $p;
+		} elseif ($i == 1) {
+			$r = $q; $g = $v; $b = $p;
+		} elseif ($i == 2) {
+			$r = $p; $g = $v; $b = $t;
+		} elseif ($i == 3) {
+			$r = $p; $g = $q; $b = $v;
+		} elseif ($i == 4) {
+			$r = $t; $g = $p; $b = $v;
+		} elseif ($i == 5) {
+			$r = $v; $g = $p; $b = $q;
+		}
+
+		$r = round($r * 255, $accuracy);
+		$g = round($g * 255, $accuracy);
+		$b = round($b * 255, $accuracy);
+		
+		return ['r' => $r, 'g' => $g, 'b' => $b];
+	}
+	
+	
+	
+	
+	
 }

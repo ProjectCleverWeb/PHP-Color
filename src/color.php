@@ -117,6 +117,8 @@ class color implements \Serializable, \JsonSerializable {
 			return 'rgb';
 		} elseif (empty(array_diff(['h', 's', 'l'], $keys))) {
 			return 'hsl';
+		} elseif (empty(array_diff(['h', 's', 'b'], $keys))) {
+			return 'hsb';
 		} elseif (empty(array_diff(['c', 'm', 'y', 'k'], $keys))) {
 			return 'cmyk';
 		}
@@ -198,6 +200,20 @@ class color implements \Serializable, \JsonSerializable {
 	public function import_hsl(array $color) {
 		regulate::hsl_array($color);
 		$this->rgb = generate::hsl_to_rgb($color['h'], $color['s'], $color['l']);
+		$this->hsl = new hsl($this->rgb);
+		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
+		$this->import_alpha($color);
+	}
+	
+	/**
+	 * Imports a hsb array.
+	 * 
+	 * @param  array $color Array with offsets 'h', 's', 'b'
+	 * @return void
+	 */
+	public function import_hsb(array $color) {
+		regulate::hsl_array($color);
+		$this->rgb = generate::hsb_to_rgb($color['h'], $color['s'], $color['b']);
 		$this->hsl = new hsl($this->rgb);
 		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->import_alpha($color);

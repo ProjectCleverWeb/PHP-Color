@@ -65,6 +65,24 @@ class GeneratorTest extends unit_test {
 	/**
 	 * @test
 	 */
+	public function RGB_To_HSB() {
+		foreach ($this->vars['conversions'] as $conv) {
+			$this->assertEquals(generate::rgb_to_hsb($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['hsb']);
+		}
+	}
+	
+	/**
+	 * @test
+	 */
+	public function HSB_To_RGB() {
+		foreach ($this->vars['conversions'] as $conv) {
+			$this->assertEquals(generate::hsb_to_rgb($conv['hsb']['h'], $conv['hsb']['s'], $conv['hsb']['b']), $conv['rgb']);
+		}
+	}
+	
+	/**
+	 * @test
+	 */
 	public function RGB_Contrast() {
 		$conv = $this->vars['conversions'];
 		$this->assertEquals(generate::rgb_contrast($conv['000000']['rgb']['r'], $conv['000000']['rgb']['g'], $conv['000000']['rgb']['b']), $conv['FFFFFF']['rgb']);
