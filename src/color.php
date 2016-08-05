@@ -112,15 +112,17 @@ class color implements \Serializable, \JsonSerializable {
 	 * @return string        The color type as a string, returns 'error' if $color is invalid
 	 */
 	protected static function _get_array_type(array $color) :string {
-		$keys = array_keys($color);
-		if (empty(array_diff(['r', 'g', 'b'], $keys))) {
-			return 'rgb';
-		} elseif (empty(array_diff(['h', 's', 'l'], $keys))) {
-			return 'hsl';
-		} elseif (empty(array_diff(['h', 's', 'b'], $keys))) {
-			return 'hsb';
-		} elseif (empty(array_diff(['c', 'm', 'y', 'k'], $keys))) {
-			return 'cmyk';
+		unset($color['a']); // ignore alpha channel
+		ksort($color);
+		$type = implode('', array_keys($color));
+		$types = [
+			'bgr'  => 'rgb',
+			'hls'  => 'hsl',
+			'bhs'  => 'hsb',
+			'ckmy' => 'cmyk'
+		];
+		if (isset($types[$type])) {
+			return $types[$type];
 		}
 		return 'error';
 	}
