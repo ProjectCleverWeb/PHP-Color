@@ -199,14 +199,13 @@ class generate {
 		
 		$h = 0; // achromatic
 		if ($max !== $min) {
-			switch ($max) {
-			case $r: $h = ($g - $b) / $d + ($g < $b ? 6 : 0); break;
-			case $g: $h = ($b - $r) / $d + 2; break;
-			case $b: $h = ($r - $g) / $d + 4; break;
-			}
-			$h /= 6;
+			$calc = [
+				$b => ($r - $g) / $d + 4,
+				$g => ($b - $r) / $d + 2,
+				$r => ($g - $b) / $d + ($g < $b ? 6 : 0)
+			];
+			$h = $calc[$max] / 6;
 		}
-		// map top 360,100,100
 		$h = round($h * 360, $accuracy);
 		$s = round($s * 100, $accuracy);
 		$v = round($v * 100, $accuracy);
@@ -215,7 +214,6 @@ class generate {
 	}
 	
 	public static function hsb_to_rgb(float $h, float $s, float $v, int $accuracy = 3) {
-		// $h = $h / 360;
 		if ($v == 0) {
 			return ['r' => 0, 'g' => 0, 'b' => 0];
 		}
@@ -229,23 +227,18 @@ class generate {
 		$p = $v * (1 - $s);
 		$q = $v * (1 - ($s * $f));
 		$t = $v * (1 - ($s * (1 - $f)));
-		if ($i == 0) {
-			$r = $v; $g = $t; $b = $p;
-		} elseif ($i == 1) {
-			$r = $q; $g = $v; $b = $p;
-		} elseif ($i == 2) {
-			$r = $p; $g = $v; $b = $t;
-		} elseif ($i == 3) {
-			$r = $p; $g = $q; $b = $v;
-		} elseif ($i == 4) {
-			$r = $t; $g = $p; $b = $v;
-		} elseif ($i == 5) {
-			$r = $v; $g = $p; $b = $q;
-		}
+		$calc = [
+			[$v, $t, $p],
+			[$q, $v, $p],
+			[$p, $v, $t],
+			[$p, $q, $v],
+			[$t, $p, $v],
+			[$v, $p, $q]
+		];
 
-		$r = round($r * 255, $accuracy);
-		$g = round($g * 255, $accuracy);
-		$b = round($b * 255, $accuracy);
+		$r = round($calc[$i][0] * 255, $accuracy);
+		$g = round($calc[$i][1] * 255, $accuracy);
+		$b = round($calc[$i][2] * 255, $accuracy);
 		
 		return ['r' => $r, 'g' => $g, 'b' => $b];
 	}

@@ -114,7 +114,7 @@ class color implements \Serializable, \JsonSerializable {
 	protected static function _get_array_type(array $color) :string {
 		unset($color['a']); // ignore alpha channel
 		ksort($color);
-		$type = implode('', array_keys($color));
+		$type  = implode('', array_keys($color));
 		$types = [
 			'bgr'  => 'rgb',
 			'hls'  => 'hsl',
