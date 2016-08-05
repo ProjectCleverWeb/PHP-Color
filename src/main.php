@@ -118,6 +118,10 @@ class main implements \Serializable, \JsonSerializable {
 		return static::_scheme($scheme_name, 'hsl', $this->hsl(3));
 	}
 	
+	public function hsb_scheme(string $scheme_name) :array {
+		return static::_scheme($scheme_name, 'hsb', $this->hsl(3));
+	}
+	
 	public function hex_scheme(string $scheme_name) :array {
 		return static::_scheme($scheme_name, 'hex', $this->hsl(3));
 	}

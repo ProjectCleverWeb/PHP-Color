@@ -355,6 +355,22 @@ class scheme {
 	}
 	
 	/**
+	 * Generate a array of 5 hsb colors using the $scheme algorithm
+	 * 
+	 * @param  float  $h      The hue value
+	 * @param  float  $s      The saturation value
+	 * @param  float  $l      The light value
+	 * @param  string $scheme The scheme algorithm to use
+	 * @return array          Array of hex colors
+	 */
+	public static function hsb(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
+		return static::_convert(
+			static::rgb($h, $s, $l, $scheme),
+			[new generate, 'rgb_to_hsb']
+		);
+	}
+	
+	/**
 	 * Generate a array of 5 hex colors using the $scheme algorithm
 	 * 
 	 * @param  float  $h      The hue value
