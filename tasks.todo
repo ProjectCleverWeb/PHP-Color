@@ -1,10 +1,9 @@
 General:
 	☐	Add git flow
 	☐	Add ability to generate all colors within the selected color range, with steps settable
-	☐	Add hsb support
 	☐	Add contact form
-	☐	Add mixing function
 	☐	Make main::alpha() a modification method
+	☐	Add cache class
 	☐	Add PHP 5 support
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
@@ -33,6 +32,8 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Add mixing function @done (16-08-08 11:34) @project(General)
+	✔	Add hsb support @done (16-08-08 11:32) @project(General)
 	✔	Add JSON serialization support @done (16-08-01 18:34) @project(General)
 	✔	Fix scheme::is_dark() docs (return is void) @done (16-07-22 15:45) @project(Minor)
 	✔	Fix color::_get_array_type() docs ($color should be type array) @done (16-07-22 15:44) @project(Minor)

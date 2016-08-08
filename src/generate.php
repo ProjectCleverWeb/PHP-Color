@@ -185,7 +185,7 @@ class generate {
 		}
 	}
 	
-	public static function rgb_to_hsb(float $r, float $g, float $b, int $accuracy = 3) {
+	public static function rgb_to_hsb(float $r, float $g, float $b, int $accuracy = 3) :array {
 		$r /= 255;
 		$g /= 255;
 		$b /= 255;
@@ -207,7 +207,7 @@ class generate {
 		return ['h' => $h, 's' => $s, 'b' => $v];
 	}
 	
-	public static function hsb_to_rgb(float $h, float $s, float $v, int $accuracy = 3) {
+	public static function hsb_to_rgb(float $h, float $s, float $v, int $accuracy = 3) :array {
 		if ($v == 0) {
 			return ['r' => 0, 'g' => 0, 'b' => 0];
 		}
@@ -234,6 +234,17 @@ class generate {
 		$b = round($calc[$i][2] * 255, $accuracy);
 		
 		return ['r' => $r, 'g' => $g, 'b' => $b];
+	}
+	
+	public static function blend(float $r1, float $g1, float $b1, float $a1, float $r2, float $g2, float $b2, float $a2, float $amount = 50.0) :array {
+		$x1 = static::_div(100 - $amount, 100);
+		$x2 = static::_div($amount, 100);
+		return [
+			'r' => round(($r1 * $x1) + ($r2 * $x2), 0),
+			'g' => round(($g1 * $x1) + ($g2 * $x2), 0),
+			'b' => round(($b1 * $x1) + ($b2 * $x2), 0),
+			'a' => ($a1 * $x1) + ($a2 * $x2)
+		];
 	}
 	
 	public static function _div(float $number, float $divisor) {

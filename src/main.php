@@ -110,6 +110,16 @@ class main implements \Serializable, \JsonSerializable {
 		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	
+	public function blend(main $color2, float $amount = 50.0) {
+		$c1 = $this->rgb();
+		$c2 = $color2->rgb();
+		return new $this(generate::blend(
+			$c1['r'], $c1['g'], $c1['b'], $c1['a'],
+			$c2['r'], $c2['g'], $c2['b'], $c2['a'],
+			$amount)
+		);
+	}
+	
 	public function rgb_scheme(string $scheme_name) :array {
 		return static::_scheme($scheme_name, 'rgb', $this->hsl(3));
 	}
