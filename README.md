@@ -12,7 +12,7 @@ Copyright &copy; 2016 Nicholas Jordon &mdash; All Rights Reserved
 
 ## Features
 
-* Convert any color between the RGB, HSL, Hexadecimal, and CMYK color spectrums.
+* Convert any color between the RGB, HSL, HSB, Hexadecimal, and CMYK color spectrums.
 * Dynamically generate 10 different color scheme algorithims for any color. (That's over 165,000,000 possible schemes)
 * Check whether a color appears visually dark or light. (uses [YIQ](https://en.wikipedia.org/wiki/YIQ) weights for better accuraccy)
 * Easily modify a color's hue, saturation, light, red, green, blue, and alpha (transparcency) values.
@@ -31,7 +31,35 @@ require_once __DIR__.'/projectcleverweb/php-color/autoload.php';
 use projectcleverweb\color\main as color;
 ```
 
-### Import your color
+### Simple Example
+Lets say you want to take an input color (in this case red) and convert it to hsl. You also want to know if you should use black or white text on top of this color, and want to suggest some similar colors. You could achieve all that with the code below:
+
+```php
+$input      = 'f00';
+$color      = new color($input);
+$hex        = $color->hex();
+$hsl        = strtr('h, s%, l%', $color->hsl());
+$text_color = ($color->is_dark() ? 'FFFFFF' : '000000');
+$similar    = implode(', ', array_slice($color->hex_scheme('analogous'), 1));
+
+$template = "Hex: %s
+HSL: %s
+Text Color: %s
+Similar: %s";
+
+printf($template, $hex, $hsl, $text_color, $similar);
+```
+
+#### Output:
+
+```
+Hex: FF0000
+HSL: 0, 100%, 50%
+Text Color: FFFFFF
+Similar: FF0099, F82565, F86525, FF9900
+```
+
+### Importing your color
 Colors can be imported several ways. The below all create the exact same object:
 
 ```php
@@ -43,6 +71,9 @@ $color = new color(['r' => 255, 'g' => 0, 'b' => 0]);
 
 // Import as a HSL array
 $color = new color(['h' => 0, 's' => 100, 'l' => 50]);
+
+// Import as a HSB array
+$color = new color(['h' => 0, 's' => 100, 'l' => 100]);
 
 // Import as a CMYK array
 $color = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);
@@ -56,7 +87,7 @@ $color = new color(['r' => 255, 'g' => 0, 'b' => 0, 'a' => 50]);
 
 ### Conversions
 
-You can convert any input color between the Hexadecimal, RGB, HSL, CMYK, and CSS values.
+You can convert any input color between the Hexadecimal, RGB, HSL, HSB, CMYK, and CSS values.
 
 ```php
 $color = new color('#FF0000');
@@ -66,6 +97,9 @@ $rgb = $color->rgb();
 
 // ['h' => 0, 's' => 100, 'l' => 50]
 $hsl = $color->hsl();
+
+// ['h' => 0, 's' => 100, 'b' => 100]
+$hsb = $color->hsb();
 
 // ['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]
 $cmyk = $color->cmyk();
@@ -136,7 +170,7 @@ echo $color3->hex(); // C0C0C0
 ### Creating Color Schemes
 You create 10 different color schemes for every single color. That gives you up to 167,772,160 possible color schemes!
 
-Although the below only shows you how to use `hex_scheme()`, you can also use `rgb_scheme()`, `hsl_scheme()`, and `cmyk_scheme()`.
+Although the below only shows you how to use `hex_scheme()`, you can also use `rgb_scheme()`, `hsl_scheme()`, `hsb_scheme()`, and `cmyk_scheme()`.
 
 ```php
 $color = new color('ff0000');
