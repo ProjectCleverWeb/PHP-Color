@@ -8,13 +8,13 @@ class main extends main_peripheral {
 	
 	public $color;
 	
-	public function __construct($color) {
-		$this->set($color);
+	public function __construct($color, string $type = '') {
+		$this->set($color, $type);
 	}
 	
 	protected function set($color, string $type = '') {
-		if ($color instanceof color) {
-			$this->color = $color;
+		if (is_a($color, __CLASS__)) {
+			$this->color = clone $color->color;
 		} else {
 			$this->color = new color($color, $type);
 		}
