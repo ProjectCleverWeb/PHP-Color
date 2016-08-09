@@ -6,14 +6,14 @@ namespace projectcleverweb\color;
  * @requires PHP 7.0
  * @requires PHPUnit 5
  */
-class GeneratorTest extends unit_test {
+class ConverterTest extends unit_test {
 	
 	/**
 	 * @test
 	 */
 	public function HEX_To_RGB() {
 		foreach ($this->vars['conversions'] as $hex => $conv) {
-			$this->assertEquals(generate::hex_to_rgb($hex), $conv['rgb']);
+			$this->assertEquals(convert::hex_to_rgb($hex), $conv['rgb']);
 		}
 	}
 	
@@ -22,7 +22,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function RGB_To_HEX() {
 		foreach ($this->vars['conversions'] as $hex => $conv) {
-			$this->assertEquals(generate::rgb_to_hex($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $hex);
+			$this->assertEquals(convert::rgb_to_hex($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $hex);
 		}
 	}
 	
@@ -31,7 +31,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function RGB_To_CMYK() {
 		foreach ($this->vars['conversions'] as $conv) {
-			$this->assertEquals(generate::rgb_to_cmyk($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['cmyk']);
+			$this->assertEquals(convert::rgb_to_cmyk($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['cmyk']);
 		}
 	}
 	
@@ -40,7 +40,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function CMYK_To_RGB() {
 		foreach ($this->vars['conversions'] as $conv) {
-			$this->assertEquals(generate::cmyk_to_rgb($conv['cmyk']['c'], $conv['cmyk']['m'], $conv['cmyk']['y'], $conv['cmyk']['k']), $conv['rgb']);
+			$this->assertEquals(convert::cmyk_to_rgb($conv['cmyk']['c'], $conv['cmyk']['m'], $conv['cmyk']['y'], $conv['cmyk']['k']), $conv['rgb']);
 		}
 	}
 	
@@ -49,7 +49,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function RGB_To_HSL() {
 		foreach ($this->vars['conversions'] as $conv) {
-			$this->assertEquals(generate::rgb_to_hsl($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['hsl']);
+			$this->assertEquals(convert::rgb_to_hsl($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['hsl']);
 		}
 	}
 	
@@ -58,7 +58,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function HSL_To_RGB() {
 		foreach ($this->vars['conversions'] as $conv) {
-			$this->assertEquals(generate::hsl_to_rgb($conv['hsl']['h'], $conv['hsl']['s'], $conv['hsl']['l']), $conv['rgb']);
+			$this->assertEquals(convert::hsl_to_rgb($conv['hsl']['h'], $conv['hsl']['s'], $conv['hsl']['l']), $conv['rgb']);
 		}
 	}
 	
@@ -67,7 +67,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function RGB_To_HSB() {
 		foreach ($this->vars['conversions'] as $conv) {
-			$this->assertEquals(generate::rgb_to_hsb($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['hsb']);
+			$this->assertEquals(convert::rgb_to_hsb($conv['rgb']['r'], $conv['rgb']['g'], $conv['rgb']['b']), $conv['hsb']);
 		}
 	}
 	
@@ -76,43 +76,7 @@ class GeneratorTest extends unit_test {
 	 */
 	public function HSB_To_RGB() {
 		foreach ($this->vars['conversions'] as $conv) {
-			$this->assertEquals(generate::hsb_to_rgb($conv['hsb']['h'], $conv['hsb']['s'], $conv['hsb']['b']), $conv['rgb']);
-		}
-	}
-	
-	/**
-	 * @test
-	 */
-	public function RGB_Contrast() {
-		$conv = $this->vars['conversions'];
-		$this->assertEquals(generate::rgb_contrast($conv['000000']['rgb']['r'], $conv['000000']['rgb']['g'], $conv['000000']['rgb']['b']), $conv['FFFFFF']['rgb']);
-	}
-	
-	/**
-	 * @test
-	 */
-	public function RGB_Invert() {
-		$conv = $this->vars['conversions'];
-		$this->assertEquals(generate::rgb_invert($conv['000000']['rgb']['r'], $conv['000000']['rgb']['g'], $conv['000000']['rgb']['b']), $conv['FFFFFF']['rgb']);
-	}
-	
-	/**
-	 * @test
-	 */
-	public function YIQ_Score() {
-		$this->assertEquals(generate::yiq_score(255, 255, 255), 255);
-		$this->assertEquals(generate::yiq_score(0, 0, 0), 0);
-	}
-	
-	/**
-	 * @test
-	 */
-	public function Random() {
-		foreach (range(1, 1000) as $i) {
-			$rgb = generate::rand();
-			$this->assertTrue($rgb['r'] >= 0 && $rgb['r'] <= 255);
-			$this->assertTrue($rgb['g'] >= 0 && $rgb['g'] <= 255);
-			$this->assertTrue($rgb['b'] >= 0 && $rgb['b'] <= 255);
+			$this->assertEquals(convert::hsb_to_rgb($conv['hsb']['h'], $conv['hsb']['s'], $conv['hsb']['b']), $conv['rgb']);
 		}
 	}
 	
@@ -129,9 +93,9 @@ class GeneratorTest extends unit_test {
 			foreach (range(0 ,51) as $g) {
 				foreach (range(0 ,51) as $r) {
 					$rgb1 = ['r' => $r * 5, 'g' => $g * 5, 'b' => $b * 5];
-					$hsl1 = generate::rgb_to_hsl($rgb1['r'], $rgb1['g'],$rgb1['b']);
-					$rgb2 = generate::hsl_to_rgb($hsl1['h'], $hsl1['s'],$hsl1['l']);
-					$hsl2 = generate::rgb_to_hsl($rgb2['r'], $rgb2['g'],$rgb2['b']);
+					$hsl1 = convert::rgb_to_hsl($rgb1['r'], $rgb1['g'],$rgb1['b']);
+					$rgb2 = convert::hsl_to_rgb($hsl1['h'], $hsl1['s'],$hsl1['l']);
+					$hsl2 = convert::rgb_to_hsl($rgb2['r'], $rgb2['g'],$rgb2['b']);
 					if (!empty(array_diff_assoc($rgb1, $rgb2)) || !empty(array_diff_assoc($hsl1, $hsl2))) {
 						$this->assertEmpty(array_diff_assoc($rgb1, $rgb2), sprintf(
 							'RGB color drift detected: rgb1(%s, %s, %s) != rgb2(%s, %s, %s)',

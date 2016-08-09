@@ -46,7 +46,7 @@ class css {
 	 * @return string    The CSS string
 	 */
 	public static function hex(float $r, float $g, float $b) {
-		return '#'.generate::rgb_to_hex($r, $g, $b);
+		return '#'.convert::rgb_to_hex($r, $g, $b);
 	}
 	
 	/**

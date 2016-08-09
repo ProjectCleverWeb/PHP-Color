@@ -11,7 +11,7 @@ class hsl implements \ArrayAccess {
 	
 	public function __construct(array $rgb_array, int $accuracy = 3) {
 		$this->accuracy = $accuracy;
-		$this->hsl      = generate::rgb_to_hsl($rgb_array['r'], $rgb_array['g'], $rgb_array['b'], $this->accuracy);
+		$this->hsl      = convert::rgb_to_hsl($rgb_array['r'], $rgb_array['g'], $rgb_array['b'], $this->accuracy);
 	}
 	
 	public function __invoke() {

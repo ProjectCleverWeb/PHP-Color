@@ -34,12 +34,12 @@ class main extends main_peripheral {
 	
 	public function cmyk() :array {
 		$rgb = $this->color->rgb;
-		return generate::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
+		return convert::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
 	}
 	
 	public function hsb(int $accuracy = 0) :array {
 		$rgb = $this->color->rgb;
-		return generate::rgb_to_hsb($rgb['r'], $rgb['g'], $rgb['b'], $accuracy) + ['a' => $this->color->alpha()];
+		return convert::rgb_to_hsb($rgb['r'], $rgb['g'], $rgb['b'], $accuracy) + ['a' => $this->color->alpha()];
 	}
 	
 	public function hex() :string {

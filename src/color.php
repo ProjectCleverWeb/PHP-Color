@@ -188,7 +188,7 @@ class color implements \Serializable, \JsonSerializable {
 	public function import_rgb(array $color) {
 		regulate::rgb_array($color);
 		$this->rgb = array_intersect_key($color, ['r' => 0, 'g' => 0, 'b' => 0]);
-		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
+		$this->hex = convert::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->hsl = new hsl($this->rgb);
 		$this->import_alpha($color);
 	}
@@ -201,9 +201,9 @@ class color implements \Serializable, \JsonSerializable {
 	 */
 	public function import_hsl(array $color) {
 		regulate::hsl_array($color);
-		$this->rgb = generate::hsl_to_rgb($color['h'], $color['s'], $color['l']);
+		$this->rgb = convert::hsl_to_rgb($color['h'], $color['s'], $color['l']);
 		$this->hsl = new hsl($this->rgb);
-		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
+		$this->hex = convert::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->import_alpha($color);
 	}
 	
@@ -215,9 +215,9 @@ class color implements \Serializable, \JsonSerializable {
 	 */
 	public function import_hsb(array $color) {
 		regulate::hsl_array($color);
-		$this->rgb = generate::hsb_to_rgb($color['h'], $color['s'], $color['b']);
+		$this->rgb = convert::hsb_to_rgb($color['h'], $color['s'], $color['b']);
 		$this->hsl = new hsl($this->rgb);
-		$this->hex = generate::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
+		$this->hex = convert::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->import_alpha($color);
 	}
 	
@@ -229,7 +229,7 @@ class color implements \Serializable, \JsonSerializable {
 	 */
 	public function import_hex(string $color) {
 		regulate::hex($color);
-		$this->import_rgb(generate::hex_to_rgb($color));
+		$this->import_rgb(convert::hex_to_rgb($color));
 	}
 	
 	/**
@@ -251,7 +251,7 @@ class color implements \Serializable, \JsonSerializable {
 	 */
 	public function import_cmyk(array $color) {
 		regulate::cmyk_array($color);
-		$this->import_rgb(generate::cmyk_to_rgb($color['c'], $color['m'], $color['y'], $color['k']));
+		$this->import_rgb(convert::cmyk_to_rgb($color['c'], $color['m'], $color['y'], $color['k']));
 		$this->import_alpha($color);
 	}
 }
