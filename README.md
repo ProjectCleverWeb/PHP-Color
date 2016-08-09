@@ -73,7 +73,7 @@ $color = new color(['r' => 255, 'g' => 0, 'b' => 0]);
 $color = new color(['h' => 0, 's' => 100, 'l' => 50]);
 
 // Import as a HSB array
-$color = new color(['h' => 0, 's' => 100, 'l' => 100]);
+$color = new color(['h' => 0, 's' => 100, 'b' => 100]);
 
 // Import as a CMYK array
 $color = new color(['c' => 0, 'm' => 100, 'y' => 100, 'k' => 0]);

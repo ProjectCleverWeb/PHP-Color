@@ -7,7 +7,6 @@ General:
 	☐	Add PHP 5 support
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
-	☐	Abstract main class serialize methods
 	☐	Add main::difference() for comparing 2 different colors
 	☐	add main::rgb_rand() and main::hsl_rand()
 Bugs:
@@ -32,6 +31,8 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	replace main::*_scheme() with main::scheme($name, $return_type = 'hex') @done (16-08-09 17:19) @project(Class Specific)
+	✔	Abstract main class serialize methods @done (16-08-09 17:19) @project(Class Specific)
 	✔	Add mixing function @done (16-08-08 11:34) @project(General)
 	✔	Add hsb support @done (16-08-08 11:32) @project(General)
 	✔	Add JSON serialization support @done (16-08-01 18:34) @project(General)

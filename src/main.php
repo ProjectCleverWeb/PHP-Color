@@ -4,34 +4,13 @@
 namespace projectcleverweb\color;
 
 
-class main implements \Serializable, \JsonSerializable {
+class main extends main_peripheral {
 	
 	public $color;
 	
 	public function __construct($color) {
 		$this->set($color);
 	}
-	
-	public function __clone() {
-		$rgb = $this->color->rgb + ['a' => $this->color->alpha()];
-		unset($this->color);
-		$this->set($rgb, 'rgb');
-	}
-	
-	public function serialize() :string {
-		return $this->color->serialize();
-	}
-	
-	public function unserialize($serialized) {
-		$unserialized = (array) json_decode((string) $serialized);
-		regulate::rgb_array($unserialized);
-		$this->set($unserialized, 'rgb');
-	}
-	
-	public function jsonSerialize() :array {
-		return $this->color->jsonSerialize();
-	}
-	
 	
 	protected function set($color, string $type = '') {
 		if ($color instanceof color) {
@@ -120,37 +99,8 @@ class main implements \Serializable, \JsonSerializable {
 		);
 	}
 	
-	public function rgb_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'rgb', $this->hsl(3));
-	}
-	
-	public function hsl_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'hsl', $this->hsl(3));
-	}
-	
-	public function hsb_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'hsb', $this->hsl(3));
-	}
-	
-	public function hex_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'hex', $this->hsl(3));
-	}
-	
-	public function cmyk_scheme(string $scheme_name) :array {
-		return static::_scheme($scheme_name, 'cmyk', $this->hsl(3));
-	}
-	
-	protected static function _scheme(string $scheme_name, string $callback, array $hsl) {
-		if (is_callable($callable = [new scheme, $callback])) {
-			return call_user_func($callable, $hsl['h'], $hsl['s'], $hsl['l'], $scheme_name);
-		}
-		error::call(sprintf(
-			'The $callback "%s" is not a valid callback',
-			$scheme_name,
-			__CLASS__,
-			__FUNCTION__
-		));
-		return [];
+	public function scheme(string $scheme_name, string $return_type = 'hex') :array {
+		return static::_scheme($scheme_name, strtolower($return_type), $this->hsl(3));
 	}
 	
 	public function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :color {
