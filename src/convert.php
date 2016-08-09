@@ -59,14 +59,6 @@ class convert {
 		];
 	}
 	
-	public static function rgb_contrast(int $r = 0, int $g = 0, int $b = 0) :array {
-		return [
-			'r' => ($r < 128) ? 255 : 0,
-			'g' => ($g < 128) ? 255 : 0,
-			'b' => ($b < 128) ? 255 : 0
-		];
-	}
-	
 	public static function rgb_to_hsl(int $r = 0, int $g = 0, int $b = 0, $accuracy = 2) :array {
 		$r    /= 255;
 		$g    /= 255;
