@@ -165,7 +165,7 @@ class convert {
 		$min = min($r, $g, $b);
 		$v   = $max;
 		$d   = $max - $min;
-		$s   = static::_div($d, $max);
+		$s   = regulate::div($d, $max);
 		$h   = 0; // achromatic
 		if ($max != $min) {
 			static::_rgbhsl_hue($h, $r, $g, $b, $max, $d);
@@ -205,12 +205,5 @@ class convert {
 		$b = round($calc[$i][2] * 255, $accuracy);
 		
 		return ['r' => $r, 'g' => $g, 'b' => $b];
-	}
-	
-	public static function _div(float $number, float $divisor) {
-		if ($divisor == 0) {
-			return 0;
-		}
-		return $number / $divisor;
 	}
 }

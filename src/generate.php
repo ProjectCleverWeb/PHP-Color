@@ -35,8 +35,8 @@ class generate {
 	}
 	
 	public static function blend(float $r1, float $g1, float $b1, float $a1, float $r2, float $g2, float $b2, float $a2, float $amount = 50.0) :array {
-		$x1 = convert::_div(100 - $amount, 100);
-		$x2 = convert::_div($amount, 100);
+		$x1 = regulate::div(100 - $amount, 100);
+		$x2 = regulate::div($amount, 100);
 		return [
 			'r' => round(($r1 * $x1) + ($r2 * $x2), 0),
 			'g' => round(($g1 * $x1) + ($g2 * $x2), 0),

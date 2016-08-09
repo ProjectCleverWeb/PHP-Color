@@ -200,4 +200,18 @@ class regulate {
 		}
 		return $number;
 	}
+	
+	/**
+	 * Simple dividing method to handle division by 0
+	 * 
+	 * @param  float  $number  The number to divide
+	 * @param  float  $divisor The number to divide by
+	 * @return float           The result
+	 */
+	public static function div(float $number, float $divisor) :float {
+		if ($divisor == 0) {
+			return 0;
+		}
+		return $number / $divisor;
+	}
 }
