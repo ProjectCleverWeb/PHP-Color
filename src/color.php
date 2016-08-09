@@ -44,7 +44,7 @@ class color implements \Serializable, \JsonSerializable {
 		if (is_a($color, __CLASS__)) {
 			$type = 'color';
 		} elseif (empty($type) || !is_callable([__CLASS__, 'import_'.$type])) {
-			$type = static::get_color_type($color);
+			$type = static::get_type($color);
 		}
 		call_user_func([__CLASS__, 'import_'.$type], $color);
 	}
@@ -94,7 +94,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  mized  $color The color in question
 	 * @return string        The color type as a string, returns 'error' if $color is invalid
 	 */
-	public static function get_color_type($color) :string {
+	public static function get_type($color) :string {
 		if (is_array($color)) {
 			return static::_get_array_type($color);
 		} elseif (is_string($color)) {
