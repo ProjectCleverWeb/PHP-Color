@@ -85,12 +85,12 @@ class RegulateTest extends unit_Test {
 		$this->assertEquals($expected, $test3);
 		// Negative loop around
 		$test4 = ['r' => -257, 'g' => -257, 'b' => -257];
-		regulate::rgb_array($test3);
-		$this->assertEquals($expected, $test3);
-		// Multiple loops
-		$test5 = ['r' => 1025, 'g' => 1025, 'b' => 1025];
 		regulate::rgb_array($test4);
 		$this->assertEquals($expected, $test4);
+		// Multiple loops
+		$test5 = ['r' => 1025, 'g' => 1025, 'b' => 1025];
+		regulate::rgb_array($test5);
+		$this->assertEquals($expected, $test5);
 		// Extra keys
 		$test6b = $test6a = ['r' => 1, 'g' => 1, 'b' => 1, 'a' => 1, 'z' => 1];
 		regulate::rgb_array($test6b);
@@ -163,12 +163,12 @@ class RegulateTest extends unit_Test {
 		$this->assertEquals($expected, $test3);
 		// Negative loop around
 		$test4 = ['h' => -540, 's' => -201, 'l' => -151];
-		regulate::hsl_array($test3);
-		$this->assertEquals($expected, $test3);
-		// Multiple loops
-		$test5 = ['h' => 1980, 's' => 505, 'l' => 555];
 		regulate::hsl_array($test4);
 		$this->assertEquals($expected, $test4);
+		// Multiple loops
+		$test5 = ['h' => 1980, 's' => 504, 'l' => 555];
+		regulate::hsl_array($test5);
+		$this->assertEquals($expected, $test5);
 		// Extra keys
 		$test6b = $test6a = ['h' => 1, 's' => 1, 'l' => 1, 'a' => 1, 'z' => 1];
 		regulate::hsl_array($test6b);
@@ -205,12 +205,12 @@ class RegulateTest extends unit_Test {
 		$this->assertEquals($expected, $test3);
 		// Negative loop around
 		$test4 = ['h' => -540, 's' => -201, 'b' => -151];
-		regulate::hsb_array($test3);
-		$this->assertEquals($expected, $test3);
-		// Multiple loops
-		$test5 = ['h' => 1980, 's' => 505, 'b' => 555];
 		regulate::hsb_array($test4);
 		$this->assertEquals($expected, $test4);
+		// Multiple loops
+		$test5 = ['h' => 1980, 's' => 504, 'b' => 555];
+		regulate::hsb_array($test5);
+		$this->assertEquals($expected, $test5);
 		// Extra keys
 		$test6b = $test6a = ['h' => 1, 's' => 1, 'b' => 1, 'a' => 1, 'z' => 1];
 		regulate::hsb_array($test6b);
@@ -299,12 +299,12 @@ class RegulateTest extends unit_Test {
 		$this->assertEquals($expected, $test3);
 		// Negative loop around
 		$test4 = ['c' => -102, 'm' => -102, 'y' => -102, 'k' => -102];
-		regulate::cmyk_array($test3);
-		$this->assertEquals($expected, $test3);
-		// Multiple loops
-		$test5 = ['c' => 505, 'm' => 505, 'y' => 505, 'k' => 505];
 		regulate::cmyk_array($test4);
 		$this->assertEquals($expected, $test4);
+		// Multiple loops
+		$test5 = ['c' => 506, 'm' => 506, 'y' => 506, 'k' => 506];
+		regulate::cmyk_array($test5);
+		$this->assertEquals($expected, $test5);
 		// Extra keys
 		$test6b = $test6a = ['c' => 1, 'm' => 1, 'y' => 1, 'k' => 1, 'a' => 1, 'z' => 1];
 		regulate::cmyk_array($test6b);
