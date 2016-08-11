@@ -1,5 +1,6 @@
 ### Unit Testing ###
 /coverage
+/vendor
 /meta/test.php
 sample.html
 

@@ -4,5 +4,6 @@ before_script:
 script: phpunit --coverage-clover=coverage.clover
 after_script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php vendor/bin/codacycoverage clover coverage.clover
 php:
   - 7.0
