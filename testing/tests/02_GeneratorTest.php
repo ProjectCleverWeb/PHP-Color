@@ -43,4 +43,19 @@ class GeneratorTest extends unit_test {
 			$this->assertTrue($rgb['b'] >= 0 && $rgb['b'] <= 255);
 		}
 	}
+	
+	/**
+	 * @test
+	 */
+	public function Blend() {
+		$rgb1 = $this->vars['conversions']['FFFFFF']['rgb'] + ['a' => 100];
+		$rgb2 = $this->vars['conversions']['000000']['rgb'] + ['a' => 100];
+		$rgb3 = generate::blend($rgb1['r'], $rgb1['g'], $rgb1['b'], $rgb1['a'], $rgb2['r'], $rgb2['g'], $rgb2['b'], $rgb2['a']);
+		$this->assertEquals(['r' => 128, 'g' => 128, 'b' => 128, 'a' => 100], $rgb3);
+		
+		$rgb1 = $this->vars['conversions']['FFFFFF']['rgb'] + ['a' => 100];
+		$rgb2 = $this->vars['conversions']['000000']['rgb'] + ['a' => 50];
+		$rgb3 = generate::blend($rgb1['r'], $rgb1['g'], $rgb1['b'], $rgb1['a'], $rgb2['r'], $rgb2['g'], $rgb2['b'], $rgb2['a'], 25);
+		$this->assertEquals(['r' => 191, 'g' => 191, 'b' => 191, 'a' => 87.5], $rgb3);
+	}
 }

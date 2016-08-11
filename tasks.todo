@@ -5,6 +5,7 @@ General:
 	☐	Make main::alpha() a modification method
 	☐	Add cache class
 	☐	Add PHP 5 support
+	☐	Modify methods return either existing or resulting value
 Class Specific:
 	☐	Validate scope in modify::rgb() and modify::hsl
 	☐	Add main::difference() for comparing 2 different colors
