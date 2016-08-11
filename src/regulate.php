@@ -68,6 +68,19 @@ class regulate {
 	}
 	
 	/**
+	 * Forces and HSL array to have specific offsets, and max values.
+	 * 
+	 * @param  array &$hsl_array The HSL array to modify
+	 * @return void
+	 */
+	public static function hsb_array(array &$hsl_array) {
+		static::standardize_array($hsl_array, ['h', 's', 'b']);
+		static::hsl($hsl_array['h'], 'h');
+		static::hsl($hsl_array['s'], 's');
+		static::hsl($hsl_array['b'], 'b');
+	}
+	
+	/**
 	 * Forces a float to be within the range of 0 and 100.
 	 * 
 	 * @param  float &$value The value to modify

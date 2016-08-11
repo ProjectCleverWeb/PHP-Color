@@ -214,7 +214,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @return void
 	 */
 	public function import_hsb(array $color) {
-		regulate::hsl_array($color);
+		regulate::hsb_array($color);
 		$this->rgb = convert::hsb_to_rgb($color['h'], $color['s'], $color['b']);
 		$this->hsl = new hsl($this->rgb);
 		$this->hex = convert::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
