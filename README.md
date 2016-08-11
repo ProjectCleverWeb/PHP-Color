@@ -40,7 +40,7 @@ $color      = new color($input);
 $hex        = $color->hex();
 $hsl        = strtr('h, s%, l%', $color->hsl());
 $text_color = ($color->is_dark() ? 'FFFFFF' : '000000');
-$similar    = implode(', ', array_slice($color->hex_scheme('analogous'), 1));
+$similar    = implode(', ', array_slice($color->scheme('analogous'), 1));
 
 $template = "Hex: %s
 HSL: %s
@@ -158,52 +158,81 @@ You can also blend 2 colors using the `blend()` method.
 $color1 = new color('ff0000');
 $color2 = new color('00ff00');
 $color3 = $color1->blend($color2);
-echo $color3->hex(); // 7F7F00
+echo $color3->hex(); // 808000
 
 // Blending 2 colors where you want 75% of color 1 and 25% of color 2
 $color1 = new color('ffffff');
 $color2 = new color('000000');
 $color3 = $color1->blend($color2, 25);
-echo $color3->hex(); // C0C0C0
+echo $color3->hex(); // BFBFBF
 ```
 
 ### Creating Color Schemes
 You create 10 different color schemes for every single color. That gives you up to 167,772,160 possible color schemes!
 
-Although the below only shows you how to use `hex_scheme()`, you can also use `rgb_scheme()`, `hsl_scheme()`, `hsb_scheme()`, and `cmyk_scheme()`.
-
 ```php
 $color = new color('ff0000');
 
 // $scheme = ['FF0000', '990000', 'CC0000', 'FF2929', 'FF5252']
-$scheme = $color->hex_scheme('shades');
+$scheme = $color->scheme('shades');
 
 // $scheme = ['FF0000', 'D60000', 'FF2929', 'B30000', '800000']
-$scheme = $color->hex_scheme('monochromatic');
+$scheme = $color->scheme('monochromatic');
 
 // $scheme = ['FF0000', 'FF0099', 'F82565', 'F86525', 'FF9900']
-$scheme = $color->hex_scheme('analogous');
+$scheme = $color->scheme('analogous');
 
 // $scheme = ['FF0000', 'FF6666', 'FF3333', '00EAFF', '33EEFF']
-$scheme = $color->hex_scheme('complementary');
+$scheme = $color->scheme('complementary');
 
 // $scheme = ['FF0000', '00FF00', 'FF5C5C', '0000FF', '5C5CFF']
-$scheme = $color->hex_scheme('triad');
+$scheme = $color->scheme('triad');
 
 // $scheme = ['FF0000', 'AAFF00', 'FF5C5C', 'AA00FF', 'C95CFF']
-$scheme = $color->hex_scheme('weighted_triad');
+$scheme = $color->scheme('weighted_triad');
 
 // $scheme = ['FF0000', '00FFFF', '00FF00', 'FF5C5C', '0000FF']
-$scheme = $color->hex_scheme('tetrad');
+$scheme = $color->scheme('tetrad');
 
 // $scheme = ['FF0000', '00FFAA', 'AAFF00', 'FF5C5C', 'AA00FF']
-$scheme = $color->hex_scheme('weighted_tetrad');
+$scheme = $color->scheme('weighted_tetrad');
 
 // $scheme = ['FF0000', 'F7D082', 'F5C25C', '5CF582', '82F7D0']
-$scheme = $color->hex_scheme('compound');
+$scheme = $color->scheme('compound');
 
 // $scheme = ['FF0000', '0066FF', '00FFFF', 'FF5C5C', 'FF9900']
-$scheme = $color->hex_scheme('rectangular');
+$scheme = $color->scheme('rectangular');
+```
+
+The `scheme()` method supports returning different color spaces through the second argument. The second argument can be either `hex`, `rgb`, `hsl`, `hsb`, or `cmyk`.
+
+```php
+$color = new color('ff0000');
+
+// Hexadecimal (default)
+echo 'hex: '.json_encode($color->scheme('shades', 'hex')).PHP_EOL;
+
+// RGB
+echo 'rgb: '.json_encode($color->scheme('shades', 'rgb')).PHP_EOL;
+
+// HSL
+echo 'hsl: '.json_encode($color->scheme('shades', 'hsl')).PHP_EOL;
+
+// HSB
+echo 'hsb: '.json_encode($color->scheme('shades', 'hsb')).PHP_EOL;
+
+// CMYK
+echo 'cmyk: '.json_encode($color->scheme('shades', 'cmyk'));
+```
+
+#### Output:
+
+```
+hex: ["FF0000","990000","CC0000","FF2929","FF5252"]
+rgb: [{"r":255,"g":0,"b":0},{"r":153,"g":0,"b":0},{"r":204,"g":0,"b":0},{"r":255,"g":41,"b":41},{"r":255,"g":82,"b":82}]
+hsl: [[0,100,50],[0,100,30],[0,100,40],[0,100,58],[0,100,66]]
+hsb: [{"h":0,"s":100,"b":100},{"h":0,"s":100,"b":60},{"h":0,"s":100,"b":80},{"h":0,"s":83.922,"b":100},{"h":0,"s":67.843,"b":100}]
+cmyk: [{"c":0,"m":100,"y":100,"k":0},{"c":0,"m":60,"y":60,"k":40},{"c":0,"m":80,"y":80,"k":20},{"c":0,"m":84,"y":84,"k":0},{"c":0,"m":68,"y":68,"k":0}]
 ```
 
 ### Generate Random Colors
