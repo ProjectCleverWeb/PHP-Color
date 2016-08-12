@@ -35,12 +35,24 @@ class GeneratorTest extends unit_test {
 	/**
 	 * @test
 	 */
-	public function Random() {
+	public function RGB_Random() {
 		foreach (range(1, 1000) as $i) {
-			$rgb = generate::rand();
+			$rgb = generate::rgb_rand();
 			$this->assertTrue($rgb['r'] >= 0 && $rgb['r'] <= 255);
 			$this->assertTrue($rgb['g'] >= 0 && $rgb['g'] <= 255);
 			$this->assertTrue($rgb['b'] >= 0 && $rgb['b'] <= 255);
+		}
+	}
+	
+	/**
+	 * @test
+	 */
+	public function HSL_Random() {
+		foreach (range(1, 1000) as $i) {
+			$hsl = generate::hsl_rand();
+			$this->assertTrue($hsl['h'] >= 0 && $hsl['h'] <= 359);
+			$this->assertTrue($hsl['s'] >= 0 && $hsl['s'] <= 100);
+			$this->assertTrue($hsl['l'] >= 0 && $hsl['l'] <= 100);
 		}
 	}
 	
@@ -57,5 +69,19 @@ class GeneratorTest extends unit_test {
 		$rgb2 = $this->vars['conversions']['000000']['rgb'] + ['a' => 50];
 		$rgb3 = generate::blend($rgb1['r'], $rgb1['g'], $rgb1['b'], $rgb1['a'], $rgb2['r'], $rgb2['g'], $rgb2['b'], $rgb2['a'], 25);
 		$this->assertEquals(['r' => 191, 'g' => 191, 'b' => 191, 'a' => 87.5], $rgb3);
+	}
+	
+	
+	/**
+	 * @test
+	 */
+	public function Web_Safe() {
+		foreach (range(1, 1000) as $i) {
+			$rgb = generate::rgb_rand();
+			$web = generate::web_safe($rgb['r'], $rgb['g'], $rgb['b']);
+			foreach (convert::hex_to_rgb($web) as $val) {
+				$this->assertTrue(is_int($val / 0x33));
+			}
+		}
 	}
 }

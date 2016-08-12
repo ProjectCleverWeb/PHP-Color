@@ -34,11 +34,11 @@ class generate {
 		];
 	}
 	
-	public static function hsl_rand(int $min_h = 0, int $max_h = 255, int $min_s = 0, int $max_s = 255, int $min_l = 0, int $max_l = 255) :array {
+	public static function hsl_rand(int $min_h = 0, int $max_h = 359, int $min_s = 0, int $max_s = 100, int $min_l = 0, int $max_l = 100) :array {
 		return [
-			'h' => rand(abs((int) $min_h) % 256, abs((int) $max_h) % 256),
-			's' => rand(abs((int) $min_s) % 256, abs((int) $max_s) % 256),
-			'l' => rand(abs((int) $min_l) % 256, abs((int) $max_l) % 256)
+			'h' => rand(abs((int) $min_h) % 360, abs((int) $max_h) % 360),
+			's' => rand(abs((int) $min_s) % 101, abs((int) $max_s) % 101),
+			'l' => rand(abs((int) $min_l) % 101, abs((int) $max_l) % 101)
 		];
 	}
 	
