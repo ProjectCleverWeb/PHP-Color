@@ -26,11 +26,19 @@ class generate {
 		return (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
 	}
 	
-	public static function rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :array {
+	public static function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :array {
 		return [
 			'r' => rand(abs((int) $min_r) % 256, abs((int) $max_r) % 256),
 			'g' => rand(abs((int) $min_g) % 256, abs((int) $max_g) % 256),
 			'b' => rand(abs((int) $min_b) % 256, abs((int) $max_b) % 256)
+		];
+	}
+	
+	public static function hsl_rand(int $min_h = 0, int $max_h = 255, int $min_s = 0, int $max_s = 255, int $min_l = 0, int $max_l = 255) :array {
+		return [
+			'h' => rand(abs((int) $min_h) % 256, abs((int) $max_h) % 256),
+			's' => rand(abs((int) $min_s) % 256, abs((int) $max_s) % 256),
+			'l' => rand(abs((int) $min_l) % 256, abs((int) $max_l) % 256)
 		];
 	}
 	
@@ -43,5 +51,13 @@ class generate {
 			'b' => round(($b1 * $x1) + ($b2 * $x2), 0),
 			'a' => ($a1 * $x1) + ($a2 * $x2)
 		];
+	}
+	
+	public static function web_safe(int $r = 0, int $g = 0, int $b = 0) :string {
+		return convert::rgb_to_hex(
+			round($r / 0x33) * 0x33,
+			round($g / 0x33) * 0x33,
+			round($b / 0x33) * 0x33
+		);
 	}
 }

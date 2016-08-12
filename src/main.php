@@ -46,6 +46,11 @@ class main extends main_peripheral {
 		return $this->color->hex;
 	}
 	
+	public function web_safe() :string {
+		$rgb = $this->color->rgb;
+		return generate::web_safe($rgb['r'], $rgb['g'], $rgb['b']);
+	}
+	
 	public function css() :string {
 		return css::best($this->color);
 	}
@@ -103,12 +108,12 @@ class main extends main_peripheral {
 		return static::_scheme($scheme_name, strtolower($return_type), $this->hsl(3));
 	}
 	
-	public function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :color {
-		return new color(generate::rgb_rand($min_r, $max_r, $min_g, $max_g, $min_b, $max_b));
+	public function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :main {
+		return new main(generate::rgb_rand($min_r, $max_r, $min_g, $max_g, $min_b, $max_b));
 	}
 	
-	public function hsl_rand(int $min_h = 0, int $max_h = 255, int $min_s = 0, int $max_s = 255, int $min_l = 0, int $max_l = 255) :color {
-		return new color(generate::hsl_rand($min_h, $max_h, $min_s, $max_s, $min_l, $max_l));
+	public function hsl_rand(int $min_h = 0, int $max_h = 255, int $min_s = 0, int $max_s = 255, int $min_l = 0, int $max_l = 255) :main {
+		return new main(generate::hsl_rand($min_h, $max_h, $min_s, $max_s, $min_l, $max_l));
 	}
 	
 }
