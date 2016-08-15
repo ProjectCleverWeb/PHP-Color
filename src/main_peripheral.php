@@ -38,4 +38,8 @@ abstract class main_peripheral implements \Serializable, \JsonSerializable {
 		));
 		return [];
 	}
+	
+	public function reset_cache() {
+		$this->cache->reset();
+	}
 }

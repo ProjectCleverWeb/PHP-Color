@@ -8,8 +8,11 @@ class main extends main_peripheral {
 	
 	public $color;
 	
+	public $cache;
+	
 	public function __construct($color, string $type = '') {
 		$this->set($color, $type);
+		$this->cache = new cache;
 	}
 	
 	protected function set($color, string $type = '') {
@@ -33,13 +36,23 @@ class main extends main_peripheral {
 	}
 	
 	public function cmyk() :array {
-		$rgb = $this->color->rgb;
-		return convert::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
+		if (!is_null($cached = $this->cache->get(__FUNCTION__, $this->hex()))) {
+			return $cached;
+		}
+		$rgb    = $this->color->rgb;
+		$result = convert::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
+		$this->cache->set(__FUNCTION__, $this->hex(), $result);
+		return $result;
 	}
 	
 	public function hsb(int $accuracy = 0) :array {
-		$rgb = $this->color->rgb;
-		return convert::rgb_to_hsb($rgb['r'], $rgb['g'], $rgb['b'], $accuracy) + ['a' => $this->color->alpha()];
+		if (!is_null($cached = $this->cache->get(__FUNCTION__, $this->hex()))) {
+			return $cached;
+		}
+		$rgb    = $this->color->rgb;
+		$result = convert::rgb_to_hsb($rgb['r'], $rgb['g'], $rgb['b'], $accuracy) + ['a' => $this->color->alpha()];
+		$this->cache->set(__FUNCTION__, $this->hex(), $result);
+		return $result;
 	}
 	
 	public function hex() :string {
@@ -47,8 +60,13 @@ class main extends main_peripheral {
 	}
 	
 	public function web_safe() :string {
-		$rgb = $this->color->rgb;
-		return generate::web_safe($rgb['r'], $rgb['g'], $rgb['b']);
+		if (!is_null($cached = $this->cache->get(__FUNCTION__, $this->hex()))) {
+			return $cached;
+		}
+		$rgb    = $this->color->rgb;
+		$result = generate::web_safe($rgb['r'], $rgb['g'], $rgb['b']);
+		$this->cache->set(__FUNCTION__, $this->hex(), $result);
+		return $result;
 	}
 	
 	public function css() :string {
@@ -66,8 +84,13 @@ class main extends main_peripheral {
 	}
 	
 	public function is_dark(int $check_score = 128) :bool {
-		$rgb = $this->color->rgb;
-		return check::is_dark($rgb['r'], $rgb['g'], $rgb['b'], $check_score);
+		if (!is_null($cached = $this->cache->get(__FUNCTION__, $this->hex()))) {
+			return $cached;
+		}
+		$rgb    = $this->color->rgb;
+		$result = check::is_dark($rgb['r'], $rgb['g'], $rgb['b'], $check_score);
+		$this->cache->set(__FUNCTION__, $this->hex(), $result);
+		return $result;
 	}
 	
 	public function red(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = TRUE) {
@@ -100,12 +123,17 @@ class main extends main_peripheral {
 		return new $this(generate::blend(
 			$c1['r'], $c1['g'], $c1['b'], $c1['a'],
 			$c2['r'], $c2['g'], $c2['b'], $c2['a'],
-			$amount)
-		);
+			$amount
+		));
 	}
 	
 	public function scheme(string $scheme_name, string $return_type = 'hex') :array {
-		return static::_scheme($scheme_name, strtolower($return_type), $this->hsl(3));
+		if (!is_null($cached = $this->cache->get(__FUNCTION__.'_'.$scheme_name.'_'.$return_type, $this->hex()))) {
+			return $cached;
+		}
+		$result = static::_scheme($scheme_name, strtolower($return_type), $this->hsl(3));
+		$this->cache->set(__FUNCTION__.'_'.$scheme_name.'_'.$return_type, $this->hex(), $result);
+		return $result;
 	}
 	
 	public function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :main {
@@ -115,5 +143,4 @@ class main extends main_peripheral {
 	public function hsl_rand(int $min_h = 0, int $max_h = 255, int $min_s = 0, int $max_s = 255, int $min_l = 0, int $max_l = 255) :main {
 		return new main(generate::hsl_rand($min_h, $max_h, $min_s, $max_s, $min_l, $max_l));
 	}
-	
 }
