@@ -2,7 +2,7 @@ build:
   tests:
     override:
       -
-        command: 'phpunit --testdox'
+        command: 'phpunit -c phpunit-scrutinizer.xml'
   environment:
     php:
       version: 7.0.8
