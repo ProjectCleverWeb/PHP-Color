@@ -191,7 +191,7 @@ class regulate {
 	 * @param  array &$array The array to be modified
 	 * @return void
 	 */
-	protected static function standardize_array(array &$array, array $keys = []) {
+	public static function standardize_array(array &$array, array $keys = []) {
 		if (!empty($keys) && array_keys($array) === range(0, count($array) - 1) && count($array) == count($keys)) {
 			$array = array_combine($keys, $array);
 		} else {
