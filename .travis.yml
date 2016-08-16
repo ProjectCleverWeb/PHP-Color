@@ -7,5 +7,6 @@ script:
 after_script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
   - php vendor/bin/codacycoverage clover coverage.clover
+  - ./vendor/bin/test-reporter --coverage-report coverage.clover
 php:
   - 7.0
