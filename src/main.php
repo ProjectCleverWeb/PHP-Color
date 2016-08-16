@@ -8,7 +8,7 @@ class main extends main_peripheral {
 	
 	public $color;
 	
-	public $cache;
+	protected $cache;
 	
 	public function __construct($color, string $type = '') {
 		$this->set($color, $type);
