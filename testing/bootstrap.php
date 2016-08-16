@@ -8,6 +8,8 @@ namespace projectcleverweb\color;
 // Call the autoload script
 require_once realpath(__DIR__.'/../autoload.php');
 
+error::set('active', FALSE);
+
 /**
  * Since all the setUp() and tearDown() methods are the same, we just extend
  * this class in each of the testing classes. (just make sure this class

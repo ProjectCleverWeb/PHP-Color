@@ -320,41 +320,118 @@ class RegulateTest extends unit_Test {
 	 * @test
 	 */
 	public function Hex_Int() {
-		$this->assertTrue(TRUE);
+		// min
+		$test1 = 0x0;
+		regulate::hex_int($test1);
+		$this->assertEquals(0x0, $test1);
+		// max
+		$test2 = 0xffffff;
+		regulate::hex_int($test2);
+		$this->assertEquals(0xffffff, $test2);
+		// loop
+		$test3 = 0x1000001;
+		regulate::hex_int($test3);
+		$this->assertEquals(0x1, $test3);
+		// negative loop
+		$test4 = -0x1000001;
+		regulate::hex_int($test4);
+		$this->assertEquals(0x1, $test4);
+		// multiple loops
+		$test5 = 0x5000001;
+		regulate::hex_int($test5);
+		$this->assertEquals(0x1, $test5);
+		$test6 = -0x5000001;
+		regulate::hex_int($test6);
+		$this->assertEquals(0x1, $test6);
 	}
 	
 	/**
 	 * @test
 	 */
 	public function Strip_Hash() {
-		$this->assertTrue(TRUE);
+		$test1 = 'ffffff';
+		regulate::_strip_hash($test1);
+		$this->assertEquals('ffffff', $test1);
+		$test2 = '#ffffff';
+		regulate::_strip_hash($test2);
+		$this->assertEquals('ffffff', $test2);
 	}
 	
 	/**
 	 * @test
 	 */
 	public function Expand_Shorthand() {
-		$this->assertTrue(TRUE);
+		$test1 = 'ffffff';
+		regulate::_expand_shorthand($test1);
+		$this->assertEquals('ffffff', $test1);
+		$test2 = 'fff';
+		regulate::_expand_shorthand($test2);
+		$this->assertEquals('ffffff', $test2);
 	}
 	
 	/**
 	 * @test
 	 */
 	public function Validate_Hex_Str() {
-		$this->assertTrue(TRUE);
+		$test1 = '09f09F';
+		regulate::_validate_hex_str($test1);
+		$this->assertEquals('09f09F', $test1);
+		$test2 = '#09f09F';
+		regulate::_validate_hex_str($test2);
+		$this->assertEquals('#09f09F', $test2);
+		$test3 = '09f';
+		regulate::_validate_hex_str($test3);
+		$this->assertEquals('09f', $test3);
+		$test4 = '#09f';
+		regulate::_validate_hex_str($test4);
+		$this->assertEquals('#09f', $test4);
+		$test5 = 'Invalid Value';
+		regulate::_validate_hex_str($test5);
+		$this->assertEquals('000000', $test5);
 	}
 	
 	/**
 	 * @test
 	 */
 	public function Hex() {
-		$this->assertTrue(TRUE);
+		$test1 = '09f09F';
+		regulate::hex($test1);
+		$this->assertEquals('09f09F', $test1);
+		$test2 = '#09f09F';
+		regulate::hex($test2);
+		$this->assertEquals('09f09F', $test2);
+		$test3 = '09f';
+		regulate::hex($test3);
+		$this->assertEquals('0099ff', $test3);
+		$test4 = '#09f';
+		regulate::hex($test4);
+		$this->assertEquals('0099ff', $test4);
+		$test5 = 'Invalid Value';
+		regulate::hex($test5);
+		$this->assertEquals('000000', $test5);
 	}
 	
 	/**
 	 * @test
 	 */
+	public function Standardize_Array() {
+		$test1 = ['a' => 1, 'b' => 2, 'c' => 3];
+		regulate::standardize_array($test1, ['a', 'b', 'c']);
+		$this->assertEquals(['a' => 1, 'b' => 2, 'c' => 3], $test1);
+		$test2 = ['a' => 1, 'b' => 2, 'c' => 3];
+		regulate::standardize_array($test2, ['a', 'b', 'c', 'd']);
+		$this->assertEquals(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 0], $test2);
+		$test3 = [1, 2, 3];
+		regulate::standardize_array($test3, ['a', 'b', 'c']);
+		$this->assertEquals(['a' => 1, 'b' => 2, 'c' => 3], $test3);
+	}
+	
+	
+	/**
+	 * @test
+	 */
 	public function Div() {
-		$this->assertTrue(TRUE);
+		$this->assertEquals(3 / 3, regulate::div(3, 3));
+		$this->assertEquals(0, regulate::div(3, 0));
 	}
 }
