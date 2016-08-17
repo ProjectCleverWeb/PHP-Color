@@ -61,7 +61,7 @@ class error {
 	 * @return void
 	 */
 	protected static function trigger(string $message) {
-		trigger_error($message, E_USER_WARNING);
+		return trigger_error($message, E_USER_WARNING);
 	}
 	
 }

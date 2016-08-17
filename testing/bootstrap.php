@@ -8,7 +8,6 @@ namespace projectcleverweb\color;
 // Call the autoload script
 require_once realpath(__DIR__.'/../autoload.php');
 
-error::set('active', FALSE);
 
 /**
  * Since all the setUp() and tearDown() methods are the same, we just extend
@@ -23,6 +22,7 @@ abstract class unit_test extends \PHPUnit_Framework_TestCase {
 	 * Reset the vars
 	 */
 	public function setUp() {
+		error::set('active', FALSE);
 		$this->vars = [
 			'conversions' => [
 				// The 8 basic colors of the RGB spectrum with their conversions
