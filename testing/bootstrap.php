@@ -22,6 +22,7 @@ abstract class unit_test extends \PHPUnit_Framework_TestCase {
 	 * Reset the vars
 	 */
 	public function setUp() {
+		error::set('use_exceptions', TRUE);
 		error::set('active', FALSE);
 		$this->vars = [
 			'conversions' => [

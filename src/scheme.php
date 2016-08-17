@@ -127,7 +127,7 @@ class scheme {
 		$al = static::alt_light($l);
 		// Avoid black & white
 		$delta = 0;
-		if ($l <= 10 && $l >= 90) {
+		if ($l <= 10 || $l >= 90) {
 			$delta = 50;
 		}
 		return static::_assign_keys([
