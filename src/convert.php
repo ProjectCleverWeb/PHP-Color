@@ -281,7 +281,6 @@ class convert {
 		if ($v == 0) {
 			return ['r' => 0, 'g' => 0, 'b' => 0];
 		}
-		
 		$s   /= 100;
 		$v   /= 100;
 		$h   /= 60;
@@ -290,19 +289,7 @@ class convert {
 		$p    = $v * (1 - $s);
 		$q    = $v * (1 - ($s * $f));
 		$t    = $v * (1 - ($s * (1 - $f)));
-		$calc = [
-			[$v, $t, $p],
-			[$q, $v, $p],
-			[$p, $v, $t],
-			[$p, $q, $v],
-			[$t, $p, $v],
-			[$v, $p, $q]
-		];
-		
-		$r = round($calc[$i][0] * 255, $accuracy);
-		$g = round($calc[$i][1] * 255, $accuracy);
-		$b = round($calc[$i][2] * 255, $accuracy);
-		
-		return ['r' => $r, 'g' => $g, 'b' => $b];
+		$calc = [[$v, $t, $p],[$q, $v, $p],[$p, $v, $t],[$p, $q, $v],[$t, $p, $v],[$v, $p, $q]];
+		return ['r' => round($calc[$i][0] * 255, $accuracy), 'g' => round($calc[$i][1] * 255, $accuracy), 'b' => round($calc[$i][2] * 255, $accuracy)];
 	}
 }
