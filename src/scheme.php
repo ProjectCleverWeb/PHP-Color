@@ -132,15 +132,17 @@ class scheme {
 		$al = static::alt_light($l);
 		// Avoid black & white
 		$delta = 0;
-		if ($l <= 10 || $l >= 90) {
-			$delta = 50;
+		if ($l >= 80) {
+			$delta = -76;
+		} elseif ($l <= 20) {
+			$delta = 24;
 		}
 		return static::_assign_keys([
 			[$h, $s, $l],
-			[$h, $s, max(min(static::mod($al, -20 - $delta, $is_dark), 97), 5)],
-			[$h, $s, max(min(static::mod($al, -10 - $delta, $is_dark), 97), 5)],
-			[$h, $s, max(min(static::mod($al, 8 + $delta, $is_dark), 97), 5)],
-			[$h, $s, max(min(static::mod($al, 16 + $delta, $is_dark), 97), 5)]
+			[$h, $s, static::mod($al, $delta - 20, $is_dark)],
+			[$h, $s, static::mod($al, $delta - 10, $is_dark)],
+			[$h, $s, static::mod($al, $delta + 8, $is_dark)],
+			[$h, $s, static::mod($al, $delta + 16, $is_dark)]
 		]);
 	}
 	

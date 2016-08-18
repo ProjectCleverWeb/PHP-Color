@@ -17,23 +17,22 @@ $colors = [
 	// Low Contrast
 	'7F7F7F',
 	'808080',
-	// HSL at 10% increments
-	generate::hsl_to_rgb(36, 10, 10),
-	generate::hsl_to_rgb(72, 20, 20),
-	generate::hsl_to_rgb(108, 30, 30),
-	generate::hsl_to_rgb(144, 40, 40),
-	generate::hsl_to_rgb(180, 50, 50),
-	generate::hsl_to_rgb(216, 60, 60),
-	generate::hsl_to_rgb(252, 70, 70),
-	generate::hsl_to_rgb(288, 80, 80),
-	generate::hsl_to_rgb(324, 90, 90)
+	// HSL at 10% incrementsconverthsl_to_rgb(36, 10, 10),
+	convert::hsl_to_rgb(72, 20, 20),
+	convert::hsl_to_rgb(108, 30, 30),
+	convert::hsl_to_rgb(144, 40, 40),
+	convert::hsl_to_rgb(180, 50, 50),
+	convert::hsl_to_rgb(216, 60, 60),
+	convert::hsl_to_rgb(252, 70, 70),
+	convert::hsl_to_rgb(288, 80, 80),
+	convert::hsl_to_rgb(324, 90, 90)
 ];
 
 foreach ($colors as &$color) {
 	if (is_array($color)) {
-		$color = generate::rgb_to_hex($color['r'], $color['g'], $color['b']);
+		$color = convert::rgb_to_hex($color['r'], $color['g'], $color['b']);
 	}
-	$color = generate::hex_to_rgb($color);
+	$color = convert::hex_to_rgb($color);
 }
 $colors = array_reverse($colors);
 
@@ -72,10 +71,10 @@ foreach ($funcs as $name => $desc) {
 	$output .= '</div>';
 }
 foreach ($colors as $i => $rgb) {
-	$hex       = generate::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
+	$hex       = convert::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
 	$hex_text  = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']) ? 'FFFFFF' : '000000';
-	$hsl       = array_map('round', generate::rgb_to_hsl($rgb['r'], $rgb['g'], $rgb['b']));
-	$cmyk      = generate::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']);
+	$hsl       = array_map('round', convert::rgb_to_hsl($rgb['r'], $rgb['g'], $rgb['b']));
+	$cmyk      = convert::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']);
 	$output   .= sprintf(
 		'<div class="sixteen wide column"><h2 class="ui black inverted block header" style="background: #%1$s; color: #%2$s;">Color: #%1$s &mdash; rgb(%3$s) &mdash; hsl(%4$s) &mdash; cmyk(%5$s)</h2></div>',
 		$hex,
@@ -89,21 +88,21 @@ foreach ($colors as $i => $rgb) {
 		
 		// $scheme     = scheme::weighted_triad($hsl['h'], $hsl['s'], $hsl['l']);
 		$scheme     = call_user_func_array(['projectcleverweb\\color\\scheme', $func.'_set'], [$hsl['h'], $hsl['s'], $hsl['l']]);
-		$rgb0       = generate::hsl_to_rgb($scheme[0][0], $scheme[0][1], $scheme[0][2]);
+		$rgb0       = convert::hsl_to_rgb($scheme[0]['h'], $scheme[0]['s'], $scheme[0]['l']);
 		$hex0_text  = check::is_dark($rgb0['r'], $rgb0['g'], $rgb0['b']) ? 'FFFFFF' : '000000';
-		$hex0       = generate::rgb_to_hex($rgb0['r'], $rgb0['g'], $rgb0['b']);
-		$rgb1       = generate::hsl_to_rgb($scheme[1][0], $scheme[1][1], $scheme[1][2]);
+		$hex0       = convert::rgb_to_hex($rgb0['r'], $rgb0['g'], $rgb0['b']);
+		$rgb1       = convert::hsl_to_rgb($scheme[1]['h'], $scheme[1]['s'], $scheme[1]['l']);
 		$hex1_text  = check::is_dark($rgb1['r'], $rgb1['g'], $rgb1['b']) ? 'FFFFFF' : '000000';
-		$hex1       = generate::rgb_to_hex($rgb1['r'], $rgb1['g'], $rgb1['b']);
-		$rgb2       = generate::hsl_to_rgb($scheme[2][0], $scheme[2][1], $scheme[2][2]);
+		$hex1       = convert::rgb_to_hex($rgb1['r'], $rgb1['g'], $rgb1['b']);
+		$rgb2       = convert::hsl_to_rgb($scheme[2]['h'], $scheme[2]['s'], $scheme[2]['l']);
 		$hex2_text  = check::is_dark($rgb2['r'], $rgb2['g'], $rgb2['b']) ? 'FFFFFF' : '000000';
-		$hex2       = generate::rgb_to_hex($rgb2['r'], $rgb2['g'], $rgb2['b']);
-		$rgb3       = generate::hsl_to_rgb($scheme[3][0], $scheme[3][1], $scheme[3][2]);
+		$hex2       = convert::rgb_to_hex($rgb2['r'], $rgb2['g'], $rgb2['b']);
+		$rgb3       = convert::hsl_to_rgb($scheme[3]['h'], $scheme[3]['s'], $scheme[3]['l']);
 		$hex3_text  = check::is_dark($rgb3['r'], $rgb3['g'], $rgb3['b']) ? 'FFFFFF' : '000000';
-		$hex3       = generate::rgb_to_hex($rgb3['r'], $rgb3['g'], $rgb3['b']);
-		$rgb4       = generate::hsl_to_rgb($scheme[4][0], $scheme[4][1], $scheme[4][2]);
+		$hex3       = convert::rgb_to_hex($rgb3['r'], $rgb3['g'], $rgb3['b']);
+		$rgb4       = convert::hsl_to_rgb($scheme[4]['h'], $scheme[4]['s'], $scheme[4]['l']);
 		$hex4_text  = check::is_dark($rgb4['r'], $rgb4['g'], $rgb4['b']) ? 'FFFFFF' : '000000';
-		$hex4       = generate::rgb_to_hex($rgb4['r'], $rgb4['g'], $rgb4['b']);
+		$hex4       = convert::rgb_to_hex($rgb4['r'], $rgb4['g'], $rgb4['b']);
 		$check      = array_unique([$hex0, $hex1, $hex2, $hex3, $hex4]);
 		$adobe = sprintf(
 			'https://color.adobe.com/create/color-wheel/?base=2&rule=Custom&selected=2&name=%s&mode=hsv&rgbvalues=%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s&swatchOrder=0,1,2,3,4',
