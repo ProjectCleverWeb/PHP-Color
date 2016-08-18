@@ -12,7 +12,8 @@ class convert {
 	 * @param  string $hex The hex string to convert (no #)
 	 * @return array       The RGB array
 	 */
-	public static function hex_to_rgb(string $hex) :array {
+	public static function hex_to_rgb(string $hex = '000000') :array {
+		regulate::hex($hex);
 		return [
 			'r' => hexdec(substr($hex, 0, 2)),
 			'g' => hexdec(substr($hex, 2, 2)),
@@ -20,7 +21,15 @@ class convert {
 		];
 	}
 	
-	public static function rgb_to_hex(int $r, int $g, int $b) :string {
+	/**
+	 * Convert a RBA array to a hex string
+	 * 
+	 * @param  int    $r The red value (0 - 255)
+	 * @param  int    $g The green value (0 - 255)
+	 * @param  int    $b The blue value (0 - 255)
+	 * @return string    The resulting hex string
+	 */
+	public static function rgb_to_hex(int $r = 0, int $g = 0, int $b = 0) :string {
 		return strtoupper(
 			str_pad(dechex($r), 2, '0', STR_PAD_LEFT)
 			.str_pad(dechex($g), 2, '0', STR_PAD_LEFT)
@@ -28,7 +37,15 @@ class convert {
 		);
 	}
 	
-	public static function rgb_to_cmyk(float $r, float $g, float $b) :array {
+	/**
+	 * Convert a RBA array to a CMYK array
+	 * 
+	 * @param  float $r The red value (0 - 255)
+	 * @param  float $g The green value (0 - 255)
+	 * @param  float $b The blue value (0 - 255)
+	 * @return array    The resulting CMYK array
+	 */
+	public static function rgb_to_cmyk(float $r = 0.0, float $g = 0.0, float $b = 0.0) :array {
 		$c  = (255 - $r) / 255 * 100;
 		$m  = (255 - $g) / 255 * 100;
 		$y  = (255 - $b) / 255 * 100;
@@ -44,7 +61,16 @@ class convert {
 		];
 	}
 	
-	public static function cmyk_to_rgb(float $c, float $m, float $y, float $k) :array {
+	/**
+	 * Convert a CMYK array to a RGB array
+	 * 
+	 * @param  float $c The cyan value (0 - 100)
+	 * @param  float $m The magenta value (0 - 100)
+	 * @param  float $y The yellow value (0 - 100)
+	 * @param  float $k The key (black) value (0 - 100)
+	 * @return array    The resulting RGB array
+	 */
+	public static function cmyk_to_rgb(float $c = 0.0, float $m = 0.0, float $y = 0.0, float $k = 0.0) :array {
 		$c /= 100;
 		$m /= 100;
 		$y /= 100;
@@ -59,6 +85,14 @@ class convert {
 		];
 	}
 	
+	/**
+	 * Convert a RGB array to a HSL array
+	 * 
+	 * @param  float $r The red value (0 - 255)
+	 * @param  float $g The green value (0 - 255)
+	 * @param  float $b The blue value (0 - 255)
+	 * @return array    The resulting HSL array
+	 */
 	public static function rgb_to_hsl(int $r = 0, int $g = 0, int $b = 0, $accuracy = 2) :array {
 		$r    /= 255;
 		$g    /= 255;
@@ -85,10 +119,29 @@ class convert {
 		];
 	}
 	
+	/**
+	 * Color delta algorithm
+	 * 
+	 * @param  float $rgb   The R, G, or B value
+	 * @param  float $max   The max RGB value
+	 * @param  float $delta The delta value ($max - $min)
+	 * @return float        The color delta
+	 */
 	protected static function _rgbhsl_delta_rgb(float $rgb, float $max, float $delta) {
 		return ((($max - $rgb) / 6) + ($delta / 2)) / $delta;
 	}
 	
+	/**
+	 * Calculate the hue as a percentage from RGB
+	 * 
+	 * @param  float &$h    The variable to modify as hue
+	 * @param  float $r     The red value as a percentage
+	 * @param  float $g     The green value as a percentage
+	 * @param  float $b     The blue value as a percentage
+	 * @param  float $max   The max RGB value
+	 * @param  float $delta The delta value ($max - $min)
+	 * @return void
+	 */
 	protected static function _rgbhsl_hue(float &$h, float $r, float $g, float $b, float $max, float $delta) {
 		$delta_r = static::_rgbhsl_delta_rgb($r, $max, $delta);
 		$delta_g = static::_rgbhsl_delta_rgb($g, $max, $delta);
@@ -105,7 +158,15 @@ class convert {
 		}
 	}
 	
-	public static function hsl_to_rgb(float $h = 0, float $s = 0, float $l = 0) :array {
+	/**
+	 * Convert a HSL array to a RGB array
+	 * 
+	 * @param  float  $h The hue value (0 - 360)
+	 * @param  float  $s The saturation value (0 - 100)
+	 * @param  float  $l The light value (0 - 100)
+	 * @return array     The resulting RGB array
+	 */
+	public static function hsl_to_rgb(float $h = 0.0, float $s = 0.0, float $l = 0.0) :array {
 		$s /= 100;
 		$l /= 100;
 		$c  = (1 - abs((2 * $l) - 1)) * $s;
@@ -128,6 +189,17 @@ class convert {
 		];
 	}
 	
+	/**
+	 * Handle low hue values
+	 * 
+	 * @param  float  &$r The red value to modify
+	 * @param  float  &$g The green value to modify
+	 * @param  float  &$b The blue value to modify
+	 * @param  float  $c  Potential R, G, or B value
+	 * @param  float  $x  Potential R, G, or B value
+	 * @param  float  $h  The hue
+	 * @return void
+	 */
 	private static function _hslrgb_low(float &$r, float &$g, float &$b, float $c, float $x, float $h) {
 		if ($h < 60) {
 			$r = $c;
@@ -137,26 +209,45 @@ class convert {
 			$r = $x;
 			$g = $c;
 			$b = 0;
-		} elseif ($h < 180) {
+		} else {
 			$r = 0;
 			$g = $c;
 			$b = $x;
 		}
 	}
 	
+	/**
+	 * Handle high hue values
+	 * 
+	 * @param  float  &$r The red value to modify
+	 * @param  float  &$g The green value to modify
+	 * @param  float  &$b The blue value to modify
+	 * @param  float  $c  Potential R, G, or B value
+	 * @param  float  $x  Potential R, G, or B value
+	 * @param  float  $h  The hue
+	 * @return void
+	 */
 	private static function _hslrgb_high(float &$r, float &$g, float &$b, float $c, float $x, float $h) {
 		if ($h < 240) {
 			$r = 0;
 			$g = $x;
 			$b = $c;
-		} elseif ($h < 300) {
+		} else {
 			$r = $x;
 			$g = 0;
 			$b = $c;
 		}
 	}
 	
-	public static function rgb_to_hsb(float $r, float $g, float $b, int $accuracy = 3) :array {
+	/**
+	 * Convert a RGB array to a HSB array
+	 * 
+	 * @param  float $r The red value (0 - 255)
+	 * @param  float $g The green value (0 - 255)
+	 * @param  float $b The blue value (0 - 255)
+	 * @return array    The resulting HSB array
+	 */
+	public static function rgb_to_hsb(float $r = 0.0, float $g = 0.0, float $b = 0.0, int $accuracy = 3) :array {
 		$r /= 255;
 		$g /= 255;
 		$b /= 255;
@@ -178,7 +269,15 @@ class convert {
 		return ['h' => $h, 's' => $s, 'b' => $v];
 	}
 	
-	public static function hsb_to_rgb(float $h, float $s, float $v, int $accuracy = 3) :array {
+	/**
+	 * Convert a HSB array to a RGB array
+	 * 
+	 * @param  float  $h The hue value (0 - 360)
+	 * @param  float  $s The saturation value (0 - 100)
+	 * @param  float  $b The brightness value (0 - 100)
+	 * @return array     The resulting RGB array
+	 */
+	public static function hsb_to_rgb(float $h = 0.0, float $s = 0.0, float $v = 0.0, int $accuracy = 3) :array {
 		if ($v == 0) {
 			return ['r' => 0, 'g' => 0, 'b' => 0];
 		}
