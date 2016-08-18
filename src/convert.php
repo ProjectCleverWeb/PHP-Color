@@ -1,9 +1,17 @@
 <?php
-
+/**
+ * Conversion Class
+ * ================
+ * Responsible for all the conversion method between Hex, RGB, HSL, HSB, and CMYK
+ */
 
 namespace projectcleverweb\color;
 
-
+/**
+ * Conversion Class
+ * ================
+ * Responsible for all the conversion method between Hex, RGB, HSL, HSB, and CMYK
+ */
 class convert {
 	
 	/**

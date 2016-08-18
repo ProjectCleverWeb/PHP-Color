@@ -1,8 +1,13 @@
 <?php
-
+/**
+ * The 'check' class
+ */
 
 namespace projectcleverweb\color;
 
+/**
+ * The 'check' class
+ */
 class check {
 	
 	/**

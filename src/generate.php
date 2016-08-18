@@ -1,9 +1,13 @@
 <?php
-
+/**
+ * The 'generate' class
+ */
 
 namespace projectcleverweb\color;
 
-
+/**
+ * The 'generate' class
+ */
 class generate {
 	
 	/**

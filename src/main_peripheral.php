@@ -5,7 +5,9 @@
 
 namespace projectcleverweb\color;
 
-
+/**
+ * Handles the "extra" functionality for the main class.
+ */
 abstract class main_peripheral implements \Serializable, \JsonSerializable {
 	
 	/**

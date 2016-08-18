@@ -1,8 +1,19 @@
 <?php
-
+/**
+ * I/O Regulator Class
+ * ===================
+ * Allows you to reasonably regulate method/function input and output for
+ * various types of color values and color arrays.
+ */
 
 namespace projectcleverweb\color;
 
+/**
+ * I/O Regulator Class
+ * ===================
+ * Allows you to reasonably regulate method/function input and output for
+ * various types of color values and color arrays.
+ */
 class regulate {
 	
 	/**

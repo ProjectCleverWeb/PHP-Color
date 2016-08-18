@@ -5,6 +5,9 @@
 
 namespace projectcleverweb\color;
 
+/**
+ * Very simple in-memory caching
+ */
 class cache {
 	
 	/**

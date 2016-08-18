@@ -1,4 +1,9 @@
 <?php
+/**
+ * Scheme Class
+ * 
+ * This class has all the predefined HSL scheme algorithms.
+ */
 
 namespace projectcleverweb\color;
 

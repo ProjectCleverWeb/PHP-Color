@@ -1,8 +1,17 @@
 <?php
-
+/**
+ * Color Modifier Class
+ * ====================
+ * Allows you to modify the various aspects of a 'color' instance
+ */
 
 namespace projectcleverweb\color;
 
+/**
+ * Color Modifier Class
+ * ====================
+ * Allows you to modify the various aspects of a 'color' instance
+ */
 class modify {
 	
 	public static function rgb(color $color, string $scope, float $adjustment, bool $as_percentage, bool $set_absolute) {

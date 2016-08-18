@@ -1,7 +1,13 @@
 <?php
+/**
+ * CSS Generator Class
+ */
 
 namespace projectcleverweb\color;
 
+/**
+ * CSS Generator Class
+ */
 class css {
 	
 	/**

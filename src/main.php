@@ -1,9 +1,19 @@
 <?php
-
+/**
+ * Main Interface For Library
+ * ==========================
+ * Provides a simplified interface so programming with colors can be relatively
+ * quick & easy
+ */
 
 namespace projectcleverweb\color;
 
-
+/**
+ * Main Interface For Library
+ * ==========================
+ * Provides a simplified interface so programming with colors can be relatively
+ * quick & easy
+ */
 class main extends main_peripheral {
 	
 	public $color;

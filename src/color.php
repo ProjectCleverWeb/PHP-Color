@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Color Data Class
+ * ================
+ * Stores data about a particular color in multiple formats.
+ */
 
 namespace projectcleverweb\color;
 

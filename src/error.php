@@ -1,8 +1,13 @@
 <?php
-
+/**
+ * Error Handler Class
+ */
 
 namespace projectcleverweb\color;
 
+/**
+ * Error Handler Class
+ */
 class error {
 	
 	/**
