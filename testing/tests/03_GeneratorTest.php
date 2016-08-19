@@ -84,4 +84,64 @@ class GeneratorTest extends unit_test {
 			}
 		}
 	}
+	
+	/**
+	 * @test
+	 */
+	public function Gradient() {
+		// count down
+		$test1 = generate::gradient_range(2, 0, 0, 0, 0, 0);
+		$this->assertEquals([
+			['r' => 2, 'g' => 0, 'b' => 0],
+			['r' => 1, 'g' => 0, 'b' => 0],
+			['r' => 0, 'g' => 0, 'b' => 0]
+		], $test1);
+		// count up
+		$test2 = generate::gradient_range(0, 0, 0, 2, 0, 0);
+		$this->assertEquals([
+			['r' => 0, 'g' => 0, 'b' => 0],
+			['r' => 1, 'g' => 0, 'b' => 0],
+			['r' => 2, 'g' => 0, 'b' => 0]
+		], $test2);
+		// count up and down
+		$test3 = generate::gradient_range(5, 0, 3, 0, 5, 3);
+		$this->assertEquals([
+			['r' => 5, 'g' => 0, 'b' => 3],
+			['r' => 4, 'g' => 1, 'b' => 3],
+			['r' => 3, 'g' => 2, 'b' => 3],
+			['r' => 2, 'g' => 3, 'b' => 3],
+			['r' => 1, 'g' => 4, 'b' => 3],
+			['r' => 0, 'g' => 5, 'b' => 3]
+		], $test3);
+		// 1 color
+		$test4 = generate::gradient_range(5, 5, 5, 5, 5, 5);
+		$this->assertEquals([
+			['r' => 5, 'g' => 5, 'b' => 5]
+		], $test4);
+		// stretch
+		$test5 = generate::gradient_range(5, 0, 3, 0, 5, 3, 12);
+		$this->assertEquals([
+			['r' => 5, 'g' => 0, 'b' => 3],
+			['r' => 5, 'g' => 0, 'b' => 3],
+			['r' => 4, 'g' => 1, 'b' => 3],
+			['r' => 4, 'g' => 1, 'b' => 3],
+			['r' => 3, 'g' => 2, 'b' => 3],
+			['r' => 3, 'g' => 2, 'b' => 3],
+			['r' => 2, 'g' => 3, 'b' => 3],
+			['r' => 2, 'g' => 3, 'b' => 3],
+			['r' => 1, 'g' => 4, 'b' => 3],
+			['r' => 1, 'g' => 4, 'b' => 3],
+			['r' => 0, 'g' => 5, 'b' => 3],
+			['r' => 0, 'g' => 5, 'b' => 3]
+		], $test5);
+		// stretch 1 color
+		$test4 = generate::gradient_range(5, 5, 5, 5, 5, 5, 5);
+		$this->assertEquals([
+			['r' => 5, 'g' => 5, 'b' => 5],
+			['r' => 5, 'g' => 5, 'b' => 5],
+			['r' => 5, 'g' => 5, 'b' => 5],
+			['r' => 5, 'g' => 5, 'b' => 5],
+			['r' => 5, 'g' => 5, 'b' => 5]
+		], $test4);
+	}
 }

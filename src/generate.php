@@ -118,6 +118,39 @@ class generate {
 	}
 	
 	/**
+	 * Generate a gradient range between 2 RGB colors
+	 * 
+	 * @param  int $r1    The red value from color 1
+	 * @param  int $g1    The green value from color 1
+	 * @param  int $b1    The blue value from color 1
+	 * @param  int $r2    The red value from color 2
+	 * @param  int $g2    The green value from color 2
+	 * @param  int $b2    The blue value from color 2
+	 * @param  int $steps The size of array to produce, 0 will dynamically 
+	 * @return array       [TODO]
+	 */
+	public static function gradient_range(int $r1 = 0, int $g1 = 0, int $b1 = 0, int $r2 = 0, int $g2 = 0, int $b2 = 0, int $steps = 0) :array {
+		$diff = [
+			'r' => $r1 - $r2,
+			'g' => $g1 - $g2,
+			'b' => $b1 - $b2
+		];
+		$div = max(abs($r1 - $r2), abs($g1 - $g2), abs($b1 - $b2));
+		if ($steps != 0) {
+			$div = abs($steps) - 1;
+		}
+		$result = [];
+		foreach (range(0 , $div) as $i) {
+			$result[] = [
+				'r' => $r1 + round(regulate::div(-$diff['r'], $div) * $i),
+				'g' => $g1 + round(regulate::div(-$diff['g'], $div) * $i),
+				'b' => $b1 + round(regulate::div(-$diff['b'], $div) * $i)
+			];
+		}
+		return $result;
+	}
+	
+	/**
 	 * Round a RGB input to a 'websafe' color hex
 	 * 
 	 * @param  int    $r The red value

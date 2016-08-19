@@ -137,6 +137,16 @@ class main extends main_peripheral {
 		));
 	}
 	
+	public function gradient(main $color2, int $steps = 0) {
+		$c1 = $this->rgb();
+		$c2 = $color2->rgb();
+		return generate::gradient_range(
+			$c1['r'], $c1['g'], $c1['b'],
+			$c2['r'], $c2['g'], $c2['b'],
+			$steps
+		);
+	}
+	
 	public function scheme(string $scheme_name, string $return_type = 'hex') :array {
 		if (!is_null($cached = $this->cache->get(__FUNCTION__.'_'.$scheme_name.'_'.$return_type, $this->hex()))) {
 			return $cached;
