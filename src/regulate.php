@@ -217,7 +217,7 @@ class regulate {
 	 * @param  float  $max    The maximum value $number should be
 	 * @return float          The resulting number as a float
 	 */
-	protected static function max(float $number, float $max) :float {
+	public static function max(float $number, float $max) :float {
 		$max = abs($max);
 		if ($number > $max) {
 			$number -= floor($number / ($max + 1)) * ($max + 1);
