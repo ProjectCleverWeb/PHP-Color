@@ -51,6 +51,15 @@ abstract class main_peripheral implements \Serializable, \JsonSerializable {
 		return $this->color->jsonSerialize();
 	}
 	
+	protected function get_scheme(string $scheme_name, string $return_type = 'hex', $scheme_class) :array {
+		if (!is_null($cached = $this->cache->get(get_class($scheme_class).'_'.$scheme_name.'_'.$return_type, $this->hex()))) {
+			return $cached;
+		}
+		$result = static::_scheme($scheme_name, [$scheme_class, strtolower($return_type)], $this->hsl(3));
+		$this->cache->set(get_class($scheme_class).'_'.$scheme_name.'_'.$return_type, $this->hex(), $result);
+		return $result;
+	}
+	
 	/**
 	 * Handles scheme generator callbacks
 	 * 
@@ -59,13 +68,13 @@ abstract class main_peripheral implements \Serializable, \JsonSerializable {
 	 * @param  array  $hsl         The base color as an HSL array
 	 * @return array               The resulting scheme in the proper format, OR an empty array on failure.
 	 */
-	protected static function _scheme(string $scheme_name, string $callback, array $hsl) :array {
-		if (is_callable($callable = [new scheme, $callback])) {
-			return call_user_func($callable, $hsl['h'], $hsl['s'], $hsl['l'], $scheme_name);
+	protected static function _scheme(string $scheme_name, array $callback, array $hsl) :array {
+		if (is_callable($callback)) {
+			return call_user_func($callback, $hsl['h'], $hsl['s'], $hsl['l'], $scheme_name);
 		}
 		error::call(sprintf(
 			'The $callback "%s" is not a valid callback',
-			$scheme_name,
+			print_r($callback, 1),
 			__CLASS__,
 			__FUNCTION__
 		));

@@ -148,12 +148,11 @@ class main extends main_peripheral {
 	}
 	
 	public function scheme(string $scheme_name, string $return_type = 'hex') :array {
-		if (!is_null($cached = $this->cache->get(__FUNCTION__.'_'.$scheme_name.'_'.$return_type, $this->hex()))) {
-			return $cached;
-		}
-		$result = static::_scheme($scheme_name, strtolower($return_type), $this->hsl(3));
-		$this->cache->set(__FUNCTION__.'_'.$scheme_name.'_'.$return_type, $this->hex(), $result);
-		return $result;
+		return static::get_scheme($scheme_name, $return_type, new scheme);
+	}
+	
+	public function yiq_scheme(string $scheme_name, string $return_type = 'hex') :array {
+		return parent::get_scheme($scheme_name, $return_type, new yiq_scheme);
 	}
 	
 	public function rgb_rand(int $min_r = 0, int $max_r = 255, int $min_g = 0, int $max_g = 255, int $min_b = 0, int $max_b = 255) :main {
