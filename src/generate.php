@@ -165,4 +165,64 @@ class generate {
 			round($b / 0x33) * 0x33
 		);
 	}
+	
+	/**
+	 * Converts a hue to the "Y" spectrum
+	 * 
+	 * @param  float  $hue The hue to convert
+	 * @return float       The resulting Y
+	 */
+	public static function hue_to_yiq(float $hue) :float {
+		$h_min = 300;
+		$h_max = 359;
+		$y_min = 851;
+		$y_max = 1000;
+		if ($hue < 60) {
+			$h_min = 0;
+			$h_max = 59;
+			$y_min = 0;
+			$y_max = 149;
+		} elseif ($hue < 180) {
+			$h_min = 60;
+			$h_max = 179;
+			$y_min = 150;
+			$y_max = 736;
+		} elseif ($hue < 300) {
+			$h_min = 180;
+			$h_max = 299;
+			$y_min = 737;
+			$y_max = 850;
+		}
+		return $y_min + ($hue - $h_min) * ($y_max - $y_min) / ($h_max - $h_min);
+	}
+	
+	/**
+	 * Converts a "Y" to the hue spectrum
+	 * 
+	 * @param  float  $yiq The "Y" to convert
+	 * @return float       The resulting hue
+	 */
+	public static function yiq_to_hue(float $yiq) :float {
+		$h_min = 300;
+		$h_max = 359;
+		$y_min = 851;
+		$y_max = 1000;
+		if ($yiq < 150) {
+			$h_min = 0;
+			$h_max = 59;
+			$y_min = 0;
+			$y_max = 149;
+		} elseif ($yiq < 737) {
+			$h_min = 60;
+			$h_max = 179;
+			$y_min = 150;
+			$y_max = 736;
+		} elseif ($yiq < 851) {
+			$h_min = 180;
+			$h_max = 299;
+			$y_min = 737;
+			$y_max = 850;
+		}
+		return $h_min + ($yiq - $y_min) * ($h_max - $h_min) / ($y_max - $y_min);
+	}
 }
