@@ -71,7 +71,6 @@ class GeneratorTest extends unit_test {
 		$this->assertEquals(['r' => 191, 'g' => 191, 'b' => 191, 'a' => 87.5], $rgb3);
 	}
 	
-	
 	/**
 	 * @test
 	 */
@@ -83,6 +82,42 @@ class GeneratorTest extends unit_test {
 				$this->assertTrue(is_int($val / 0x33));
 			}
 		}
+	}
+	
+	/**
+	 * @test
+	 */
+	public function Hue_To_YQI() {
+		$this->assertEquals(0, generate::hue_to_yiq(0));
+		$this->assertEquals(63.135593220338983, generate::hue_to_yiq(25));
+		$this->assertEquals(149, generate::hue_to_yiq(59));
+		$this->assertEquals(150, generate::hue_to_yiq(60));
+		$this->assertEquals(445.46218487394958, generate::hue_to_yiq(120));
+		$this->assertEquals(736, generate::hue_to_yiq(179));
+		$this->assertEquals(737, generate::hue_to_yiq(180));
+		$this->assertEquals(755.99159663865544, generate::hue_to_yiq(200));
+		$this->assertEquals(850, generate::hue_to_yiq(299));
+		$this->assertEquals(851, generate::hue_to_yiq(300));
+		$this->assertEquals(926.76271186440681, generate::hue_to_yiq(330));
+		$this->assertEquals(1000, generate::hue_to_yiq(359));
+	}
+	
+	/**
+	 * @test
+	 */
+	public function YQI_To_Hue() {
+		$this->assertEquals(0, generate::yiq_to_hue(0));
+		$this->assertEquals(39.597315436241608, generate::yiq_to_hue(100));
+		$this->assertEquals(59, generate::yiq_to_hue(149));
+		$this->assertEquals(60, generate::yiq_to_hue(150));
+		$this->assertEquals(120.92150170648463, generate::yiq_to_hue(450));
+		$this->assertEquals(179, generate::yiq_to_hue(736));
+		$this->assertEquals(180, generate::yiq_to_hue(737));
+		$this->assertEquals(235.81415929203541, generate::yiq_to_hue(790));
+		$this->assertEquals(299, generate::yiq_to_hue(850));
+		$this->assertEquals(300, generate::yiq_to_hue(851));
+		$this->assertEquals(331.28187919463085, generate::yiq_to_hue(930));
+		$this->assertEquals(359, generate::yiq_to_hue(1000));
 	}
 	
 	/**
