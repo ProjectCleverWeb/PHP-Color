@@ -14,7 +14,11 @@ namespace projectcleverweb\color;
  */
 class yiq_scheme extends scheme {
 	
-	static $this_class = __CLASS__;
+	/**
+	 * A static reference to this class. (important for late static binding)
+	 * @var string
+	 */
+	protected static $this_class = __CLASS__;
 	
 	/**
 	 * These colors are all close to each other on a color wheel.

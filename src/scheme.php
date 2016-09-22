@@ -18,7 +18,7 @@ class scheme {
 	 * A static reference to this class. (needed for child class late static binding)
 	 * @var string
 	 */
-	static $this_class = __CLASS__;
+	protected static $this_class = __CLASS__;
 	
 	/**
 	 * These colors are all close to each other on a color wheel.
