@@ -15,6 +15,12 @@ namespace projectcleverweb\color;
 class scheme {
 	
 	/**
+	 * A static reference to this class. (needed for child class late static binding)
+	 * @var string
+	 */
+	static $this_class = __CLASS__;
+	
+	/**
 	 * These colors are all close to each other on a color wheel.
 	 * 
 	 * @param  float     $h       The base color hue degree (0 - 359)
@@ -363,7 +369,7 @@ class scheme {
 	 * @return array          Array of HSL colors
 	 */
 	public static function hsl(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
-		if (is_callable($callable = [new scheme, $scheme.'_set'])) {
+		if (is_callable($callable = [static::$this_class, $scheme.'_set'])) {
 			return call_user_func($callable, $h, $s, $l);
 		}
 		error::call(sprintf(
