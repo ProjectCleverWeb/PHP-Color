@@ -6,40 +6,35 @@ require_once __DIR__.'/../autoload.php';
 
 $colors = [
 	// Base Colors
-	'000000',
-	'FFFFFF',
-	'FFFF00',
-	'FF00FF',
-	'FF0000',
-	'00FFFF',
-	'00FF00',
-	'0000FF',
+	new main('000000'),
+	new main('FFFFFF'),
+	new main('FFFF00'),
+	new main('FF00FF'),
+	new main('FF0000'),
+	new main('00FFFF'),
+	new main('00FF00'),
+	new main('0000FF'),
 	// Low Contrast
-	'7F7F7F',
-	'808080',
-	// HSL at 10% incrementsconverthsl_to_rgb(36, 10, 10),
-	convert::hsl_to_rgb(72, 20, 20),
-	convert::hsl_to_rgb(108, 30, 30),
-	convert::hsl_to_rgb(144, 40, 40),
-	convert::hsl_to_rgb(180, 50, 50),
-	convert::hsl_to_rgb(216, 60, 60),
-	convert::hsl_to_rgb(252, 70, 70),
-	convert::hsl_to_rgb(288, 80, 80),
-	convert::hsl_to_rgb(324, 90, 90)
+	new main('7F7F7F'),
+	new main('808080'),
+	// HSL at 10% increments
+	new main(array('h' => 72, 's' => 20, 'l' => 20)),
+	new main(array('h' => 108, 's' => 30, 'l' => 30)),
+	new main(array('h' => 144, 's' => 40, 'l' => 40)),
+	new main(array('h' => 180, 's' => 50, 'l' => 50)),
+	new main(array('h' => 216, 's' => 60, 'l' => 60)),
+	new main(array('h' => 252, 's' => 70, 'l' => 70)),
+	new main(array('h' => 288, 's' => 80, 'l' => 80)),
+	new main(array('h' => 324, 's' => 90, 'l' => 90))
 ];
 
-foreach ($colors as &$color) {
-	if (is_array($color)) {
-		$color = convert::rgb_to_hex($color['r'], $color['g'], $color['b']);
-	}
-	$color = convert::hex_to_rgb($color);
-}
+
 $colors = array_reverse($colors);
 
 // Scheme functions and their definitions
 $funcs = [
-	'shades'          => '5 different shades of one color.',
-	'monochromatic'   => '5 complementary shades of one color.',
+	'shades'          => '5 different shades of one color. (unaffected by YIQ)',
+	'monochromatic'   => '5 complementary shades of one color. (unaffected by YIQ)',
 	'analogous'       => 'These colors are all close to each other on a color wheel.',
 	'complementary'   => '2 of these colors are a different shade of the base color. The other 2 are a weighted opposite of the base color.',
 	'triad'           => 'These colors are all equally distanced from each other on a color wheel, 2 of which have an alternate shade.',
@@ -70,77 +65,125 @@ foreach ($funcs as $name => $desc) {
 	);
 	$output .= '</div>';
 }
-foreach ($colors as $i => $rgb) {
-	$hex       = convert::rgb_to_hex($rgb['r'], $rgb['g'], $rgb['b']);
-	$hex_text  = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']) ? 'FFFFFF' : '000000';
-	$hsl       = array_map('round', convert::rgb_to_hsl($rgb['r'], $rgb['g'], $rgb['b']));
-	$cmyk      = convert::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']);
-	$output   .= sprintf(
-		'<div class="sixteen wide column"><h2 class="ui black inverted block header" style="background: #%1$s; color: #%2$s;">Color: #%1$s &mdash; rgb(%3$s) &mdash; hsl(%4$s) &mdash; cmyk(%5$s)</h2></div>',
+$output .= '<div class="sixteen wide column"><div class="ui center aligned header">YIQ vs Standard Schemes <div class="sub header">Standard schemes use equally sized color spaces for red, green, and blue. However, the human eye can\'t see blue as well as it can see red, and it also can\'t see red as well as it can see green. To account for this, schemes can optionally use the YIQ spectrum (which accounts for these differences in the human eye) in their calculations rather than the standard RGB spectrum.</div></div></div>';
+foreach ($colors as $i => $color) {
+	$rgb         = $color->rgb();
+	$hex         = $color->hex();
+	$hex_text    = $color->is_dark() ? 'FFFFFF' : '000000';
+	$hsl         = $color->hsl();
+	$hsb         = $color->hsb();
+	$cmyk        = $color->cmyk();
+	$background  = sprintf(' style="background: #%s"', $color->is_dark() ? 'FFFFFF' : '282828');
+	$header_bg   = $color->is_dark() ? '' : ' inverted';
+	$output     .= sprintf(
+		'<div class="sixteen wide column"'.$background.'>
+			<h2 class="ui black inverted block header" style="background: #%1$s; color: #%2$s;">
+				#%1$s
+				<div class="sub header" style="color: #%2$s;"><code>rgb(%3$s) / hsl(%4$s) / hsb(%5$s) / cmyk(%6$s)</code></div>
+			</h2>
+		</div>',
 		$hex,
 		$hex_text,
-		implode(',', $rgb),
-		implode(',', $hsl),
-		implode(',', $cmyk)
+		implode(',', array_slice($rgb, 0, 3)),
+		implode(',', array_slice($hsl, 0, 3)),
+		implode(',', array_slice($hsb, 0, 3)),
+		implode(',', array_slice($cmyk, 0, 4))
 	);
 	foreach ($funcs as $func => $desc) {
-		$output .= '<div class="eight wide column">';
+		$output .= '<div class="eight wide column"'.$background.'>';
 		
-		// $scheme     = scheme::weighted_triad($hsl['h'], $hsl['s'], $hsl['l']);
-		$scheme     = call_user_func_array(['projectcleverweb\\color\\scheme', $func.'_set'], [$hsl['h'], $hsl['s'], $hsl['l']]);
-		$rgb0       = convert::hsl_to_rgb($scheme[0]['h'], $scheme[0]['s'], $scheme[0]['l']);
-		$hex0_text  = check::is_dark($rgb0['r'], $rgb0['g'], $rgb0['b']) ? 'FFFFFF' : '000000';
-		$hex0       = convert::rgb_to_hex($rgb0['r'], $rgb0['g'], $rgb0['b']);
-		$rgb1       = convert::hsl_to_rgb($scheme[1]['h'], $scheme[1]['s'], $scheme[1]['l']);
-		$hex1_text  = check::is_dark($rgb1['r'], $rgb1['g'], $rgb1['b']) ? 'FFFFFF' : '000000';
-		$hex1       = convert::rgb_to_hex($rgb1['r'], $rgb1['g'], $rgb1['b']);
-		$rgb2       = convert::hsl_to_rgb($scheme[2]['h'], $scheme[2]['s'], $scheme[2]['l']);
-		$hex2_text  = check::is_dark($rgb2['r'], $rgb2['g'], $rgb2['b']) ? 'FFFFFF' : '000000';
-		$hex2       = convert::rgb_to_hex($rgb2['r'], $rgb2['g'], $rgb2['b']);
-		$rgb3       = convert::hsl_to_rgb($scheme[3]['h'], $scheme[3]['s'], $scheme[3]['l']);
-		$hex3_text  = check::is_dark($rgb3['r'], $rgb3['g'], $rgb3['b']) ? 'FFFFFF' : '000000';
-		$hex3       = convert::rgb_to_hex($rgb3['r'], $rgb3['g'], $rgb3['b']);
-		$rgb4       = convert::hsl_to_rgb($scheme[4]['h'], $scheme[4]['s'], $scheme[4]['l']);
-		$hex4_text  = check::is_dark($rgb4['r'], $rgb4['g'], $rgb4['b']) ? 'FFFFFF' : '000000';
-		$hex4       = convert::rgb_to_hex($rgb4['r'], $rgb4['g'], $rgb4['b']);
-		$check      = array_unique([$hex0, $hex1, $hex2, $hex3, $hex4]);
+		$scheme     = $color->scheme($func, 'hsl');
+		$yiq_scheme = $color->yiq_scheme($func, 'hsl');
+		$schemes    = array();
+		foreach ($scheme as $key => $color_scheme) {
+			$color_scheme = new main($color_scheme);
+			$yiq_color_scheme = new main($yiq_scheme[$key]);
+			$schemes['std'][$key] = array(
+				'rgb'  => $color_scheme->rgb(),
+				'hex'  => $color_scheme->hex(),
+				'text' => $color_scheme->is_dark() ? 'FFFFFF' : '000000'
+			);
+			$schemes['yiq'][$key] = array(
+				'rgb'  => $yiq_color_scheme->rgb(),
+				'hex'  => $yiq_color_scheme->hex(),
+				'text' => $yiq_color_scheme->is_dark() ? 'FFFFFF' : '000000'
+			);
+			unset($color_scheme, $yiq_color_scheme);
+		}
+		
 		$adobe = sprintf(
 			'https://color.adobe.com/create/color-wheel/?base=2&rule=Custom&selected=2&name=%s&mode=hsv&rgbvalues=%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s&swatchOrder=0,1,2,3,4',
 			urlencode(sprintf('Hex %s - %s', $hex, ucwords(str_replace('_', ' ', $func)))),
-			$rgb1['r'] / 255,
-			$rgb1['g'] / 255,
-			$rgb1['b'] / 255,
-			$rgb2['r'] / 255,
-			$rgb2['g'] / 255,
-			$rgb2['b'] / 255,
-			$rgb0['r'] / 255,
-			$rgb0['g'] / 255,
-			$rgb0['b'] / 255,
-			$rgb3['r'] / 255,
-			$rgb3['g'] / 255,
-			$rgb3['b'] / 255,
-			$rgb4['r'] / 255,
-			$rgb4['g'] / 255,
-			$rgb4['b'] / 255
+			$schemes['std'][1]['rgb']['r'] / 255,
+			$schemes['std'][1]['rgb']['g'] / 255,
+			$schemes['std'][1]['rgb']['b'] / 255,
+			$schemes['std'][2]['rgb']['r'] / 255,
+			$schemes['std'][2]['rgb']['g'] / 255,
+			$schemes['std'][2]['rgb']['b'] / 255,
+			$schemes['std'][0]['rgb']['r'] / 255,
+			$schemes['std'][0]['rgb']['g'] / 255,
+			$schemes['std'][0]['rgb']['b'] / 255,
+			$schemes['std'][3]['rgb']['r'] / 255,
+			$schemes['std'][3]['rgb']['g'] / 255,
+			$schemes['std'][3]['rgb']['b'] / 255,
+			$schemes['std'][4]['rgb']['r'] / 255,
+			$schemes['std'][4]['rgb']['g'] / 255,
+			$schemes['std'][4]['rgb']['b'] / 255
 		);
+		$yiq_adobe = sprintf(
+			'https://color.adobe.com/create/color-wheel/?base=2&rule=Custom&selected=2&name=%s&mode=hsv&rgbvalues=%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s&swatchOrder=0,1,2,3,4',
+			urlencode(sprintf('Hex %s - %s', $hex, 'YIQ '.ucwords(str_replace('_', ' ', $func)))),
+			$schemes['yiq'][1]['rgb']['r'] / 255,
+			$schemes['yiq'][1]['rgb']['g'] / 255,
+			$schemes['yiq'][1]['rgb']['b'] / 255,
+			$schemes['yiq'][2]['rgb']['r'] / 255,
+			$schemes['yiq'][2]['rgb']['g'] / 255,
+			$schemes['yiq'][2]['rgb']['b'] / 255,
+			$schemes['yiq'][0]['rgb']['r'] / 255,
+			$schemes['yiq'][0]['rgb']['g'] / 255,
+			$schemes['yiq'][0]['rgb']['b'] / 255,
+			$schemes['yiq'][3]['rgb']['r'] / 255,
+			$schemes['yiq'][3]['rgb']['g'] / 255,
+			$schemes['yiq'][3]['rgb']['b'] / 255,
+			$schemes['yiq'][4]['rgb']['r'] / 255,
+			$schemes['yiq'][4]['rgb']['g'] / 255,
+			$schemes['yiq'][4]['rgb']['b'] / 255
+		);
+		
 		$output .= sprintf(
-			'<h3 class="ui header">%s <div class="sub header"><a href="%s" target="_blank">Edit This Scheme</a></div></h3>',
+			'<h3 class="ui'.$header_bg.' header">%s <div class="sub header"><a href="%s" target="_blank">Edit Scheme</a> | <a href="%s" target="_blank">Edit YIQ Scheme</a></div></h3>',
 			ucwords(str_replace('_', ' ', $func)),
-			$adobe
+			$adobe,
+			$yiq_adobe
 		);
 		$output .= sprintf(
 			$fmt,
-			$i,         // %1$s
-			$hex0,      // %2$s
-			$hex0_text, // %3$s
-			$hex1,      // %4$s
-			$hex1_text, // %5$s
-			$hex2,      // %6$s
-			$hex2_text, // %7$s
-			$hex3,      // %8$s
-			$hex3_text, // %9$s
-			$hex4,      // %10$s
-			$hex4_text  // %11$s
+			$i,                         // %1$s
+			$schemes['std'][0]['hex'],  // %2$s
+			$schemes['std'][0]['text'], // %3$s
+			$schemes['std'][1]['hex'],  // %4$s
+			$schemes['std'][1]['text'], // %5$s
+			$schemes['std'][2]['hex'],  // %6$s
+			$schemes['std'][2]['text'], // %7$s
+			$schemes['std'][3]['hex'],  // %8$s
+			$schemes['std'][3]['text'], // %9$s
+			$schemes['std'][4]['hex'],  // %10$s
+			$schemes['std'][4]['text']  // %11$s
+		);
+		$output .= '<div class="eight wide column"><h4 class="ui'.$header_bg.' header">YIQ:</h4></div>'.PHP_EOL;
+		$output .= sprintf(
+			$fmt,
+			$i,                         // %1$s
+			$schemes['yiq'][0]['hex'],  // %2$s
+			$schemes['yiq'][0]['text'], // %3$s
+			$schemes['yiq'][1]['hex'],  // %4$s
+			$schemes['yiq'][1]['text'], // %5$s
+			$schemes['yiq'][2]['hex'],  // %6$s
+			$schemes['yiq'][2]['text'], // %7$s
+			$schemes['yiq'][3]['hex'],  // %8$s
+			$schemes['yiq'][3]['text'], // %9$s
+			$schemes['yiq'][4]['hex'],  // %10$s
+			$schemes['yiq'][4]['text']  // %11$s
 		);
 		$output .= '</div>';
 	}
