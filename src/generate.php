@@ -173,27 +173,14 @@ class generate {
 	 * @return float       The resulting Y
 	 */
 	public static function hue_to_yiq(float $hue) :float {
-		$h_min = 300;
-		$h_max = 359;
-		$y_min = 851;
-		$y_max = 1000;
 		if ($hue < 60) {
-			$h_min = 0;
-			$h_max = 59;
-			$y_min = 0;
-			$y_max = 149;
+			return $hue * 2.5254237288136;
 		} elseif ($hue < 180) {
-			$h_min = 60;
-			$h_max = 179;
-			$y_min = 150;
-			$y_max = 736;
+			return 150 + ($hue - 60) * 4.9243697478992;
 		} elseif ($hue < 300) {
-			$h_min = 180;
-			$h_max = 299;
-			$y_min = 737;
-			$y_max = 850;
+			return 737 + ($hue - 180) * 0.94957983193277;
 		}
-		return $y_min + ($hue - $h_min) * ($y_max - $y_min) / ($h_max - $h_min);
+		return 851 + ($hue - 300) * 2.5254237288136;
 	}
 	
 	/**
@@ -203,26 +190,13 @@ class generate {
 	 * @return float       The resulting hue
 	 */
 	public static function yiq_to_hue(float $yiq) :float {
-		$h_min = 300;
-		$h_max = 359;
-		$y_min = 851;
-		$y_max = 1000;
 		if ($yiq < 150) {
-			$h_min = 0;
-			$h_max = 59;
-			$y_min = 0;
-			$y_max = 149;
+			return $yiq * 0.39597315436242;
 		} elseif ($yiq < 737) {
-			$h_min = 60;
-			$h_max = 179;
-			$y_min = 150;
-			$y_max = 736;
+			return 60 + ($yiq - 150) * 0.20307167235495;
 		} elseif ($yiq < 851) {
-			$h_min = 180;
-			$h_max = 299;
-			$y_min = 737;
-			$y_max = 850;
+			return 180 + ($yiq - 737) * 1.0530973451327;
 		}
-		return $h_min + ($yiq - $y_min) * ($h_max - $h_min) / ($y_max - $y_min);
+		return 300 + ($yiq - 851) * 0.39597315436242;
 	}
 }
