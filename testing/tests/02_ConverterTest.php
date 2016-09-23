@@ -86,7 +86,7 @@ class ConverterTest extends unit_test {
 	 * NOTE: This is not a full color space test, it only skims the RGB color
 	 * space for differences.
 	 * 
-	 * @ignored_test
+	 * @test
 	 */
 	public function RGB_HSL_Interlace_Color_Drift() {
 		foreach (range(0 ,51) as $b) {
