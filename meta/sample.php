@@ -53,6 +53,7 @@ $fmt =
 		<a href="http://rgb.to/hex/%8$s" target="_blank" class="ui button" style="background: #%8$s; color: #%9$s;">#%8$s</a>
 		<a href="http://rgb.to/hex/%10$s" target="_blank" class="ui button" style="background: #%10$s; color: #%11$s;">#%10$s</a>
 	</div>
+	<div style="height: 5px"></div>
 </div>'.PHP_EOL;
 $output = '<div class="ui grid">';
 $output .= '<div class="sixteen wide column"><h1 class="ui black inverted block header">Scheme Descriptions</h1></div>';
@@ -170,21 +171,25 @@ foreach ($colors as $i => $color) {
 			$schemes['std'][4]['hex'],  // %10$s
 			$schemes['std'][4]['text']  // %11$s
 		);
-		$output .= '<div class="eight wide column"><h4 class="ui'.$header_bg.' header">YIQ:</h4></div>'.PHP_EOL;
-		$output .= sprintf(
-			$fmt,
-			$i,                         // %1$s
-			$schemes['yiq'][0]['hex'],  // %2$s
-			$schemes['yiq'][0]['text'], // %3$s
-			$schemes['yiq'][1]['hex'],  // %4$s
-			$schemes['yiq'][1]['text'], // %5$s
-			$schemes['yiq'][2]['hex'],  // %6$s
-			$schemes['yiq'][2]['text'], // %7$s
-			$schemes['yiq'][3]['hex'],  // %8$s
-			$schemes['yiq'][3]['text'], // %9$s
-			$schemes['yiq'][4]['hex'],  // %10$s
-			$schemes['yiq'][4]['text']  // %11$s
-		);
+		if (!in_array($func, array('shades', 'monochromatic'))) {
+			$output .= '<div class="eight wide column"><h4 class="ui'.$header_bg.' header">YIQ:</h4></div>'.PHP_EOL;
+			$output .= sprintf(
+				$fmt,
+				$i,                         // %1$s
+				$schemes['yiq'][0]['hex'],  // %2$s
+				$schemes['yiq'][0]['text'], // %3$s
+				$schemes['yiq'][1]['hex'],  // %4$s
+				$schemes['yiq'][1]['text'], // %5$s
+				$schemes['yiq'][2]['hex'],  // %6$s
+				$schemes['yiq'][2]['text'], // %7$s
+				$schemes['yiq'][3]['hex'],  // %8$s
+				$schemes['yiq'][3]['text'], // %9$s
+				$schemes['yiq'][4]['hex'],  // %10$s
+				$schemes['yiq'][4]['text']  // %11$s
+			);
+		} else {
+			$output .= '<div class="eight wide column"><h5 class="ui'.$header_bg.' header">YIQ Can\'t Affect This Scheme.</h5></div>'.PHP_EOL;
+		}
 		$output .= '</div>';
 	}
 }
