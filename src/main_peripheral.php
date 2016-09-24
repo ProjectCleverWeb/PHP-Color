@@ -16,9 +16,8 @@ abstract class main_peripheral implements \Serializable, \JsonSerializable {
 	 * @return void
 	 */
 	public function __clone() {
-		$rgb = $this->color->rgb + ['a' => $this->color->alpha()];
-		unset($this->color);
-		$this->set($rgb, 'rgb');
+		$this->color = clone $this->color;
+		$this->cache = clone $this->cache;
 	}
 	
 	/**
