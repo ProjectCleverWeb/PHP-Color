@@ -43,7 +43,7 @@ class hsl implements \ArrayAccess {
 	 * @return array The HSL array
 	 */
 	public function __invoke() {
-		return array_combine(['h', 's', 'l'], $this->hsl);
+		return $this->hsl;
 	}
 	
 	/**
