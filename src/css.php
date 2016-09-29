@@ -25,7 +25,7 @@ class css {
 	 */
 	public static function best($color) {
 		static::_color_instance($color);
-		if ($color->alpha() == 1.0 && !static::$force_alpha) {
+		if ($color->alpha() == 100 && !static::$force_alpha) {
 			return static::hex($color->rgb['r'], $color->rgb['g'], $color->rgb['b']);
 		}
 		return static::rgb($color->rgb['r'], $color->rgb['g'], $color->rgb['b'], $color->alpha());
