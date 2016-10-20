@@ -57,7 +57,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"projectcleverweb\\color\\": "src"
+			"projectcleverweb\\color\\": "php5"
 		}
 	}
 }
