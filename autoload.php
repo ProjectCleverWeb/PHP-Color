@@ -23,7 +23,7 @@
 spl_autoload_register(function ($class) {
 	$prefix = 'projectcleverweb\\color';
 	$dir    = 'src';
-	if (PHP_MAJOR_VERSION != 7) {
+	if (version_compare(PHP_VERSION, '7.0.0', '<')) {
 		$dir = 'php5';
 	}
 	
