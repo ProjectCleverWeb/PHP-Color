@@ -44,13 +44,13 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param mixed  $color An RGB (array), HSL (array), Hex (string), Integer (hex), or CMYK (array) representation of a color.
 	 * @param string $type  (optional) The type to try to import it as
 	 */
-	public function __construct($color, string $type = '') {
+	public function __construct($color, $type = '') {
 		if (is_a($color, __CLASS__)) {
 			$type = 'color';
-		} elseif (empty($type) || !is_callable([__CLASS__, 'import_'.$type])) {
+		} elseif (empty($type) || !is_callable(array(__CLASS__, 'import_'.$type))) {
 			$type = static::get_type($color);
 		}
-		call_user_func([__CLASS__, 'import_'.$type], $color);
+		call_user_func(array(__CLASS__, 'import_'.$type), $color);
 	}
 	
 	/**
@@ -67,8 +67,8 @@ class color implements \Serializable, \JsonSerializable {
 	 * 
 	 * @return string The serialized object
 	 */
-	public function serialize() :string {
-		return json_encode($this->rgb + ['a' => $this->alpha]);
+	public function serialize() {
+		return json_encode($this->rgb + array('a' => $this->alpha));
 	}
 	
 	/**
@@ -88,8 +88,8 @@ class color implements \Serializable, \JsonSerializable {
 	 * 
 	 * @return string The serialized object
 	 */
-	public function jsonSerialize() :array {
-		return $this->rgb + ['a' => $this->alpha];
+	public function jsonSerialize() {
+		return $this->rgb + array('a' => $this->alpha);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  mized  $color The color in question
 	 * @return string        The color type as a string, returns 'error' if $color is invalid
 	 */
-	public static function get_type($color) :string {
+	public static function get_type($color) {
 		if (is_array($color)) {
 			return static::_get_array_type($color);
 		} elseif (is_string($color)) {
@@ -115,17 +115,17 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  array  $color The color in question
 	 * @return string        The color type as a string, returns 'error' if $color is invalid
 	 */
-	protected static function _get_array_type(array $color) :string {
+	protected static function _get_array_type($color) {
 		$color = array_change_key_case($color);
 		unset($color['a']); // ignore alpha channel
 		ksort($color);
 		$type  = implode('', array_keys($color));
-		$types = [
+		$types = array(
 			'bgr'  => 'rgb',
 			'hls'  => 'hsl',
 			'bhs'  => 'hsb',
 			'ckmy' => 'cmyk'
-		];
+		);
 		if (isset($types[$type])) {
 			return $types[$type];
 		}
@@ -138,7 +138,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  mixed $new_alpha If numeric, the alpha channel is set to this value
 	 * @return float            The current alpha value
 	 */
-	public function alpha($new_alpha = NULL) :float {
+	public function alpha($new_alpha = NULL) {
 		if (is_numeric($new_alpha)) {
 			$this->alpha = (float) $new_alpha;
 		}
@@ -155,7 +155,7 @@ class color implements \Serializable, \JsonSerializable {
 			'The color supplied to %s\'s constructor was not valid',
 			__CLASS__
 		));
-		$this->import_rgb([0, 0, 0]);
+		$this->import_rgb(array(0, 0, 0));
 	}
 	
 	/**
@@ -164,7 +164,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  array $color The color array to check
 	 * @return void
 	 */
-	protected function import_alpha(array $color) {
+	protected function import_alpha($color) {
 		if (isset($color['a'])) {
 			$this->alpha = (float) $color['a'];
 		} else {
@@ -177,7 +177,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * 
 	 * @return void
 	 */
-	protected function import_color(color $color) {
+	protected function import_color($color) {
 		$this->rgb   = $color->rgb;
 		$this->hex   = $color->hex;
 		$this->hsl   = clone $color->hsl;
@@ -190,9 +190,9 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  array $color Array with offsets 'r', 'g', 'b'
 	 * @return void
 	 */
-	public function import_rgb(array $color) {
+	public function import_rgb($color) {
 		regulate::rgb_array($color);
-		$this->rgb = array_intersect_key($color, ['r' => 0, 'g' => 0, 'b' => 0]);
+		$this->rgb = array_intersect_key($color, array('r' => 0, 'g' => 0, 'b' => 0));
 		$this->hex = convert::rgb_to_hex($this->rgb['r'], $this->rgb['g'], $this->rgb['b']);
 		$this->hsl = new hsl($this->rgb);
 		$this->import_alpha($color);
@@ -204,7 +204,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  array $color Array with offsets 'h', 's', 'l'
 	 * @return void
 	 */
-	public function import_hsl(array $color) {
+	public function import_hsl($color) {
 		regulate::hsl_array($color);
 		$this->rgb = convert::hsl_to_rgb($color['h'], $color['s'], $color['l']);
 		$this->hsl = new hsl($this->rgb);
@@ -218,7 +218,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  array $color Array with offsets 'h', 's', 'b'
 	 * @return void
 	 */
-	public function import_hsb(array $color) {
+	public function import_hsb($color) {
 		regulate::hsb_array($color);
 		$this->rgb = convert::hsb_to_rgb($color['h'], $color['s'], $color['b']);
 		$this->hsl = new hsl($this->rgb);
@@ -232,7 +232,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  string $color Hexadecimal string
 	 * @return void
 	 */
-	public function import_hex(string $color) {
+	public function import_hex($color) {
 		regulate::hex($color);
 		$this->import_rgb(convert::hex_to_rgb($color));
 	}
@@ -243,7 +243,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  int $color An integer
 	 * @return void
 	 */
-	public function import_int(int $color) {
+	public function import_int($color) {
 		regulate::hex_int($color);
 		$this->import_hex(str_pad(base_convert($color, 10, 16), 6, '0', STR_PAD_LEFT));
 	}
@@ -254,7 +254,7 @@ class color implements \Serializable, \JsonSerializable {
 	 * @param  array $color Array with offsets 'c', 'm', 'y', 'k'
 	 * @return void
 	 */
-	public function import_cmyk(array $color) {
+	public function import_cmyk($color) {
 		regulate::cmyk_array($color);
 		$this->import_rgb(convert::cmyk_to_rgb($color['c'], $color['m'], $color['y'], $color['k']));
 		$this->import_alpha($color);

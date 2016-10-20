@@ -22,13 +22,17 @@
  */
 spl_autoload_register(function ($class) {
 	$prefix = 'projectcleverweb\\color';
+	$dir    = 'src';
+	if (PHP_MAJOR_VERSION != 7) {
+		$dir = 'php5';
+	}
 	
 	$prefix_len = strlen($prefix);
 	if(strncmp($prefix, $class, $prefix_len) !== 0) {
 		return;
 	}
 	
-	$file = __DIR__.'/src'.str_replace('\\', DIRECTORY_SEPARATOR, substr($class, $prefix_len)).'.php';
+	$file = __DIR__.$dir.str_replace('\\', DIRECTORY_SEPARATOR, substr($class, $prefix_len)).'.php';
 	
 	if(file_exists($file) && is_file($file)) {
 		require_once $file;

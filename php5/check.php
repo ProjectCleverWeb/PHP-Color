@@ -20,7 +20,7 @@ class check {
 	 * @param  int $check_score The minimum score to check, a number in the range of 0 - 255
 	 * @return boolean          If the YIQ score is >= $check_score returns FALSE, otherwise TRUE
 	 */
-	public static function is_dark(int $r = 0, int $g = 0, int $b = 0, int $check_score = 128) :bool {
+	public static function is_dark($r = 0, $g = 0, $b = 0, $check_score = 128) {
 		if (generate::yiq_score($r, $g, $b) >= $check_score) {
 			return FALSE;
 		}

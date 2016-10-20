@@ -5,22 +5,21 @@ General:
 	☐	Add PHP 5 support
 	☐	Modify main attribute methods return either existing or resulting value
 Class Specific:
-	☐	Validate scope in modify::rgb() and modify::hsl
 	☐	Add main::difference() for comparing 2 different colors
 Bugs:
 Minor:
 Documentation:
 	☐	Add code docs to class 'modify'
 Testing:
-	☐	Add test for class 'color'
 	☐	Add test for class 'main'
 	☐	Add randomized testing for scheme generation
 	☐	Test against float vs int function arguments
 	☐	Test for cloning issues
 
-
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Add test for class 'color' @done (16-09-30 10:09) @project(Testing)
+	✔	Validate scope in modify::rgb() and modify::hsl @done (16-09-29 16:53) @project(Class Specific)
 	✔	Add test for class 'scheme' @done (16-09-24 13:35) @project(Testing)
 	✔	Add test for class 'regulate' @done (16-09-24 13:35) @project(Testing)
 	✔	Add test for class 'hsl' @done (16-09-24 13:35) @project(Testing)

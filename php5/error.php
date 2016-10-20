@@ -28,7 +28,7 @@ class error {
 	 * @param string $var   The variable to modify
 	 * @param bool   $value The value to set the variable to
 	 */
-	public static function set(string $var, bool $value) {
+	public static function set($var, $value) {
 		if (isset(self::$$var)) {
 			static::$$var = $value;
 		}
@@ -41,7 +41,7 @@ class error {
 	 * @param  string $message The message describing the error
 	 * @return void
 	 */
-	public static function call(string $message) {
+	public static function call($message) {
 		if (static::$use_exceptions && static::$active) {
 			static::exception($message);
 		} elseif(static::$active) {
@@ -55,7 +55,7 @@ class error {
 	 * @param  string $message The message describing the error
 	 * @return void
 	 */
-	protected static function exception(string $message) {
+	protected static function exception($message) {
 		throw new \Exception($message);
 	}
 	
@@ -65,7 +65,7 @@ class error {
 	 * @param  string $message The message describing the error
 	 * @return void
 	 */
-	protected static function trigger(string $message) {
+	protected static function trigger($message) {
 		return trigger_error($message, E_USER_WARNING);
 	}
 }

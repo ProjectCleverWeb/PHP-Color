@@ -36,7 +36,7 @@ class cache {
 	 * @return void
 	 */
 	public function reset() {
-		$this->data = [];
+		$this->data = array();
 	}
 	
 	/**
@@ -46,9 +46,9 @@ class cache {
 	 * @param string $id    The storage ID
 	 * @param mixed  $value The value to store
 	 */
-	public function set(string $func, string $id, $value) {
+	public function set($func, $id, $value) {
 		if ($this->active) {
-			$this->data[$func] = [$id => $value];
+			$this->data[$func] = array($id => $value);
 		}
 	}
 	
@@ -59,7 +59,7 @@ class cache {
 	 * @param  string $id   The storage ID
 	 * @return mixed        The value stored or NULL
 	 */
-	public function get(string $func, string $id) {
+	public function get($func, $id) {
 		if ($this->active && isset($this->data[$func][$id])) {
 			return $this->data[$func][$id];
 		}
