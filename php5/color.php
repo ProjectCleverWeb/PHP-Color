@@ -59,7 +59,8 @@ class color implements \Serializable, \JsonSerializable {
 	 * @return array The HSL array
 	 */
 	public function hsl() {
-		return ($this->hsl)();
+		$temp = $this->hsl;
+		return $temp();
 	}
 	
 	/**
