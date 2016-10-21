@@ -1,6 +1,6 @@
 {
 	"name": "projectcleverweb/color",
-	"description": "A PHP library for working with RGB, HSL, and Hexadecimal colors. Create schemes, modify specific color properties, export CMYK, and make color suggestions quickly and easily with this stand-alone library.",
+	"description": "This is a stand-alone PHP 7 (and PHP 5!) library for working with RGB, HSL, HSB/HSV, Hexadecimal, and CMYK colors. Create schemes, modify specific color properties, easily convert between color spaces, create gradients, and make color suggestions quickly and easily.",
 	"version": "0.0.0-dev",
 	"keywords": [
 		"color",
@@ -56,8 +56,6 @@
 		"codacy/coverage": "dev-master"
 	},
 	"autoload": {
-		"psr-4": {
-			"projectcleverweb\\color\\": "php5"
-		}
+		"files": ["autoload.php"]
 	}
 }
