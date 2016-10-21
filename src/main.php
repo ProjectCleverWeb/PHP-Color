@@ -144,7 +144,7 @@ class main extends main_peripheral {
 	 * @param  mixed $new_alpha If numeric, the alpha channel is set to this value
 	 * @return float            The current alpha value
 	 */
-	public function alpha($new_alpha) {
+	public function alpha($new_alpha = NULL) {
 		return $this->color->alpha($new_alpha);
 	}
 	
@@ -172,7 +172,10 @@ class main extends main_peripheral {
 	 * @param  bool  $set_absolute  TRUE to use "set" mode, where the $adjustment is the absolute value you want for this attribute
 	 * @return void
 	 */
-	public function red(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+	public function red(float $adjustment = 0.0, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+		if ($adjustment == 0.0) {
+			return $this->color->rgb['r'];
+		}
 		return modify::rgb($this->color, 'red', $adjustment, $as_percentage, $set_absolute);
 	}
 	
@@ -184,7 +187,10 @@ class main extends main_peripheral {
 	 * @param  bool  $set_absolute  TRUE to use "set" mode, where the $adjustment is the absolute value you want for this attribute
 	 * @return void
 	 */
-	public function green(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+	public function green(float $adjustment = 0.0, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+		if ($adjustment == 0.0) {
+			return $this->color->rgb['g'];
+		}
 		return modify::rgb($this->color, 'green', $adjustment, $as_percentage, $set_absolute);
 	}
 	
@@ -196,7 +202,10 @@ class main extends main_peripheral {
 	 * @param  bool  $set_absolute  TRUE to use "set" mode, where the $adjustment is the absolute value you want for this attribute
 	 * @return void
 	 */
-	public function blue(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+	public function blue(float $adjustment = 0.0, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+		if ($adjustment == 0.0) {
+			return $this->color->rgb['b'];
+		}
 		return modify::rgb($this->color, 'blue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
@@ -208,7 +217,10 @@ class main extends main_peripheral {
 	 * @param  bool  $set_absolute  TRUE to use "set" mode, where the $adjustment is the absolute value you want for this attribute
 	 * @return void
 	 */
-	public function hue(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+	public function hue(float $adjustment = 0.0, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+		if ($adjustment == 0.0) {
+			return $this->color->hsl['h'];
+		}
 		return modify::hsl($this->color, 'hue', $adjustment, $as_percentage, $set_absolute);
 	}
 	
@@ -220,7 +232,10 @@ class main extends main_peripheral {
 	 * @param  bool  $set_absolute  TRUE to use "set" mode, where the $adjustment is the absolute value you want for this attribute
 	 * @return void
 	 */
-	public function saturation(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+	public function saturation(float $adjustment = 0.0, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+		if ($adjustment == 0.0) {
+			return $this->color->hsl['s'];
+		}
 		return modify::hsl($this->color, 'saturation', $adjustment, $as_percentage, $set_absolute);
 	}
 	
@@ -232,7 +247,10 @@ class main extends main_peripheral {
 	 * @param  bool  $set_absolute  TRUE to use "set" mode, where the $adjustment is the absolute value you want for this attribute
 	 * @return void
 	 */
-	public function light(float $adjustment, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+	public function light(float $adjustment = 0.0, bool $as_percentage = FALSE, bool $set_absolute = FALSE) {
+		if ($adjustment == 0.0) {
+			return $this->color->hsl['l'];
+		}
 		return modify::hsl($this->color, 'light', $adjustment, $as_percentage, $set_absolute);
 	}
 	

@@ -20,7 +20,7 @@ class modify {
 		$adjustment      = max(min($adjustment, 255), 0 - 255); // Force valid range
 		$adjustment      = static::_convert_to_exact($adjustment, 255, $as_percentage);
 		$current[$scope] = static::_convert_to_abs($current[$scope], $adjustment, $set_absolute, 0, 255);
-		return static::regenerate_rgb($color, $current);
+		return static::regenerate_rgb($color, $current, $scope);
 	}
 	
 	public static function hsl(color $color, string $scope, float $adjustment, bool $as_percentage, bool $set_absolute) {
@@ -33,7 +33,7 @@ class modify {
 		$adjustment      = max(min($adjustment, $max), 0 - $max); // Force valid range
 		$adjustment      = static::_convert_to_exact($adjustment, $max, $as_percentage);
 		$current[$scope] = static::_convert_to_abs($current[$scope], $adjustment, $set_absolute, 0, $max);
-		return static::regenerate_hsl($color, $current);
+		return static::regenerate_hsl($color, $current, $scope);
 	}
 	
 	protected static function _convert_to_exact(float $adjustment, float $max, bool $as_percentage) {
@@ -50,19 +50,25 @@ class modify {
 		return max(min($current + $adjustment, $max), $min);
 	}
 	
-	protected static function regenerate_rgb(color $color, array $update) {
+	protected static function regenerate_rgb(color $color, array $update, string $return_offset = '') {
 		$color->import_rgb([
 			'r' => $update['red'],
 			'g' => $update['green'],
 			'b' => $update['blue']
 		]);
+		if (isset($update[$return_offset])) {
+			return $update[$return_offset];
+		}
 	}
 	
-	protected static function regenerate_hsl(color $color, array $update) {
+	protected static function regenerate_hsl(color $color, array $update, string $return_offset = '') {
 		$color->import_hsl([
 			'h' => $update['hue'],
 			's' => $update['saturation'],
 			'l' => $update['light']
 		]);
+		if (isset($update[$return_offset])) {
+			return $update[$return_offset];
+		}
 	}
 }
