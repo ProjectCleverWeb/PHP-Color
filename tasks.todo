@@ -1,9 +1,6 @@
 General:
 	☐	Add git flow
 	☐	Add contact form
-	☐	Make main::alpha() a modification method
-	☐	Add PHP 5 support
-	☐	Modify main attribute methods return either existing or resulting value
 Class Specific:
 	☐	Add main::difference() for comparing 2 different colors
 Bugs:
@@ -18,6 +15,9 @@ Testing:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+	✔	Modify main attribute methods return either existing or resulting value @done (16-10-21 14:54) @project(General)
+	✔	Make main::alpha() a modification method @done (16-10-21 14:54) @project(General)
+	✔	Add PHP 5 support @done (16-10-21 14:54) @project(General)
 	✔	Add test for class 'color' @done (16-09-30 10:09) @project(Testing)
 	✔	Validate scope in modify::rgb() and modify::hsl @done (16-09-29 16:53) @project(Class Specific)
 	✔	Add test for class 'scheme' @done (16-09-24 13:35) @project(Testing)

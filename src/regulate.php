@@ -183,16 +183,19 @@ class regulate {
 	 * @param  string &$hex_str The hex string to modify
 	 * @return void
 	 */
-	public static function _validate_hex_str(string &$hex_str) {
-		if (is_string($hex_str) && preg_match('/\A#?(?:[0-9a-f]{3}|[0-9a-f]{6})\Z/i', $hex_str)) {
-			return;
+	public static function _validate_hex_str(string &$hex_str, bool $check_only = FALSE) :bool {
+		if (preg_match('/\A#?(?:[0-9a-f]{3}|[0-9a-f]{6})\Z/i', $hex_str)) {
+			return TRUE;
 		}
-		error::call(sprintf(
-			'The input of %s::%s() was not a valid hex string, forcing value to 000000',
-			__CLASS__,
-			__FUNCTION__
-		));
-		$hex_str = '000000';
+		if (!$check_only) {
+			error::call(sprintf(
+				'The input of %s::%s() was not a valid hex string, forcing value to 000000',
+				__CLASS__,
+				__FUNCTION__
+			));
+			$hex_str = '000000';
+		}
+		return FALSE;
 	}
 	
 	/**
