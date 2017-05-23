@@ -2,7 +2,7 @@
 
 namespace projectcleverweb\color\convert;
 
-class hsl implements \projectcleverweb\color\interfaces\converter {
+class cmyk implements \projectcleverweb\color\interfaces\converter {
 	use \projectcleverweb\color\traits\convert\meta;
 	
 	protected static $valid_keys = array(

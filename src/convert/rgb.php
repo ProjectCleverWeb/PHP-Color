@@ -32,18 +32,17 @@ class rgb implements \projectcleverweb\color\interfaces\converter {
 	
 	public static function to_cmyk($input) :array {
 		$rgb = static::_validate_array_input($input);
-		$c  = (255 - $rgb['r']) / 255 * 100;
-		$m  = (255 - $rgb['g']) / 255 * 100;
-		$y  = (255 - $rgb['b']) / 255 * 100;
-		$k  = min(array($c,$m,$y));
-		$c -= $k;
-		$m -= $k;
-		$y -= $k;
+		$rgbp = array(
+			'r' => $rgb['r'] / 255 * 100,
+			'g' => $rgb['g'] / 255 * 100,
+			'b' => $rgb['b'] / 255 * 100
+		);
+		$k  = 100 - max($rgbp);
 		return [
-			'c' => round($c),
-			'm' => round($m),
-			'y' => round($y),
-			'k' => round($k)
+			'c' => ((100 - $rgbp['r'] - $k) / (100 - $k)) * 100,
+			'm' => ((100 - $rgbp['g'] - $k) / (100 - $k)) * 100,
+			'y' => ((100 - $rgbp['b'] - $k) / (100 - $k)) * 100,
+			'k' => $k
 		];
 	}
 	
