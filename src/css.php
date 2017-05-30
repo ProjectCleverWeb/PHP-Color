@@ -16,11 +16,33 @@ class css {
 	 */
 	public static $force_alpha = FALSE;
 	
+	public static function get(string $input, $support_x11 = TRUE) {
+		if (preg_match('/\A(?:(rgb|hsl)\((\d+|\d+\.(?:\d+)?|\.\d+),(\d+|\d+\.(?:\d+)?|\.\d+),(\d+|\d+\.(?:\d+)?|\.\d+)|(rgb|hsl)a\((\d+|\d+\.(?:\d+)?|\.\d+),(\d+|\d+\.(?:\d+)?|\.\d+),(\d+|\d+\.(?:\d+)?|\.\d+),((?:0|1)|(?:0|1)\.(?:\d+)?|\.\d+))\)\Z/i', $input, $matches)) {
+			return static::format_matches($matches);
+		} elseif ($support_x11 && $x11 = data\x11::get($input)) {
+			return $x11;
+		}
+		return FALSE;
+	}
+	
+	protected static function format_matches(array $matches) {
+		$values = array_slice($watches, 1, 4);
+		$keys   = array_slice(str_split($matches[0].'a'), 0, count($values));
+		$color  = array_combine($keys, $values);
+		foreach ($color as $key => &$val) {
+			$val = (float) filter_var($val, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_THOUSAND | FILTER_FLAG_ALLOW_SCIENTIFIC | FILTER_FLAG_ALLOW_FRACTION);
+			if ($key == 'a') {
+				$val = $val * 100;
+			}
+		}
+		return $color;
+	}
+	
 	/**
 	 * Choose the best way to represent the color as a CSS value. Will use either
 	 * a hex or rgba value depending on the alpha value.
 	 * 
-	 * @param  mixed $color The color 
+	 * @param  mixed $color The color
 	 * @return string       The CSS value
 	 */
 	public static function best($color) {
