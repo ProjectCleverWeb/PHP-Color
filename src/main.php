@@ -49,7 +49,7 @@ class main extends main_peripheral {
 		if (is_a($color, __CLASS__)) {
 			$this->color = clone $color->color;
 		} else {
-			$this->color = new color($color, $type);
+			$this->color = new data\store($color, $type);
 		}
 	}
 	
