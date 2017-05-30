@@ -3,7 +3,7 @@
  * Very simple in-memory caching
  */
 
-namespace projectcleverweb\color;
+namespace projectcleverweb\color\data;
 
 /**
  * Very simple in-memory caching
