@@ -36,7 +36,7 @@ class main extends main_peripheral {
 	 */
 	public function __construct($color, string $type = '') {
 		$this->set($color, $type);
-		$this->cache = new cache;
+		$this->cache = new data\cache;
 	}
 	
 	/**
