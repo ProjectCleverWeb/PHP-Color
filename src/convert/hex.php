@@ -3,7 +3,7 @@
 namespace projectcleverweb\color\convert;
 
 class hex implements \projectcleverweb\color\interfaces\converter {
-	use \projectcleverweb\color\traits\convert\meta;
+	use \projectcleverweb\color\traits\converter;
 	
 	protected static $default_value = '000000';
 	

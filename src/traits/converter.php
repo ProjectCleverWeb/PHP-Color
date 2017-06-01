@@ -5,17 +5,14 @@
  * Responsible for all the conversion method between Hex, RGB, HSL, HSB, and CMYK
  */
 
-namespace projectcleverweb\color\traits\convert;
+namespace projectcleverweb\color\traits;
 
 /**
  * Conversion Class
  * ================
  * Responsible for all the conversion method between Hex, RGB, HSL, HSB, and CMYK
  */
-trait meta {
-	
-	// protected static $valid_keys = array();
-	// protected static $default_value;
+trait converter {
 	
 	protected static function error($message) {
 		return \projectcleverweb\color\error::call($message);
