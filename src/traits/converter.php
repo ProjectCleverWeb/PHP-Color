@@ -15,7 +15,7 @@ namespace projectcleverweb\color\traits;
 trait converter {
 	
 	protected static function error($message) {
-		return \projectcleverweb\color\error::call($message);
+		return \projectcleverweb\color\error::trigger(0, $message);
 	}
 	
 	protected static function _validate_array_input($input) {

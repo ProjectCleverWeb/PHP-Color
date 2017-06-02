@@ -71,7 +71,7 @@ abstract class main_peripheral implements \Serializable, \JsonSerializable {
 		if (is_callable($callback)) {
 			return call_user_func($callback, $hsl['h'], $hsl['s'], $hsl['l'], $scheme_name);
 		}
-		error::call(sprintf(
+		error::trigger(error::INVALID_ARGUMENT, sprintf(
 			'The $callback "%s" is not a valid callback',
 			print_r($callback, 1),
 			__CLASS__,

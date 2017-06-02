@@ -3,10 +3,12 @@ General:
 	☐	Add contact form
 Class Specific:
 	☐	Add main::difference() for comparing 2 different colors
+	☐	css/main should support importing css rgb/hsl percentage values
 Bugs:
 Minor:
 Documentation:
 	☐	Add code docs to class 'modify'
+	☐	Add readme.md for github license tag
 Testing:
 	☐	Add test for class 'main'
 	☐	Add randomized testing for scheme generation

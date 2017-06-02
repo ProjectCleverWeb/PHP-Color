@@ -188,7 +188,7 @@ class regulate {
 			return TRUE;
 		}
 		if (!$check_only) {
-			error::call(sprintf(
+			error::trigger(error::INVALID_ARGUMENT, sprintf(
 				'The input of %s::%s() was not a valid hex string, forcing value to 000000',
 				__CLASS__,
 				__FUNCTION__

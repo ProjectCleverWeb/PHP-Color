@@ -159,7 +159,7 @@ class generate {
 	 * @return string    The resulting color as a hex string
 	 */
 	public static function web_safe(int $r = 0, int $g = 0, int $b = 0) :string {
-		return convert::rgb_to_hex(
+		return convert\rgb::to_hex(
 			round($r / 0x33) * 0x33,
 			round($g / 0x33) * 0x33,
 			round($b / 0x33) * 0x33

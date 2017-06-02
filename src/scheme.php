@@ -337,7 +337,7 @@ class scheme {
 	 */
 	protected static function is_dark(&$is_dark, float $h = 0.0, float $s = 0.0, float $l = 0.0) {
 		if (is_null($is_dark)) {
-			$rgb     = convert::hsl_to_rgb($h, $s, $l);
+			$rgb     = convert\hsl::to_rgb($h, $s, $l);
 			$is_dark = check::is_dark($rgb['r'], $rgb['g'], $rgb['b']);
 		}
 		settype($is_dark, 'bool');
@@ -355,7 +355,7 @@ class scheme {
 	public static function rgb(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
 		return static::_convert(
 			static::hsl($h, $s, $l, $scheme),
-			[new convert, 'hsl_to_rgb']
+			[__NAMESPACE__.'\\convert\\hsl', 'to_rgb']
 		);
 	}
 	
@@ -393,7 +393,7 @@ class scheme {
 	public static function hsb(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
 		return static::_convert(
 			static::rgb($h, $s, $l, $scheme),
-			[new convert, 'rgb_to_hsb']
+			[__NAMESPACE__.'\\convert\\rgb', 'to_hsb']
 		);
 	}
 	
@@ -409,7 +409,7 @@ class scheme {
 	public static function hex(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
 		return static::_convert(
 			static::rgb($h, $s, $l, $scheme),
-			[new convert, 'rgb_to_hex']
+			[__NAMESPACE__.'\\convert\\rgb', 'to_hex']
 		);
 	}
 	
@@ -425,7 +425,7 @@ class scheme {
 	public static function cmyk(float $h = 0.0, float $s = 0.0, float $l = 0.0, string $scheme = '') :array {
 		return static::_convert(
 			static::rgb($h, $s, $l, $scheme),
-			[new convert, 'rgb_to_cmyk']
+			[__NAMESPACE__.'\\convert\\rgb', 'to_cmyk']
 		);
 	}
 	

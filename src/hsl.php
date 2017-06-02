@@ -66,7 +66,7 @@ class hsl implements \ArrayAccess {
 		if ($this->offsetExists($offset)) {
 			return $this->hsl[$offset];
 		}
-		return error::call(sprintf(
+		return error::trigger(error::INVALID_ARGUMENT, sprintf(
 			'The offset "%s" does not exist in %s',
 			(string) $offset,
 			__CLASS__
@@ -84,7 +84,7 @@ class hsl implements \ArrayAccess {
 		if ($this->offsetExists($offset)) {
 			return $this->hsl[$offset] = (float) $value;
 		}
-		return error::call(sprintf(
+		return error::trigger(error::INVALID_ARGUMENT, sprintf(
 			'The offset "%s" cannot be set in %s',
 			(string) $offset,
 			__CLASS__

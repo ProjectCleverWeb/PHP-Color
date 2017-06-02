@@ -85,7 +85,7 @@ class main extends main_peripheral {
 			return $cached;
 		}
 		$rgb    = $this->color->rgb;
-		$result = convert::rgb_to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
+		$result = convert\rgb::to_cmyk($rgb['r'], $rgb['g'], $rgb['b']) + ['a' => $this->color->alpha()];
 		$this->cache->set(__FUNCTION__, $this->hex(), $result);
 		return $result;
 	}
@@ -100,7 +100,7 @@ class main extends main_peripheral {
 			return $cached;
 		}
 		$rgb    = $this->color->rgb;
-		$result = convert::rgb_to_hsb($rgb['r'], $rgb['g'], $rgb['b'], $accuracy) + ['a' => $this->color->alpha()];
+		$result = convert\rgb::to_hsb($rgb['r'], $rgb['g'], $rgb['b'], $accuracy) + ['a' => $this->color->alpha()];
 		$this->cache->set(__FUNCTION__, $this->hex(), $result);
 		return $result;
 	}

@@ -170,7 +170,7 @@ class store implements \Serializable, \JsonSerializable {
 	 * @return void
 	 */
 	protected function import_error() {
-		error::call(sprintf(
+		error::trigger(error::INVALID_COLOR, sprintf(
 			'The color supplied to %s\'s constructor was not valid',
 			__CLASS__
 		));
