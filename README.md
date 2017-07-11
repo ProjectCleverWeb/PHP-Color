@@ -44,9 +44,14 @@ All problems must be reported via Github's
 
 ## License
 
-The PHP-Color documentation by Nicholas Jordon is licensed
-under the Creative Commons Attribution-ShareAlike 4.0 International License.
-To view a copy of this license, visit [creativecommons.org/licenses/by-sa/4.0](http://creativecommons.org/licenses/by-sa/4.0/)
+The PHP-Color documentation &amp; source code (hereafter referred to as "Library") by Nicholas Summers (hereafter referred to as "Author") is licensed
+under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License with the below "Additional Terms" superseding it.
+To view a copy of the Creative Commons license, visit [creativecommons.org/licenses/by-nc-nd/4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). From now on "License" refers to this combination of licensing.
 
-The PHP-Color source code by Nicholas Jordon is licensed under
-the MIT License. To view a copy of this license, visit [njordon.mit-license.org](https://njordon.mit-license.org/@2016)
+**Additional Terms:**
+
+1. Any person or non-profit entity or may use this Library for personal or professional use as long as the Library as well as any of its parts are not sold in any fashion, and users are not forced to pay to use it in any way.
+2. Anyone may use this Library for purely internal use as long as the Library as well as any of its parts are available without payment and are not publicly accessible.
+3. Anyone seeking to sell this Library or use this Library in a commercial environment MUST first obtain a OEM license from the Author.
+4. Anyone in direct violation of this License is liable for a minimum of $50,000 in damages, plus an additional $10 per user, and agrees to refund any charge or fees collected as a result of violating this License.
+5. By downloading or using this Library you agree to all the License terms.
