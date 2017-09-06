@@ -278,7 +278,7 @@ class main extends main_peripheral {
 	 * @param  int   $steps  The number of steps to have in the gradient. 0 will make it generate one step for every unique RGB color in the gradient.
 	 * @return array         The resulting gradient as an array
 	 */
-	public function gradient(main $color2, int $steps = 0) :array {
+	public function gradient(main $color2, int $steps = 0, string $return_type = 'rgb', string $mode = 'rgb') :array {
 		$c1 = $this->rgb();
 		$c2 = $color2->rgb();
 		return generate::gradient_range(

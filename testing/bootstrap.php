@@ -14,7 +14,7 @@ require_once realpath(__DIR__.'/../autoload.php');
  * this class in each of the testing classes. (just make sure this class
  * always extends the PHPUnit TestCase class AND is abstract)
  */
-abstract class unit_test extends \PHPUnit_Framework_TestCase {
+abstract class unit_test extends \PHPUnit\Framework\TestCase {
 	
 	public $vars;
 	

@@ -7,9 +7,8 @@
  * doesn't change)
  */
 
-namespace projectcleverweb\color\data\color_space;
-use projectcleverweb\color\data\color_space;
-use projectcleverweb\color\convert\rgb as convert;
+namespace projectcleverweb\color\data\color\space;
+use projectcleverweb\color\data\color\space;
 
 /**
  * RGB Color Space Data Model
@@ -18,7 +17,7 @@ use projectcleverweb\color\convert\rgb as convert;
  * done once for a color it won't need to be done again. (as long as the color
  * doesn't change)
  */
-class rgb extends color_space {
+class rgb extends space {
 	
 	/**
 	 * The name of the current color space
@@ -35,6 +34,7 @@ class rgb extends color_space {
 			'name'            => 'Red',
 			'min'             => 0,
 			'max'             => 255,
+			'default'         => 0,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'
@@ -43,6 +43,7 @@ class rgb extends color_space {
 			'name'            => 'Green',
 			'min'             => 0,
 			'max'             => 255,
+			'default'         => 0,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'
@@ -51,6 +52,7 @@ class rgb extends color_space {
 			'name'            => 'Blue',
 			'min'             => 0,
 			'max'             => 255,
+			'default'         => 0,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'

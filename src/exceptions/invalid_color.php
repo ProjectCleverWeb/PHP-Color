@@ -2,4 +2,4 @@
 
 namespace projectcleverweb\color\exceptions;
 
-class invalid_config extends \Exception {}
+class invalid_color extends \Exception {}

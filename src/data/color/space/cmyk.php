@@ -7,8 +7,8 @@
  * doesn't change)
  */
 
-namespace projectcleverweb\color\data\color_space;
-use projectcleverweb\color\data\color_space;
+namespace projectcleverweb\color\data\color\space;
+use projectcleverweb\color\data\color\space;
 
 /**
  * CMYK Color Space Data Model
@@ -17,7 +17,7 @@ use projectcleverweb\color\data\color_space;
  * done once for a color it won't need to be done again. (as long as the color
  * doesn't change)
  */
-class cmyk extends color_space {
+class cmyk extends space {
 	
 	/**
 	 * The name of the current color space
@@ -34,6 +34,7 @@ class cmyk extends color_space {
 			'name'            => 'Cyan',
 			'min'             => 0,
 			'max'             => 100,
+			'default'         => 100,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'
@@ -42,6 +43,7 @@ class cmyk extends color_space {
 			'name'            => 'Magenta',
 			'min'             => 0,
 			'max'             => 100,
+			'default'         => 100,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'
@@ -50,6 +52,7 @@ class cmyk extends color_space {
 			'name'            => 'Yellow',
 			'min'             => 0,
 			'max'             => 100,
+			'default'         => 100,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'
@@ -58,6 +61,7 @@ class cmyk extends color_space {
 			'name'            => 'Black',
 			'min'             => 0,
 			'max'             => 100,
+			'default'         => 100,
 			'allow_negative'  => FALSE,
 			'allow_float'     => FALSE,
 			'overflow_method' => 'limit'

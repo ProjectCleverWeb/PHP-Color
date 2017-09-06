@@ -7,7 +7,7 @@
  * doesn't change)
  */
 
-namespace projectcleverweb\color\data;
+namespace projectcleverweb\color\data\color;
 
 use \projectcleverweb\color\error;
 use \projectcleverweb\color\validate;
@@ -19,7 +19,7 @@ use \projectcleverweb\color\validate;
  * done once for a color it won't need to be done again. (as long as the color
  * doesn't change)
  */
-abstract class color_space extends \ArrayObject implements \JsonSerializable {
+abstract class space extends \ArrayObject implements \JsonSerializable {
 	
 	/**
 	 * The name of the current color space
@@ -80,7 +80,7 @@ abstract class color_space extends \ArrayObject implements \JsonSerializable {
 		if (isset($value)) {
 			parent::offsetSet($key, static::_run_spec($value, $key, $spec));
 		} else {
-			parent::offsetSet($key, $spec['min']);
+			parent::offsetSet($key, $spec['default']);
 		}
 	}
 	
@@ -98,8 +98,10 @@ abstract class color_space extends \ArrayObject implements \JsonSerializable {
 				static::_check_spec_overflow($spec['overflow_method'], $key);
 				$spec['min']            = (float) $spec['min'];
 				$spec['max']            = (float) $spec['max'];
+				$spec['default']        = (float) $spec['default'];
 				$spec['allow_negative'] = (bool) ($spec['allow_negative'] ?? TRUE);
 				$spec['allow_float']    = (bool) ($spec['allow_float'] ?? TRUE);
+				static::_spec_range($spec['default'], 'default', $spec);
 			}
 			$specs['checked'] = TRUE;
 		}
@@ -202,7 +204,7 @@ abstract class color_space extends \ArrayObject implements \JsonSerializable {
 				$spec['min'],
 				$spec['max']
 			));
-			$value = $spec['min'];
+			$value = $spec['default'];
 		}
 		return $value;
 	}
@@ -216,7 +218,7 @@ abstract class color_space extends \ArrayObject implements \JsonSerializable {
 	 */
 	protected static function _overflow_loop(float $value, array $spec) :float {
 		if ($spac['min'] == 0 && $spec['max'] > 0) {
-			return $value % $spec['max'];
+			return fmod($value, $spec['max']);
 		}
 		return fmod($value + abs(0 - $spac['min']), abs($spac['min'] - $spec['max'])) + $spac['min'];
 	}
@@ -224,7 +226,7 @@ abstract class color_space extends \ArrayObject implements \JsonSerializable {
 	/**
 	 * Force a value into the specification's range by limiting to the nearest
 	 * minimum/maximum
-	 * 
+	 *  
 	 * @param  float  $value The value to check
 	 * @param  array  $spec  The specification to use
 	 * @return float         The valid value
