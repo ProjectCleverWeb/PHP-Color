@@ -1,48 +1,47 @@
 General:
-	☐	Add git flow
-	☐	Add contact form
+	[ ]	Add git flow
+	[ ]	Add contact form
 Class Specific:
-	☐	Add main::difference() for comparing 2 different colors
-	☐	css/main should support importing css rgb/hsl percentage values
+	[ ]	Add main::difference() for comparing 2 different colors
+	[ ]	css/main should support importing css rgb/hsl percentage values
 Bugs:
 Minor:
 Documentation:
-	☐	Add code docs to class 'modify'
-	☐	Add readme.md for github license tag
+	[ ]	Add code docs to class 'modify'
+	[ ]	Add readme.md for github license tag
 Testing:
-	☐	Add test for class 'main'
-	☐	Add randomized testing for scheme generation
-	☐	Test against float vs int function arguments
-	☐	Test for cloning issues
+	[ ]	Add test for class 'main'
+	[ ]	Add randomized testing for scheme generation
+	[ ]	Test against float vs int function arguments
+	[ ]	Test for cloning issues
 
-＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-Archive:
-	✔	Modify main attribute methods return either existing or resulting value @done (16-10-21 14:54) @project(General)
-	✔	Make main::alpha() a modification method @done (16-10-21 14:54) @project(General)
-	✔	Add PHP 5 support @done (16-10-21 14:54) @project(General)
-	✔	Add test for class 'color' @done (16-09-30 10:09) @project(Testing)
-	✔	Validate scope in modify::rgb() and modify::hsl @done (16-09-29 16:53) @project(Class Specific)
-	✔	Add test for class 'scheme' @done (16-09-24 13:35) @project(Testing)
-	✔	Add test for class 'regulate' @done (16-09-24 13:35) @project(Testing)
-	✔	Add test for class 'hsl' @done (16-09-24 13:35) @project(Testing)
-	✔	Add test for class 'error' @done (16-09-24 13:35) @project(Testing)
-	✔	Add code docs to class 'hsl' @done (16-09-24 13:35) @project(Documentation)
-	✔	Add code docs to class 'generate' @done (16-09-24 13:35) @project(Documentation)
-	✔	add main::rgb_rand() and main::hsl_rand() @done (16-09-24 13:34) @project(Class Specific)
-	✔	Create README file @done (16-09-24 13:34) @project(Documentation)
-	✔	Add code docs to class 'main' @done (16-09-24 13:34) @project(Documentation)
-	✔	Add cache class @done (16-09-24 13:33) @project(General)
-	✔	Add ability to generate all colors within the selected color range, with steps settable @done (16-09-24 13:33) @project(General)
-	✔	replace main::*_scheme() with main::scheme($name, $return_type = 'hex') @done (16-08-09 17:19) @project(Class Specific)
-	✔	Abstract main class serialize methods @done (16-08-09 17:19) @project(Class Specific)
-	✔	Add mixing function @done (16-08-08 11:34) @project(General)
-	✔	Add hsb support @done (16-08-08 11:32) @project(General)
-	✔	Add JSON serialization support @done (16-08-01 18:34) @project(General)
-	✔	Fix scheme::is_dark() docs (return is void) @done (16-07-22 15:45) @project(Minor)
-	✔	Fix color::_get_array_type() docs ($color should be type array) @done (16-07-22 15:44) @project(Minor)
-	✔	scheme::is_dark() should force $is_dark to be boolean @done (16-07-22 15:43) @project(Bugs)
-	✔	Add test for class 'check' @done (16-07-22 14:29) @project(Testing)
-	✔	Alias main::*_scheme() to 'scheme' class @done (16-07-21 18:18) @project(Class Specific)
-	✔	Implement alpha channel support @done (16-07-21 16:14) @project(General)
-	✔	Implement exporting as CSS values @done (16-07-20 18:03) @project(General)
-	✔	Add meta folder for generating samples @done (16-07-20 16:17) @project(General)
+
+	[x]	Modify main attribute methods return either existing or resulting value @done [2016-10-21]
+	[x]	Make main::alpha() a modification method @done [2016-10-21]
+	[x]	Add PHP 5 support @done [2016-10-21]
+	[x]	Add test for class 'color' @done [2016-09-30]
+	[x]	Validate scope in modify::rgb() and modify::hsl @done [2016-09-29]
+	[x]	Add test for class 'scheme' @done [2016-09-24]
+	[x]	Add test for class 'regulate' @done [2016-09-24]
+	[x]	Add test for class 'hsl' @done [2016-09-24]
+	[x]	Add test for class 'error' @done [2016-09-24]
+	[x]	Add code docs to class 'hsl' @done [2016-09-24]
+	[x]	Add code docs to class 'generate' @done [2016-09-24]
+	[x]	add main::rgb_rand() and main::hsl_rand() @done [2016-09-24]
+	[x]	Create README file @done [2016-09-24]
+	[x]	Add code docs to class 'main' @done [2016-09-24]
+	[x]	Add cache class @done [2016-09-24]
+	[x]	Add ability to generate all colors within the selected color range, with steps settable @done [2016-09-24]
+	[x]	replace main::*_scheme() with main::scheme($name, $return_type = 'hex') @done [2016-08-09]
+	[x]	Abstract main class serialize methods @done [2016-08-09]
+	[x]	Add mixing function @done [2016-08-08]
+	[x]	Add hsb support @done [2016-08-08]
+	[x]	Add JSON serialization support @done [2016-08-01]
+	[x]	Fix scheme::is_dark() docs (return is void) @done [2016-07-22]
+	[x]	Fix color::_get_array_type() docs ($color should be type array) @done [2016-07-22]
+	[x]	scheme::is_dark() should force $is_dark to be boolean @done [2016-07-22]
+	[x]	Add test for class 'check' @done [2016-07-22]
+	[x]	Alias main::*_scheme() to 'scheme' class @done [2016-07-21]
+	[x]	Implement alpha channel support @done [2016-07-21]
+	[x]	Implement exporting as CSS values @done [2016-07-20]
+	[x]	Add meta folder for generating samples @done [2016-07-20]
